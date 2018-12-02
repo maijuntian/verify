@@ -9,6 +9,7 @@ import * as Constant from "../../style/constant";
 import CommonIconText from "../common/CommonIconText";
 import I18n from "../../style/i18n";
 import Icon from 'react-native-vector-icons/Feather'
+import {Actions} from 'react-native-router-flux'
 
 /**
  * 我的
@@ -120,7 +121,11 @@ class MePage extends Component {
                                 paddingHorizontal: 26,
                                 paddingVertical: 13
                             }, styles.flexDirectionRowNotFlex, styles.centerH]} onPress={() => {
-
+                                switch (index){
+                                    case 0:
+                                        Actions.PersonalPage();
+                                        break;
+                                }
                             }}>
 
                                 <Text style={styles.smallTextBlack}>{item.key}</Text>

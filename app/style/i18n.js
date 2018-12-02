@@ -119,6 +119,12 @@ I18n.translations = {
         points_and_upgrade:"points and upgrade.",
         More:"More",
         illegalCodeTip:"You are not scanning a Viverify code.",
+        Picture:"Picture",
+        Name:"Name",
+        Sexuality:"Sexuality",
+        Birthday:"Birthday",
+        Male:"Male",
+        Female:"Female",
     }
 };
 

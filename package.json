@@ -37,6 +37,7 @@
     "realm": "^2.10.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "rmc-date-picker": "^6.0.8",
     "showdown": "^1.8.2",
     "url-parse": "^1.2.0"
   },

@@ -22,6 +22,7 @@ import HomePage from "./components/verify/HomePage";
 import ProductHistoryPage from "./components/verify/ProductHistoryPage";
 import AntiFakePage from "./components/verify/AntiFakePage";
 import AboutHistoryPage from "./components/verify/AboutHistoryPage";
+import PersonalPage from "./components/verify/PersonalPage";
 
 /**
  * 全局路由
@@ -78,6 +79,7 @@ const getRouter = () => {
                     <Scene key="AntiFakePage" component={AntiFakePage}/>
                     <Scene key="ScanQrCodePage" component={ScanQrCodePage}/>
                     <Scene key="AboutHistoryPage" component={AboutHistoryPage}/>
+                    <Scene key="PersonalPage" component={PersonalPage}/>
 
                 </Scene>
                 <Scene key="LoadingModal" component={LoadingModal}/>

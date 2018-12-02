@@ -177,6 +177,11 @@ const styles = StyleSheet.create({
         color: constant.primaryBlackColor,
         fontSize: constant.middleTextWhite,
     },
+    middleTexBlackCharter: {
+        color: constant.primaryBlackColor,
+        fontSize: constant.middleTextWhite,
+        fontFamily: fontFamilyCharter,
+    },
     normalTextGrayCharter:{
         color: constant.text_gray,
         fontSize: constant.middleTextWhite,
@@ -257,6 +262,12 @@ const styles = StyleSheet.create({
         width:screenWidth,
         height:0.5,
         backgroundColor:"#A1A2B6"
+    },
+
+    dividerLineF6:{
+        width:screenWidth,
+        height:1,
+        backgroundColor:"#F6F6F6"
     }
 });
 

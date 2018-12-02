@@ -17,24 +17,42 @@ class CommonTitleBar extends Component {
     }
 
     render() {
+
+        let rightIcon = this.props.onRightPress ? <View style={[styles.flexDirectionRow, styles.justifyEnd]}>
+            <TouchableOpacity
+                style={[{height: 25, width: 25, marginRight: 8}]}
+                onPress={() => {
+                    this.props.onLeftPress && this.props.onLeftPress();
+                }}>
+                <Icon
+                    name={"check"}
+                    backgroundColor={Constant.transparentColor}
+                    color={Constant.primaryBlackColor} size={25}
+                    style={[styles.centered,]}/>
+            </TouchableOpacity>
+
+        </View> : <View/>;
+
         return (
 
             <View style={[{
                 backgroundColor: Constant.mainBackgroundColor,
                 height: navBarHeight,
                 paddingTop: statusHeight
-            }, styles.centerV,]}>
+            }, styles.centerV, styles.flexDirectionRowNotFlex]}>
                 <TouchableOpacity
-                    style={{height:25, width:25, marginLeft: 8}}
+                    style={{height: 25, width: 25, marginLeft: 8}}
                     onPress={() => {
-                    this.props.onLeftPress && this.props.onLeftPress();
-                }}>
+                        this.props.onLeftPress && this.props.onLeftPress();
+                    }}>
                     <Icon
                         name={"chevron-left"}
                         backgroundColor={Constant.transparentColor}
                         color={Constant.primaryBlackColor} size={25}
-                        style={[styles.centered, ]}/>
+                        style={[styles.centered,]}/>
                 </TouchableOpacity>
+
+                {rightIcon}
 
                 <View style={[styles.absoluteFull, {
                     zIndex: -999,
@@ -51,6 +69,7 @@ class CommonTitleBar extends Component {
 CommonTitleBar.propTypes = {
     title: PropTypes.string,
     onLeftPress: PropTypes.func,
+    onRightPress: PropTypes.func,
 };
 
 export default CommonTitleBar;

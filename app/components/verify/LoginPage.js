@@ -7,7 +7,7 @@ import {StyleSheet, Image, View, Text, StatusBar, TouchableOpacity} from "react-
 import styles, {screenHeight, statusHeight} from "../../style";
 
 /**
- * 主页
+ * 登录
  */
 class LoginPage extends Component {
 

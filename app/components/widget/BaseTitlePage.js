@@ -20,6 +20,7 @@ class BaseTitlePage extends Component {
         this._leftPress = this._leftPress.bind(this);
         this._reader = this._reader.bind(this);
         this._isBackground = this._isBackground.bind(this);
+        this._rightPress = this._rightPress.bind(this);
     }
 
     _title() {
@@ -28,6 +29,10 @@ class BaseTitlePage extends Component {
 
     _leftPress() {
         Actions.pop();
+    }
+
+    _rightPress() {
+       return "-1";
     }
 
     _reader() {
@@ -42,7 +47,8 @@ class BaseTitlePage extends Component {
         return (
             <View style={this._isBackground() ? styles.mainBox : styles.flexDirectionColumn}>
                 <CommonTitleBar title={this._title()}
-                                onLeftPress={this._leftPress}/>
+                                onLeftPress={this._leftPress}
+                                onRightPress={this._rightPress() === "-1" ? null : this._rightPress}/>
                 {this._reader()}
             </View>
         )
