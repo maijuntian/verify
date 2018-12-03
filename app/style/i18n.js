@@ -125,6 +125,14 @@ I18n.translations = {
         Birthday:"Birthday",
         Male:"Male",
         Female:"Female",
+        Mobile_number:"Mobile number",
+        Code:"Code",
+        Verification_code:"Verification code",
+        Agreed_to_user_agreement:"Agreed to user agreement",
+        Login:"Login",
+        Sign_in_with_Facebook:"Sign in with Facebook",
+        Sing_in_with_Twitter:"Sing in with Twitter",
+        send:"send",
     }
 };
 

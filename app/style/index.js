@@ -92,6 +92,10 @@ const styles = StyleSheet.create({
         color: constant.TextColorWhite,
         fontSize: constant.smallTextSize
     },
+    smallTextGray: {
+        color: constant.textGray,
+        fontSize: constant.smallTextSize
+    },
     smallText: {
         color: constant.mainTextColor,
         fontSize: constant.smallTextSize
@@ -173,6 +177,10 @@ const styles = StyleSheet.create({
         color: constant.TextColorWhite,
         fontSize: constant.middleTextWhite
     },
+    middleTextGray: {
+        color: constant.textGray,
+        fontSize: constant.middleTextWhite
+    },
     middleTexBlack: {
         color: constant.primaryBlackColor,
         fontSize: constant.middleTextWhite,
@@ -233,6 +241,17 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.7,
         shadowRadius: shadowRadius,
         elevation: 2,
+        backgroundColor: constant.cardBackgroundColor
+    },
+    shadowCard_login: {
+        shadowColor: constant.lineColor,
+        shadowOffset: {
+            width: 1,
+            height: 2
+        },
+        shadowOpacity: 0.13,
+        shadowRadius: shadowRadius,
+        elevation: 4,
         backgroundColor: constant.cardBackgroundColor
     },
 
