@@ -124,7 +124,7 @@ class MallPage extends Component {
                                 backgroundColor: "#404040"
                             }, styles.flexDirectionRowNotFlex, styles.centered]}>
                                 <Text style={[styles.smallTextWhite]}>5%</Text>
-                                <Text style={[{marginTop: 3}, styles.minTextWhite]}>  off</Text>
+                                <Text style={[{marginTop: 3}, styles.minTextWhite]}> off</Text>
                             </View>
                         </View>
                     </View>
@@ -207,16 +207,20 @@ class MallPage extends Component {
                             alignItems: 'flex-end',
                         }]}>
 
-                        <View style={[styles.flexDirectionRowNotFlex, styles.centerH,]}>
-                            <Text
-                                style={[styles.subSmallText]}>{I18n("More")}</Text>
+                        <TouchableOpacity activeOpacity={constant.activeOpacity} onPress={() => {
+                            Actions.ProductListPage();
+                        }}>
+                            <View style={[styles.flexDirectionRowNotFlex, styles.centerH,]}>
+                                <Text
+                                    style={[styles.subSmallText]}>{I18n("More")}</Text>
 
-                            <Icon
-                                name={"chevron-right"}
-                                backgroundColor={constant.transparentColor}
-                                color={constant.primaryBlackColor} size={15}
-                                style={[styles.centered, {paddingLeft: 2}]}/>
-                        </View>
+                                <Icon
+                                    name={"chevron-right"}
+                                    backgroundColor={constant.transparentColor}
+                                    color={constant.primaryBlackColor} size={15}
+                                    style={[styles.centered, {paddingLeft: 2}]}/>
+                            </View>
+                        </TouchableOpacity>
                     </View>
 
                 </View>

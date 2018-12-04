@@ -11,7 +11,7 @@ export const transparentColor = '#00000000';
 export const green = "#6b994d";
 export const grayBlack ="#718091";
 
-export const grayBg = "#f2f2f2";
+export const grayBg = "#f5f5f5";
 
 export const textGray = "#A1A2B6";
 

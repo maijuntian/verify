@@ -17,20 +17,19 @@ class PersonalSexPage extends Component {
 
         this.state = {
             sex: 1,
-
-    }
+        }
     }
 
     render() {
 
         let checkIcon1, checkIcon2;
 
-        if(this.state.sex === 1){ //男
-            checkIcon1 = require("../../img/check_in1.png");
-            checkIcon2 = require("../../img/check_in2.png");
-        } else{ //女
-            checkIcon1 = require("../../img/check_in2.png");
-            checkIcon2 = require("../../img/check_in1.png");
+        if (this.state.sex === 1) { //男
+            checkIcon1 = require("../../img/choice1.png");
+            checkIcon2 = require("../../img/choice2.png");
+        } else { //女
+            checkIcon1 = require("../../img/choice2.png");
+            checkIcon2 = require("../../img/choice1.png");
         }
 
         return (
