@@ -58,8 +58,8 @@ class ProductDetailPage extends BaseTitlePage {
                     <Text style={[{}, styles.normalTextBlack_Charter, styles.flex]}>Lafite red wine 1982
                         authentic</Text>
 
-                    <Image source={require("../../img/icon_star_n.png")}
-                           style={{height: 200, width: screenWidth,}}
+                    <Image source={require("../../img/icon_star_s.png")}
+                           style={{height: 14, width: 14,}}
                            resizeMode={"cover"}/>
                 </View>
 
