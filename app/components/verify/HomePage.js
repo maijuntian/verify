@@ -46,7 +46,6 @@ class HomePage extends Component {
                         onItemPress={() => {
                             console.log("test3")
                         }}/>
-
                 </View>
 
                 <View
