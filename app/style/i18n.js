@@ -133,6 +133,9 @@ I18n.translations = {
         Sign_in_with_Facebook:"Sign in with Facebook",
         Sing_in_with_Twitter:"Sing in with Twitter",
         send:"send",
+        Search:"Search",
+        Time:"Time",
+        Detail:"Detail",
     }
 };
 

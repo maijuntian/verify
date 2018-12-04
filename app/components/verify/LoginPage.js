@@ -49,7 +49,7 @@ class LoginPage extends Component {
                             <View style={[{padding:8, borderColor: constant.textGray, borderWidth: 1, borderRadius: 20}]}>
                                 <CommonIconText
                                     iconStyle={[{height:15, width:15}]}
-                                    icon={require("../../img/icon_send.jpg")}
+                                    icon={require("../../img/send.png")}
                                     text={i18n("send")}/>
                             </View>
                         </View>
