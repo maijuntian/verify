@@ -126,7 +126,7 @@ class ProductListPage extends Component {
                 </View>
 
                 <FlatList
-                    style={{backgroundColor: constant.grayBg, flex: 1,}}
+                    style={{backgroundColor: Constant.grayBg, flex: 1,}}
                     data={this.state.productData}
                     numColumns={2}
                     renderItem={({item, index}) => {

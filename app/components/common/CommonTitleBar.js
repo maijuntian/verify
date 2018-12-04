@@ -39,7 +39,7 @@ class CommonTitleBar extends Component {
                 backgroundColor: Constant.mainBackgroundColor,
                 height: navBarHeight,
                 paddingTop: statusHeight
-            }, styles.centerV, styles.flexDirectionRowNotFlex]}>
+            }, styles.centerH, styles.flexDirectionRowNotFlex]}>
                 <TouchableOpacity
                     style={{height: 25, width: 25, marginLeft: 8}}
                     onPress={() => {

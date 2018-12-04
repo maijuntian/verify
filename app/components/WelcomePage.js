@@ -45,11 +45,6 @@ class WelcomePage extends Component {
         }).start();
     }
 
-    componentWillUnmount() {
-        if (this.refs.lottieView) {
-            this.refs.lottieView.reset();
-        }
-    }
 
     toNext(res) {
         setTimeout(() => {
@@ -76,8 +71,4 @@ class WelcomePage extends Component {
     }
 }
 
-export default connect(state => ({
-    state
-}), dispatch => ({
-    actions: bindActionCreators(loginActions, dispatch),
-}))(WelcomePage)
+export default WelcomePage

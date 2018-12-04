@@ -24,6 +24,8 @@ import AntiFakePage from "./components/verify/AntiFakePage";
 import AboutHistoryPage from "./components/verify/AboutHistoryPage";
 import PersonalPage from "./components/verify/PersonalPage";
 import ProductListPage from "./components/verify/ProductListPage";
+import LoginPage from "./components/verify/LoginPage";
+import ProductDetailPage from "./components/verify/ProductDetailPage";
 
 /**
  * 全局路由
@@ -82,8 +84,11 @@ const getRouter = () => {
                     <Scene key="AboutHistoryPage" component={AboutHistoryPage}/>
                     <Scene key="PersonalPage" component={PersonalPage}/>
                     <Scene key="ProductListPage" component={ProductListPage}/>
+                    <Scene key="ProductDetailPage" component={ProductDetailPage}/>
+
 
                 </Scene>
+                <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>
                 <Scene key="LoadingModal" component={LoadingModal}/>
             </Lightbox>
         </Router>

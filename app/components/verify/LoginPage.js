@@ -50,7 +50,8 @@ class LoginPage extends Component {
                                 <CommonIconText
                                     iconStyle={[{height:15, width:15}]}
                                     icon={require("../../img/send.png")}
-                                    text={i18n("send")}/>
+                                    text={i18n("send")}
+                                    textStyle={[styles.minTextBlack]}/>
                             </View>
                         </View>
                     </View>

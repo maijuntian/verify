@@ -208,7 +208,7 @@ class MallPage extends Component {
                         }]}>
 
                         <TouchableOpacity activeOpacity={constant.activeOpacity} onPress={() => {
-                            Actions.ProductListPage();
+                            Actions.ProductDetailPage();
                         }}>
                             <View style={[styles.flexDirectionRowNotFlex, styles.centerH,]}>
                                 <Text
