@@ -118,17 +118,17 @@ class PullLoadMoreListView extends Component {
                                       this._refresh();
                                       this.showRefreshState();
                                   }}>
-                    <Image source={require("../../img/logo.png")}
+                    <Image source={require("../../img/logo3.png")}
                            resizeMode={"contain"}
                            style={{width: 80, height: 80}}/>
-                    <Text style={[styles.normalText]}>
+                    <Text style={[styles.normalTextBlack_Charter]}>
                         {I18n("listEmpty")}
                     </Text>
                 </TouchableOpacity>
             </View> : <View/>;
         return (
             <FlatList
-                style={{flex: 1}}
+                style={{backgroundColor: Constant.grayBg, flex: 1}}
                 ref="list"
                 ListEmptyComponent={
                     () => emptyView
@@ -138,6 +138,7 @@ class PullLoadMoreListView extends Component {
                 renderItem={
                     ({item, index}) => this.props.renderRow(item, index)
                 }
+                numColumns={this.props.numColumns}
                 ListHeaderComponent={this.props.renderHeader}
                 ItemSeparatorComponent={({highlighted}) => <View/>}
                 enableEmptySections
@@ -193,11 +194,13 @@ PullLoadMoreListView.propTypes = {
     refresh: PropTypes.func,
     loadMore: PropTypes.func,
     enableRefresh: PropTypes.bool,
+    numColumns: PropTypes.number,
 };
 PullLoadMoreListView.defaultProps = {
     pageSize: Config.PAGE_SIZE,
     dataSource: [],
     enableRefresh: true,
+    numColumns: 1,
 };
 
 export default PullLoadMoreListView;

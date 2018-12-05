@@ -9,6 +9,7 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import i18n from "../../style/i18n";
 import * as Constant from "../../style/constant";
 import Icon from 'react-native-vector-icons/Feather'
+import {Actions} from "react-native-router-flux";
 
 /**
  * 个人资料
@@ -66,7 +67,7 @@ class PersonalPage extends BaseTitlePage {
                         paddingRight: 10
                     }]}
                     onPress={() => {
-
+                        Actions.PersonalNamePage();
                     }}>
                     <Text style={[{color: "#9D9EB1", fontSize: 14}]}>{i18n("Name")}</Text>
 
@@ -93,7 +94,7 @@ class PersonalPage extends BaseTitlePage {
                         paddingRight: 10
                     }]}
                     onPress={() => {
-
+                        Actions.PersonalSexPage();
                     }}>
                     <Text style={[{color: "#9D9EB1", fontSize: 14}]}>{i18n("Sexuality")}</Text>
 

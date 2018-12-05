@@ -208,7 +208,7 @@ class MallPage extends Component {
                         }]}>
 
                         <TouchableOpacity activeOpacity={constant.activeOpacity} onPress={() => {
-                            Actions.ProductDetailPage();
+                            Actions.ProductListPage();
                         }}>
                             <View style={[styles.flexDirectionRowNotFlex, styles.centerH,]}>
                                 <Text
@@ -243,34 +243,39 @@ class MallPage extends Component {
                 renderItem={({item, index}) => {
                     let marginRight = index % 2 === 0 ? 0 : 4;
                     return (
-                        <View
-                            style={[{
-                                paddingLeft: 10,
-                                paddingTop: 10,
-                                paddingRight: 10,
-                                paddingBottom: 20,
-                                width: ((screenWidth - 12) / 2),
-                                marginRight: marginRight,
-                                marginLeft: 4,
-                                marginTop: 4,
+                        <TouchableOpacity activeOpacity={constant.activeOpacity}
+                                          onPress={() => {
+                                              Actions.ProductDetailPage({"productStr": JSON.stringify(item)});
+                                          }}>
+                            <View
+                                style={[{
+                                    paddingLeft: 10,
+                                    paddingTop: 10,
+                                    paddingRight: 10,
+                                    paddingBottom: 20,
+                                    width: ((screenWidth - 12) / 2),
+                                    marginRight: marginRight,
+                                    marginLeft: 4,
+                                    marginTop: 4,
 
-                            }, styles.mainBgColor, styles.flexDirectionColumnNotFlex]}>
-                            <Image style={[{height: 180, width: (screenWidth - 12) / 2 - 20}]}
-                                   source={{uri: item.icon}}
-                                   resizeMode={"center"}/>
+                                }, styles.mainBgColor, styles.flexDirectionColumnNotFlex]}>
+                                <Image style={[{height: 180, width: (screenWidth - 12) / 2 - 20}]}
+                                       source={{uri: item.icon}}
+                                       resizeMode={"center"}/>
 
-                            <Text style={[styles.normalTextGrayCharter]}
-                                  numberOfLines={1}
-                                  ellipsizeMode='tail'>{item.productName}</Text>
+                                <Text style={[styles.normalTextGrayCharter]}
+                                      numberOfLines={1}
+                                      ellipsizeMode='tail'>{item.productName}</Text>
 
-                            <View style={[styles.flexDirectionRowNotFlex]}>
-                                <Text style={[styles.minTextBlack]}>{item.points} {I18n("Integral")}</Text>
-                                <Text style={[{
-                                    marginLeft: 3,
-                                    textDecorationLine: "line-through"
-                                }, styles.minTextsGray]}>20000</Text>
+                                <View style={[styles.flexDirectionRowNotFlex]}>
+                                    <Text style={[styles.minTextBlack]}>{item.points} {I18n("Integral")}</Text>
+                                    <Text style={[{
+                                        marginLeft: 3,
+                                        textDecorationLine: "line-through"
+                                    }, styles.minTextsGray]}>20000</Text>
+                                </View>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     )
                 }}
             />

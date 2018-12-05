@@ -26,6 +26,8 @@ import PersonalPage from "./components/verify/PersonalPage";
 import ProductListPage from "./components/verify/ProductListPage";
 import LoginPage from "./components/verify/LoginPage";
 import ProductDetailPage from "./components/verify/ProductDetailPage";
+import PersonalSexPage from "./components/verify/PersonalSexPage";
+import PersonalNamePage from "./components/verify/PersonalNamePage";
 
 /**
  * 全局路由
@@ -83,9 +85,10 @@ const getRouter = () => {
                     <Scene key="ScanQrCodePage" component={ScanQrCodePage}/>
                     <Scene key="AboutHistoryPage" component={AboutHistoryPage}/>
                     <Scene key="PersonalPage" component={PersonalPage}/>
+                    <Scene key="PersonalSexPage" component={PersonalSexPage}/>
+                    <Scene key="PersonalNamePage" component={PersonalNamePage}/>
                     <Scene key="ProductListPage" component={ProductListPage}/>
                     <Scene key="ProductDetailPage" component={ProductDetailPage}/>
-
 
                 </Scene>
                 <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>

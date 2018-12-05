@@ -26,9 +26,6 @@ class WelcomePage extends Component {
     constructor(props) {
         super(props);
         this.toNext = this.toNext.bind(this);
-        this.state = {
-            progress: new Animated.Value(0),
-        };
     }
 
 
@@ -38,11 +35,6 @@ class WelcomePage extends Component {
             SplashScreen.hide();
         }
         this.toNext()
-        Animated.timing(this.state.progress, {
-            toValue: 1,
-            duration: 2000,
-            easing: Easing.linear,
-        }).start();
     }
 
 

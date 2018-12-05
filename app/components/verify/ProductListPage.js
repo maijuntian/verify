@@ -1,10 +1,15 @@
 import React, {Component} from "react";
-import {Text, TouchableOpacity, View, Image, TextInput, FlatList} from "react-native";
+import {Text, TouchableOpacity, View, Image, TextInput, FlatList, InteractionManager} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import * as Constant from "../../style/constant";
 import styles, {navBarHeight, screenWidth, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
 import {Actions} from "react-native-router-flux";
+import UserHeadItem from "../widget/UserHeadItem";
+import resolveTime from "../../utils/timeUtil";
+import PullListView from "../widget/PullLoadMoreListView";
+import productDao from "../../dao/productDao";
+import * as Config from "../../config";
 
 
 class ProductListPage extends Component {
@@ -12,11 +17,69 @@ class ProductListPage extends Component {
     constructor(props) {
         super(props);
 
+        this._refresh = this._refresh.bind(this);
+
         this.state = {
             sort: 1, //1,2,3,4
-            productData:[]
+            productData: []
         }
+        this.page = 2;
+    }
 
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            // if (this.refs.pullList)
+            //     this.refs.pullList.showRefreshState();
+            this._refresh();
+        })
+    }
+
+    componentWillUnmount() {
+
+    }
+
+    /**
+     * 刷新
+     * */
+    _refresh() {
+        productDao.mallDaoGet("product?count=6")
+            .then((res) => {
+                let size = 0;
+                if (res && res.code === 200) {
+                    this.page = 2;
+                    this.setState({
+                        productData: res.data
+                    })
+                    size = res.data.length;
+                }
+                setTimeout(() => {
+                    if (this.refs.pullList) {
+                        this.refs.pullList.refreshComplete((size >= Config.PAGE_SIZE), false);
+                    }
+                }, 500);
+            })
+    }
+
+    /**
+     * 加载更多
+     * */
+    _loadMore() {
+        productDao.mallDaoGet("product?count=6").then((res) => {
+            this.page++;
+            let size = 0;
+            if (res && res.code === 200) {
+                let localData = this.state.productData.concat(res.data);
+                this.setState({
+                    productData: localData
+                })
+                size = res.data.length;
+            }
+            setTimeout(() => {
+                if (this.refs.pullList) {
+                    this.refs.pullList.loadMoreComplete((size >= Config.PAGE_SIZE));
+                }
+            }, 500);
+        });
     }
 
     render() {
@@ -24,20 +87,20 @@ class ProductListPage extends Component {
         let rightIcon1, rightIcon2;
         switch (this.state.sort) {
             case 1:
-                rightIcon1 = require("../../img/icon_gifts.png");
-                rightIcon2 = require("../../img/icon_gifts.png");
+                rightIcon1 = require("../../img/icon_sort1.png");
+                rightIcon2 = require("../../img/icon_sort3.png");
                 break;
             case 2:
-                rightIcon1 = require("../../img/icon_gifts.png");
-                rightIcon2 = require("../../img/icon_gifts.png");
+                rightIcon1 = require("../../img/icon_sort2.png");
+                rightIcon2 = require("../../img/icon_sort3.png");
                 break;
             case 3:
-                rightIcon1 = require("../../img/icon_gifts.png");
-                rightIcon2 = require("../../img/icon_gifts.png");
+                rightIcon1 = require("../../img/icon_sort3.png");
+                rightIcon2 = require("../../img/icon_sort1.png");
                 break;
             case 4:
-                rightIcon1 = require("../../img/icon_gifts.png");
-                rightIcon2 = require("../../img/icon_gifts.png");
+                rightIcon1 = require("../../img/icon_sort3.png");
+                rightIcon2 = require("../../img/icon_sort2.png");
                 break;
 
         }
@@ -78,36 +141,48 @@ class ProductListPage extends Component {
                                 padding: 5,
                             }, styles.minTextBlack, styles.flex]}
                             placeholder={i18n("Search")}
+                            returnKeyType={"search"}
                             underlineColorAndroid='transparent'/>
                     </View>
 
                 </View>
 
                 <View style={[styles.flexDirectionRowNotFlex,]}>
-                    <View style={[{
-                        paddingVertical: 8,
-                        width: screenWidth / 2,
-                    }, styles.flexDirectionRowNotFlex, styles.centered]}>
 
-                        <Text
-                            style={[(this.state.sort === 1 | this.state.sort === 2) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Integral")}</Text>
+                    <TouchableOpacity activeOpacity={1} onPress={() => {
+                        this.state.sort = this.state.sort === 1 ? 2 : 1;
+                        this._refresh();
+                    }}>
+                        <View style={[{
+                            paddingVertical: 8,
+                            width: screenWidth / 2,
+                        }, styles.flexDirectionRowNotFlex, styles.centered]}>
 
-                        <Image style={{marginLeft: 5, height: 10, width: 5}}
-                               source={rightIcon1}/>
+                            <Text
+                                style={[(this.state.sort === 1 | this.state.sort === 2) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Integral")}</Text>
 
-                    </View>
-                    <View style={[{
-                        paddingVertical: 8,
-                        width: screenWidth / 2,
-                    }, styles.flexDirectionRowNotFlex, styles.centered]}>
+                            <Image style={{marginLeft: 5, height: 10, width: 5}}
+                                   source={rightIcon1}/>
 
-                        <Text
-                            style={[(this.state.sort === 3 | this.state.sort === 4) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Time")}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => {
+                        this.state.sort = this.state.sort === 3 ? 4 : 3;
+                        this._refresh();
+                    }}>
+                        <View style={[{
+                            paddingVertical: 8,
+                            width: screenWidth / 2,
+                        }, styles.flexDirectionRowNotFlex, styles.centered]}>
 
-                        <Image style={{marginLeft: 5, height: 10, width: 5}}
-                               source={rightIcon2}/>
+                            <Text
+                                style={[(this.state.sort === 3 | this.state.sort === 4) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Time")}</Text>
 
-                    </View>
+                            <Image style={{marginLeft: 5, height: 10, width: 5}}
+                                   source={rightIcon2}/>
+
+                        </View>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={[styles.flexDirectionRowNotFlex,]}>
@@ -125,44 +200,55 @@ class ProductListPage extends Component {
                     }]}/>
                 </View>
 
-                <FlatList
-                    style={{backgroundColor: Constant.grayBg, flex: 1,}}
-                    data={this.state.productData}
-                    numColumns={2}
-                    renderItem={({item, index}) => {
+                <PullListView
+                    style={{backgroundColor: Constant.grayBg, flex: 1}}
+                    ref="pullList"
+                    render
+                    renderRow={(item, index) => {
                         let marginRight = index % 2 === 0 ? 0 : 4;
                         return (
-                            <View
-                                style={[{
-                                    paddingLeft: 10,
-                                    paddingTop: 10,
-                                    paddingRight: 10,
-                                    paddingBottom: 20,
-                                    width: ((screenWidth - 12) / 2),
-                                    marginRight: marginRight,
-                                    marginLeft: 4,
-                                    marginTop: 4,
+                            <TouchableOpacity activeOpacity={Constant.activeOpacity}
+                                              onPress={() => {
+                                                  Actions.ProductDetailPage({"productStr": JSON.stringify(item)});
+                                              }}>
+                                <View
+                                    style={[{
+                                        paddingLeft: 10,
+                                        paddingTop: 10,
+                                        paddingRight: 10,
+                                        paddingBottom: 20,
+                                        width: ((screenWidth - 12) / 2),
+                                        marginRight: marginRight,
+                                        marginLeft: 4,
+                                        marginTop: 4,
 
-                                }, styles.mainBgColor, styles.flexDirectionColumnNotFlex]}>
-                                <Image style={[{height: 180, width: (screenWidth - 12) / 2 - 20}]}
-                                       source={{uri: item.icon}}
-                                       resizeMode={"center"}/>
+                                    }, styles.mainBgColor, styles.flexDirectionColumnNotFlex]}>
+                                    <Image style={[{height: 180, width: (screenWidth - 12) / 2 - 20}]}
+                                           source={{uri: item.icon}}
+                                           resizeMode={"center"}/>
 
-                                <Text style={[styles.normalTextGrayCharter]}
-                                      numberOfLines={1}
-                                      ellipsizeMode='tail'>{item.productName}</Text>
+                                    <Text style={[styles.normalTextGrayCharter]}
+                                          numberOfLines={1}
+                                          ellipsizeMode='tail'>{item.productName}</Text>
 
-                                <View style={[styles.flexDirectionRowNotFlex]}>
-                                    <Text style={[styles.minTextBlack]}>{item.points} {I18n("Integral")}</Text>
-                                    <Text style={[{
-                                        marginLeft: 3,
-                                        textDecorationLine: "line-through"
-                                    }, styles.minTextsGray]}>20000</Text>
+                                    <View style={[styles.flexDirectionRowNotFlex]}>
+                                        <Text style={[styles.minTextBlack]}>{item.points} {i18n("Integral")}</Text>
+                                        <Text style={[{
+                                            marginLeft: 3,
+                                            textDecorationLine: "line-through"
+                                        }, styles.minTextsGray]}>20000</Text>
+                                    </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         )
-                    }}
+                    }
+                    }
+                    numColumns={2}
+                    refresh={this._refresh}
+                    loadMore={this._loadMore}
+                    dataSource={this.state.productData}
                 />
+
             </View>
         );
     }
