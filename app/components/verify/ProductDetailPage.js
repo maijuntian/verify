@@ -75,8 +75,8 @@ class ProductDetailPage extends BaseTitlePage {
                         <Text style={[styles.subMinText, {marginBottom: 3,}]}>{I18n("Integral")}：</Text>
                         <Text style={[styles.normalTextBlack]}>{this.state.product.points}</Text>
                         <Text style={[{
-                            marginLeft: 3,
-                            marginBottom: 3,
+                            marginLeft: 5,
+                            marginBottom: 2,
                             textDecorationLine: "line-through",
                         }, styles.smallTextGray,]}>20000</Text>
                     </View>

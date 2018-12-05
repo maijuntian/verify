@@ -141,6 +141,7 @@ I18n.translations = {
         loadMoreing: "Loading",
         loadMoreEnd: "No more",
         Exchange: "Exchange",
+        Sign_out:"Sign out",
     }
 };
 
