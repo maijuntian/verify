@@ -5,8 +5,6 @@ import * as Constant from "../../style/constant";
 import styles, {navBarHeight, screenWidth, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
 import {Actions} from "react-native-router-flux";
-import UserHeadItem from "../widget/UserHeadItem";
-import resolveTime from "../../utils/timeUtil";
 import PullListView from "../widget/PullLoadMoreListView";
 import productDao from "../../dao/productDao";
 import * as Config from "../../config";
@@ -21,9 +19,11 @@ class ProductListPage extends Component {
 
         this.state = {
             sort: 1, //1,2,3,4
-            productData: []
+            productData: [],
+            text: "",
         }
         this.page = 2;
+        this.order = ["POINTS_DESC", "POINTS_ASC", "TIME_DESC", "TIME_ASC"];
     }
 
     componentDidMount() {
@@ -42,7 +42,8 @@ class ProductListPage extends Component {
      * 刷新
      * */
     _refresh() {
-        productDao.mallDaoGet("product?count=6")
+        let params = "name=" + this.state.text + "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort-1];
+        productDao.mallDaoGet("product?" + params)
             .then((res) => {
                 let size = 0;
                 if (res && res.code === 200) {
@@ -64,7 +65,8 @@ class ProductListPage extends Component {
      * 加载更多
      * */
     _loadMore() {
-        productDao.mallDaoGet("product?count=6").then((res) => {
+        let params = "name=" + this.state.text + "&pageNum=" + this.page + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort-1];
+        productDao.mallDaoGet("product?" + params).then((res) => {
             this.page++;
             let size = 0;
             if (res && res.code === 200) {
@@ -141,7 +143,11 @@ class ProductListPage extends Component {
                                 padding: 5,
                             }, styles.minTextBlack, styles.flex]}
                             placeholder={i18n("Search")}
+                            onSubmitEditing={()=>{
+                                this._refresh();
+                            }}
                             returnKeyType={"search"}
+                            onChangeText={(text) => this.setState({text})}
                             underlineColorAndroid='transparent'/>
                     </View>
 
