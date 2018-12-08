@@ -12,6 +12,7 @@ export const green = "#6b994d";
 export const grayBlack ="#718091";
 
 export const grayBg = "#f5f5f5";
+export const gray9d = "#9D9EB1";
 
 export const textGray = "#A1A2B6";
 
@@ -98,6 +99,10 @@ export const LANGUAGE_SELECT = "language-select";
 export const LANGUAGE_SELECT_NAME = "language-select-name";
 export const REFRESH_LANGUAGE = "refreshLanguageApp";
 
+export const USERINFO_CHANGE = "userinfo-change";
+export const USER_INFOV = "user-infoV";
+
+export const USER_AUTH ="USER-AUTH";
 
 /****************请求地址**************/
 export const API = "http://47.107.92.207:9000/";

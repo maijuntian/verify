@@ -14,6 +14,7 @@ import Icon from "react-native-vector-icons/Feather";
 import * as Config from "../../config";
 import productDao from "../../dao/productDao";
 import {Actions} from "react-native-router-flux";
+import vUserDao from "../../dao/vUserDao";
 
 /**
  * 商城
@@ -26,17 +27,29 @@ class MallPage extends Component {
         this._renderHeader = this._renderHeader.bind(this);
 
         this.state = {
+            userInfo: {},
             maxProgress: 2000,
             productData: [],
         }
     }
 
+    initUserInfo() {
+        vUserDao.localUserInfo().then((res) => {
+            this.setState({
+                userInfo: res
+            });
+        })
+    }
+
     componentDidMount() {
+        this.initUserInfo();
         this._getProductList()
     }
 
     _getProductList() {
-        productDao.mallDaoGet("product?count=6")
+        let params = "pageNum=1" + "&pageSize=" + Config.PAGE_SIZE;
+
+        productDao.mallDaoGet("product?" + params)
             .then((res) => {
                 if (res.code === 200) {
                     this.setState({
@@ -72,12 +85,12 @@ class MallPage extends Component {
                         source={require("../../img/bg_user_icon.png")}
                         style={[{height: 86, width: 86, borderRadius: 43, marginLeft: 27,}, styles.centered]}>
                         <Image style={[{height: 72, width: 72, borderRadius: 36,},]}
-                               source={require("../../img/picture_girl.png")}
+                               source={{uri: this.state.userInfo.icon}}
                         />
                     </ImageBackground>
 
                     <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10, paddingBottom: 10}]}>
-                        <Text style={[{marginTop: 5}, styles.largeTextBlackCharter]}>Lisa Lewis</Text>
+                        <Text style={[{marginTop: 5}, styles.largeTextBlackCharter]}>{this.state.userInfo.name}</Text>
                         <Text style={[{marginTop: 5}, styles.subMinText]}>1261 {I18n("Integral")}</Text>
                         <Text style={[{marginTop: -3}, styles.subMinText]}></Text>
                     </View>

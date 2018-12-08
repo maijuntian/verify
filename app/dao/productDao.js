@@ -12,7 +12,8 @@ const mallDaoGet = async (url, ) => {
     return res.data;
 }
 
+
 export default {
     authenticationDao,
-    mallDaoGet
+    mallDaoGet,
 }

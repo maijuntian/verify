@@ -40,7 +40,7 @@ class PersonalPage extends BaseTitlePage {
 
                     }}>
 
-                    <Text style={[{color: "#9D9EB1", fontSize: 14}]}>{i18n("Picture")}</Text>
+                    <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Picture")}</Text>
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
@@ -69,7 +69,7 @@ class PersonalPage extends BaseTitlePage {
                     onPress={() => {
                         Actions.PersonalNamePage();
                     }}>
-                    <Text style={[{color: "#9D9EB1", fontSize: 14}]}>{i18n("Name")}</Text>
+                    <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Name")}</Text>
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
@@ -96,7 +96,7 @@ class PersonalPage extends BaseTitlePage {
                     onPress={() => {
                         Actions.PersonalSexPage();
                     }}>
-                    <Text style={[{color: "#9D9EB1", fontSize: 14}]}>{i18n("Sexuality")}</Text>
+                    <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Sexuality")}</Text>
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
@@ -124,7 +124,7 @@ class PersonalPage extends BaseTitlePage {
                     onPress={() => {
 
                     }}>
-                    <Text style={[{color: "#9D9EB1", fontSize: 14}]}>{i18n("Birthday")}</Text>
+                    <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Birthday")}</Text>
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 

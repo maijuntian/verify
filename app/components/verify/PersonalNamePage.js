@@ -41,13 +41,13 @@ class PersonalNamePage extends BaseTitlePage {
                         paddingRight: 20,
                         backgroundColor: Constant.white
                     }]}>
-                    <Text style={[{color:"#9D9EB1", fontSize:14}]}>{i18n("Name")}</Text>
+                    <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Name")}</Text>
 
-                        <TextInput
-                            style={[styles.middleTexBlackCharter,{width:250, textAlign:"right"}]}
-                            underlineColorAndroid='transparent'>
-                            Lisa Lewis
-                        </TextInput>
+                    <TextInput
+                        style={[styles.middleTexBlackCharter, {width: 250, textAlign: "right"}]}
+                        underlineColorAndroid='transparent'>
+                        Lisa Lewis
+                    </TextInput>
                 </View>
 
                 <View style={styles.dividerLine}/>

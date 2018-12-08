@@ -128,7 +128,7 @@ class PullLoadMoreListView extends Component {
             </View> : <View/>;
         return (
             <FlatList
-                style={{backgroundColor: Constant.grayBg, flex: 1}}
+                style={{backgroundColor: this.props.bgColor, flex: 1}}
                 ref="list"
                 ListEmptyComponent={
                     () => emptyView
@@ -189,6 +189,7 @@ class PullLoadMoreListView extends Component {
 }
 
 PullLoadMoreListView.propTypes = {
+    bgColor: PropTypes.string,
     pageSize: PropTypes.number,
     dataSource: PropTypes.any,
     refresh: PropTypes.func,
@@ -197,6 +198,7 @@ PullLoadMoreListView.propTypes = {
     numColumns: PropTypes.number,
 };
 PullLoadMoreListView.defaultProps = {
+    bgColor: Constant.grayBg,
     pageSize: Config.PAGE_SIZE,
     dataSource: [],
     enableRefresh: true,
