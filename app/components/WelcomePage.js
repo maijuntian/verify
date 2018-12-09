@@ -8,15 +8,11 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles, {screenHeight, screenWidth} from "../style"
-import I18n from '../style/i18n'
-import loginActions from '../store/actions/login'
-import userActions from '../store/actions/user'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
 import * as Constant from "../style/constant"
 import SplashScreen from './widget/native/SplashNative'
-import LottieView from 'lottie-react-native';
 import * as constant from "../style/constant"
+import vUserDao from "../dao/vUserDao";
+import toast from "./common/ToastProxy";
 
 /**
  * 欢迎页
@@ -40,8 +36,22 @@ class WelcomePage extends Component {
 
     toNext(res) {
         setTimeout(() => {
-            Actions.reset("root");
-        }, 2100);
+            vUserDao.login("test", "test").then((res) => {
+                if (res.code === 200) {
+                    return vUserDao.userinfo();
+                } else {
+                    toast("Login fail");
+                    return null;
+                }
+            }).then((res) => {
+                if (res.code === 200) {
+                    Actions.reset("root");
+                } else {
+                    toast("Login fail");
+                }
+            })
+
+        }, 2000);
     }
 
     render() {

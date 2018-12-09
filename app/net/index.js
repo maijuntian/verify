@@ -9,6 +9,7 @@ import * as Constant from '../style/constant'
 import * as Code from './netwrokCode'
 import handlerError from './netwrokCode'
 import {NativeModules, DeviceEventEmitter} from 'react-native';
+import {USER_AUTH} from "../style/constant";
 
 
 export const CONTENT_TYPE_JSON = "application/json";
@@ -107,9 +108,9 @@ class HttpManager {
             } else {
                 let responseJson = await response.json();
                 console.log('返回结果: ', responseJson);
-                if (response.status === 201 && responseJson.token) {
-                    this.optionParams.authorizationCode = 'token ' + responseJson.token;
-                    AsyncStorage.setItem(Constant.TOKEN_KEY, this.optionParams.authorizationCode);
+                if (response.headers.get("authorization")) {
+                    this.optionParams.authorizationCode = response.headers.get("authorization");
+                    AsyncStorage.setItem(USER_AUTH, this.optionParams.authorizationCode);
                 }
 
                 if (response.status === 200 || response.status === 201) {
@@ -143,7 +144,7 @@ class HttpManager {
      */
     clearAuthorization() {
         this.optionParams.authorizationCode = null;
-        AsyncStorage.removeItem(Constant.TOKEN_KEY);
+        AsyncStorage.removeItem(Constant.USER_AUTH);
     }
 
 
@@ -151,20 +152,9 @@ class HttpManager {
      * 获取授权token
      */
     async getAuthorization() {
-        let token = await AsyncStorage.getItem(Constant.TOKEN_KEY);
-        if (!token) {
-            let basic = await AsyncStorage.getItem(Constant.USER_BASIC_CODE);
-            if (!basic) {
-                //提示输入账号密码
-            } else {
-                //通过 basic 去获取token，获取到设置，返回token
-                return `Basic ${basic}`;
-            }
-        } else {
-            this.optionParams.authorizationCode = token;
-            return token;
-        }
-
+        let token = await AsyncStorage.getItem(Constant.USER_AUTH);
+        this.optionParams.authorizationCode = token;
+        return token;
     }
 
     /**
@@ -221,7 +211,7 @@ class HttpManager {
             promise.then(
                 (res) => {
                     clearTimeout(timeoutId);
-                    if(text) {
+                    if (text) {
                         resolve(res.text());
                     } else {
                         resolve(res);

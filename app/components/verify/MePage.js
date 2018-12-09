@@ -3,13 +3,15 @@
  */
 
 import React, {Component} from 'react';
-import {Text, View, Image, ImageBackground, FlatList, TouchableOpacity} from "react-native";
+import {Text, View, Image, ImageBackground, FlatList, TouchableOpacity, DeviceEventEmitter} from "react-native";
 import styles, {screenWidth, statusHeight} from "../../style";
 import * as Constant from "../../style/constant";
 import CommonIconText from "../common/CommonIconText";
 import I18n from "../../style/i18n";
 import Icon from 'react-native-vector-icons/Feather'
 import {Actions} from 'react-native-router-flux'
+import * as Config from "../../config";
+import vUserDao from "../../dao/vUserDao";
 
 /**
  * 我的
@@ -20,6 +22,7 @@ class MePage extends Component {
         super(props);
 
         this.state = {
+            userInfo: {},
             items: [{key: I18n("Personal")}
                 , {key: I18n('Integral_detail')}
                 , {key: I18n("My_prize")}
@@ -31,8 +34,16 @@ class MePage extends Component {
         }
     }
 
-    componentDidMount() {
+    initUserInfo() {
+        vUserDao.localUserInfo().then((res) => {
+            this.setState({
+                userInfo: res
+            });
+        })
+    }
 
+    componentDidMount() {
+        this.initUserInfo();
     }
 
     componentWillUnmount() {
@@ -50,10 +61,11 @@ class MePage extends Component {
                         height: 72,
                     }, styles.flexDirectionRowNotFlex, styles.centerH]}>
                         <Image style={[{height: 72, width: 72, borderRadius: 36, marginLeft: 30},]}
-                               source={require("../../img/picture_girl.png")}
+                               source={{uri: this.state.userInfo.icon}}
                         />
 
-                        <Text style={[{marginLeft: 10}, styles.largeTextWhite_Charter]}>Lisa Lewis</Text>
+                        <Text
+                            style={[{marginLeft: 10}, styles.largeTextWhite_Charter]}>{this.state.userInfo.name}</Text>
                         <View style={[styles.flexDirectionRow, {
                             justifyContent: 'flex-end',
                         },]}>
@@ -76,7 +88,7 @@ class MePage extends Component {
                         </View>
                     </View>
 
-                    <View style={[{marginTop: 15, marginLeft: 30, }, styles.flexDirectionRowNotFlex,]}>
+                    <View style={[{marginTop: 15, marginLeft: 30,}, styles.flexDirectionRowNotFlex,]}>
                         <View style={[styles.flexDirectionRowNotFlex, styles.centered]}>
 
                             <Image style={[{height: 12, width: 12},]}
@@ -121,10 +133,13 @@ class MePage extends Component {
                                 paddingHorizontal: 26,
                                 paddingVertical: 13
                             }, styles.flexDirectionRowNotFlex, styles.centerH]} onPress={() => {
-                                switch (index){
+                                switch (index) {
                                     case 0:
                                         Actions.PersonalPage();
                                         break;
+                                    case 1:
+                                        Actions.PointsActivityPage();
+                                        break
                                 }
                             }}>
 

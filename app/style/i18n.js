@@ -143,6 +143,7 @@ I18n.translations = {
         Exchange: "Exchange",
         Sign_out:"Sign out",
         Album:"Album",
+        Reason:"Reason",
     }
 };
 
