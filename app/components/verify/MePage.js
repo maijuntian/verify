@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Feather'
 import {Actions} from 'react-native-router-flux'
 import * as Config from "../../config";
 import vUserDao from "../../dao/vUserDao";
+import AddressPage from "./AddressPage";
 
 /**
  * 我的
@@ -139,7 +140,12 @@ class MePage extends Component {
                                         break;
                                     case 1:
                                         Actions.PointsActivityPage();
-                                        break
+                                        break;
+                                    case 2:
+                                        Actions.GiftListPage();
+                                        break;
+                                    case 6:
+                                        Actions.AddressPage();
                                 }
                             }}>
 

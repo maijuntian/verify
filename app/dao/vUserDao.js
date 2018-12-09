@@ -33,6 +33,11 @@ const pointsHistory = async () => {
     return res.data;
 }
 
+const addressList = async () => {
+    let res = await Api.getFetch(API + "/user/info/address");
+    return res.data;
+}
+
 
 
 export default {
@@ -40,4 +45,5 @@ export default {
     userinfo,
     localUserInfo,
     pointsHistory,
+    addressList,
 }

@@ -35,7 +35,7 @@ class HomePage extends Component {
                         iconIndex={"1"}
                         itemTitle={I18n("Code_Authentication")}
                         onItemPress={() => {
-                            Actions.ScanQrCodePage()
+                            Actions.jump("ScanQrCodePage");
                         }
                         }
                     />

@@ -8,9 +8,10 @@ import {Actions} from "react-native-router-flux";
 import PullListView from "../widget/PullLoadMoreListView";
 import productDao from "../../dao/productDao";
 import * as Config from "../../config";
+import BaseTitlePage from "../widget/BaseTitlePage";
 
 
-class ProductListPage extends Component {
+class GiftListPage extends BaseTitlePage {
 
     constructor(props) {
         super(props);
@@ -30,7 +31,7 @@ class ProductListPage extends Component {
         InteractionManager.runAfterInteractions(() => {
             // if (this.refs.pullList)
             //     this.refs.pullList.showRefreshState();
-            this._refresh();
+            // this._refresh();
         })
     }
 
@@ -38,11 +39,15 @@ class ProductListPage extends Component {
 
     }
 
+    _title(){
+        return i18n("My_prize");
+    }
+
     /**
      * 刷新
      * */
     _refresh() {
-        let params = "name=" + this.state.text + "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort-1];
+        let params = "name=" + this.state.text + "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort - 1];
         productDao.mallDaoGet("product?" + params)
             .then((res) => {
                 let size = 0;
@@ -65,7 +70,7 @@ class ProductListPage extends Component {
      * 加载更多
      * */
     _loadMore() {
-        let params = "name=" + this.state.text + "&pageNum=" + this.page + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort-1];
+        let params = "name=" + this.state.text + "&pageNum=" + this.page + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort - 1];
         productDao.mallDaoGet("product?" + params).then((res) => {
             this.page++;
             let size = 0;
@@ -84,80 +89,14 @@ class ProductListPage extends Component {
         });
     }
 
-    render() {
-
-        let rightIcon1, rightIcon2;
-        switch (this.state.sort) {
-            case 1:
-                rightIcon1 = require("../../img/icon_sort1.png");
-                rightIcon2 = require("../../img/icon_sort3.png");
-                break;
-            case 2:
-                rightIcon1 = require("../../img/icon_sort2.png");
-                rightIcon2 = require("../../img/icon_sort3.png");
-                break;
-            case 3:
-                rightIcon1 = require("../../img/icon_sort3.png");
-                rightIcon2 = require("../../img/icon_sort1.png");
-                break;
-            case 4:
-                rightIcon1 = require("../../img/icon_sort3.png");
-                rightIcon2 = require("../../img/icon_sort2.png");
-                break;
-
-        }
-
+    _reader() {
 
         return (
             <View style={[styles.mainBox, styles.flexDirectionColumn]}>
 
-                <View style={[{
-                    backgroundColor: Constant.mainBackgroundColor,
-                    height: navBarHeight,
-                    paddingTop: statusHeight + 5,
-                }, styles.centerH, styles.flexDirectionRowNotFlex]}>
-                    <TouchableOpacity
-                        style={{height: 25, width: 25, marginHorizontal: 8}}
-                        onPress={() => {
-                            Actions.pop();
-                        }}>
-                        <Icon
-                            name={"chevron-left"}
-                            backgroundColor={Constant.transparentColor}
-                            color={Constant.primaryBlackColor} size={25}
-                            style={[styles.centered,]}/>
-                    </TouchableOpacity>
-
-                    <View style={[{
-                        paddingHorizontal: 13,
-                        backgroundColor: Constant.grayBg,
-                        borderRadius: 20,
-                        marginRight: 12,
-                    }, styles.flexDirectionRow, styles.centerH]}>
-                        <Image source={require("../../img/icon_search.png")}
-                               style={{height: 12, width: 12}}
-                        />
-
-                        <TextInput
-                            style={[{
-                                padding: 5,
-                            }, styles.minTextBlack, styles.flex]}
-                            placeholder={i18n("Search")}
-                            onSubmitEditing={()=>{
-                                this._refresh();
-                            }}
-                            returnKeyType={"search"}
-                            onChangeText={(text) => this.setState({text})}
-                            underlineColorAndroid='transparent'/>
-                    </View>
-
-                </View>
-
-                <View style={[styles.flexDirectionRowNotFlex,]}>
+                <View style={[{marginTop: 14}, styles.flexDirectionRowNotFlex,]}>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => {
-                        this.state.sort = this.state.sort === 1 ? 2 : 1;
-                        this._refresh();
                     }}>
                         <View style={[{
                             paddingVertical: 8,
@@ -165,16 +104,11 @@ class ProductListPage extends Component {
                         }, styles.flexDirectionRowNotFlex, styles.centered]}>
 
                             <Text
-                                style={[(this.state.sort === 1 | this.state.sort === 2) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Integral")}</Text>
-
-                            <Image style={{marginLeft: 5, height: 10, width: 5}}
-                                   source={rightIcon1}/>
+                                style={[(this.state.sort === 1 | this.state.sort === 2) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Delivered")}</Text>
 
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => {
-                        this.state.sort = this.state.sort === 3 ? 4 : 3;
-                        this._refresh();
                     }}>
                         <View style={[{
                             paddingVertical: 8,
@@ -182,10 +116,7 @@ class ProductListPage extends Component {
                         }, styles.flexDirectionRowNotFlex, styles.centered]}>
 
                             <Text
-                                style={[(this.state.sort === 3 | this.state.sort === 4) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Time")}</Text>
-
-                            <Image style={{marginLeft: 5, height: 10, width: 5}}
-                                   source={rightIcon2}/>
+                                style={[(this.state.sort === 3 | this.state.sort === 4) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("In_Progress")}</Text>
 
                         </View>
                     </TouchableOpacity>
@@ -205,8 +136,9 @@ class ProductListPage extends Component {
                         backgroundColor: (this.state.sort === 3 | this.state.sort === 4) ? Constant.grayBlue : Constant.white
                     }]}/>
                 </View>
+                <View style={styles.dividerLineF6}/>
 
-                <PullListView
+                {/* <PullListView
                     style={{backgroundColor: Constant.grayBg, flex: 1}}
                     ref="pullList"
                     render
@@ -253,7 +185,7 @@ class ProductListPage extends Component {
                     refresh={this._refresh}
                     loadMore={this._loadMore}
                     dataSource={this.state.productData}
-                />
+                />*/}
 
             </View>
         );
@@ -262,4 +194,4 @@ class ProductListPage extends Component {
 }
 
 
-export default ProductListPage
+export default GiftListPage

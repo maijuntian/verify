@@ -190,6 +190,11 @@ const styles = StyleSheet.create({
         fontSize: constant.middleTextWhite,
         fontFamily: fontFamilyCharter,
     },
+    middleTextGrayBlueCharter: {
+        color: constant.grayBlue,
+        fontSize: constant.middleTextWhite,
+        fontFamily: fontFamilyCharter,
+    },
     normalTextGrayCharter:{
         color: constant.text_gray,
         fontSize: constant.middleTextWhite,
