@@ -142,6 +142,7 @@ I18n.translations = {
         loadMoreEnd: "No more",
         Exchange: "Exchange",
         Sign_out:"Sign out",
+        Album:"Album",
     }
 };
 

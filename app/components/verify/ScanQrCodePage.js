@@ -7,7 +7,7 @@ import {
     Easing,
     Image,
     ImageBackground,
-    InteractionManager, TouchableOpacity
+    InteractionManager, TouchableOpacity, Alert
 } from 'react-native';
 
 import {RNCamera} from 'react-native-camera'
@@ -18,8 +18,12 @@ import AntiFakePage from "./AntiFakePage";
 import Toast from '../common/ToastProxy';
 import Icon from "react-native-vector-icons/Feather";
 import * as Constant from "../../style/constant";
-import {statusHeight} from "../../style";
+import styles, {statusHeight} from "../../style";
 import i18n from "../../style/i18n";
+import {readerQR} from "react-native-lewin-qrcode";
+
+var ImagePicker = require('react-native-image-picker');
+
 
 class ScanQrCodePage extends Component {
     constructor(props) {
@@ -28,6 +32,7 @@ class ScanQrCodePage extends Component {
             show: true,
             animate: new Animated.Value(0), // 二维坐标{x:0,y:0}
         }
+        this._openPhoto = this._openPhoto.bind(this);
     }
 
     componentDidMount() {
@@ -49,6 +54,40 @@ class ScanQrCodePage extends Component {
         }
     }
 
+    _openPhoto() {
+        console.log('ImagePicker');
+        ImagePicker.launchImageLibrary({}, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            }
+            else {
+                if (response.uri) {
+                    var path = response.path;
+                    if (!path) {
+                        path = response.uri;
+                    }
+                    readerQR(path).then((data) => {
+                        console.log("picCode-->" + data);
+                        this.parseCode(data);
+                    }).catch((err) => {
+                        console.log("error-->" + err);
+                        Toast(i18n("illegalCodeTip"));
+                        Actions.pop();
+                    });
+
+                }
+            }
+        });
+    }
+
     componentWillUnmount() {
         this.state.show = false;
     }
@@ -67,29 +106,33 @@ class ScanQrCodePage extends Component {
         console.log(e);
 
         if (e.type === "QR_CODE") { //二维码
-            this.setState({
-                show: false
-            })
-
-            Actions.LoadingModal({backExit: false});
-            product.authentication(e.data).then((res) => {
-                this.exitLoading();
-
-                if (res.code === 200 || res.code === 410) {
-                    if (e.data.indexOf("tracing") !== -1) {
-                        // Actions.ProductHistoryPage({"responseStr": JSON.stringify(res.data)});
-                        Actions.replace("ProductHistoryPage", {"responseStr": JSON.stringify(res.data)});
-                    } else {
-                        // Actions.popAndPush("AntiFakePage", {"responseStr": JSON.stringify(res.data)});
-                        Actions.replace("AntiFakePage", {"responseStr": JSON.stringify(res.data), code: res.code});
-                    }
-                } else {
-                    Toast(i18n("illegalCodeTip"));
-                    Actions.pop();
-                }
-
-            })
+            this.parseCode(e.data);
         }
+    }
+
+    parseCode(codeStr) {
+        this.setState({
+            show: false
+        });
+
+        Actions.LoadingModal({backExit: false});
+        product.authentication(codeStr).then((res) => {
+            this.exitLoading();
+
+            if (res.code && (res.code === 200 || res.code === 410)) {
+                if (codeStr.indexOf("tracing") !== -1) {
+                    // Actions.ProductHistoryPage({"responseStr": JSON.stringify(res.data)});
+                    Actions.replace("ProductHistoryPage", {"responseStr": JSON.stringify(res.data)});
+                } else {
+                    // Actions.popAndPush("AntiFakePage", {"responseStr": JSON.stringify(res.data)});
+                    Actions.replace("AntiFakePage", {"responseStr": JSON.stringify(res.data), code: res.code});
+                }
+            } else {
+                Toast(i18n("illegalCodeTip"));
+                Actions.pop();
+            }
+
+        })
     }
 
 
@@ -97,7 +140,7 @@ class ScanQrCodePage extends Component {
         let showF = this.props.show || null;
         console.log("--->" + showF);
         return (
-            <View style={[styles.container,]}>
+            <View style={[styles.flex,]}>
                 <RNCamera
                     onBarCodeRead={this.barcodeReceived.bind(this)}
                     onCameraReady={() => {
@@ -105,24 +148,11 @@ class ScanQrCodePage extends Component {
                     }}
                     permissionDialogTitle={'Permission to use camera'}
                     permissionDialogMessage={'We need your permission to use your camera phone'}
-                    style={styles.camera}>
+                    style={styles.flex}>
 
-
-                    <View style={[styles.flexDirectionRowNotFlex,]}>
-                        <TouchableOpacity
-                            style={[{height: 25, width: 25, marginLeft: 15, marginTop: statusHeight}]}
-                            activeOpacity={Constant.activeOpacity}
-                            onPress={() => {
-                                Actions.pop();
-                            }}>
-                            <Image source={require("../../img/icon_back_white.png")}
-                                   style={[{height: 25, width: 25},]}/>
-                        </TouchableOpacity>
-
-                    </View>
-
-                    <View style={styles.box}>
-                        <ImageBackground source={require("../../img/shape_scan.png")} style={styles.kuang}>
+                    <View style={[styles.flex, styles.centered,]}>
+                        <ImageBackground source={require("../../img/shape_scan.png")}
+                                         style={[{width: 238, height: 238}]}>
                             <Animated.View style={{
                                 alignItems: 'center',
                                 transform: [{
@@ -138,30 +168,36 @@ class ScanQrCodePage extends Component {
                             </Animated.View>
                         </ImageBackground>
                     </View>
-                </RNCamera>
 
+                    <View style={[styles.absoluteFull, styles.flexDirectionRowNotFlex,]}>
+                        <TouchableOpacity
+                            style={[{height: 25, width: 25, marginTop: statusHeight, marginLeft: 15}]}
+                            activeOpacity={Constant.activeOpacity}
+                            onPress={() => {
+                                Actions.pop();
+                            }}>
+                            <Image source={require("../../img/icon_back_white.png")}
+                                   style={[{height: 25, width: 25},]}/>
+                        </TouchableOpacity>
+
+                        <View style={[styles.flexDirectionRow, styles.justifyEnd, {
+                            marginTop: statusHeight,
+                            marginRight: 15
+                        }]}>
+
+                            <TouchableOpacity onPress={this._openPhoto}>
+                                <Text style={[{
+                                    color: Constant.white,
+                                    fontSize: Constant.smallTextSize
+                                }]}>{i18n("Album")}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </RNCamera>
 
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    camera: {
-        flex: 1,
-    },
-    box: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    kuang: {
-        width: 238,
-        height: 238,
-    },
-});
 
 export default ScanQrCodePage

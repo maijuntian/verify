@@ -163,6 +163,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-picker')
+    compile project(':react-native-lewin-qrcode')
     compile project(':react-native-svg')
     compile project(':realm')
     compile project(':react-native-version-number')
