@@ -9,6 +9,9 @@ const authenticationDao = async (url) => {
 
 const mallDaoGet = async (url, ) => {
     let res = await Api.netFetch(API +"mall/"+ url, "POST");
+    if(res.data.code === 200){
+        res.data = res.data.data.list;
+    }
     return res.data;
 }
 

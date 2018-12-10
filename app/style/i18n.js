@@ -175,6 +175,8 @@ I18n.translations = {
         Add:"Add",
         Delivered:"Delivered",
         In_Progress:"In Progress",
+        Order_number:"Order number",
+        Order_date:"Order date",
     }
 };
 

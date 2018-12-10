@@ -9,6 +9,8 @@ import PullListView from "../widget/PullLoadMoreListView";
 import productDao from "../../dao/productDao";
 import * as Config from "../../config";
 import BaseTitlePage from "../widget/BaseTitlePage";
+import moment from "moment";
+import vUserDao from "../../dao/vUserDao";
 
 
 class GiftListPage extends BaseTitlePage {
@@ -20,8 +22,7 @@ class GiftListPage extends BaseTitlePage {
 
         this.state = {
             sort: 1, //1,2,3,4
-            productData: [],
-            text: "",
+            giftData: [],
         }
         this.page = 2;
         this.order = ["POINTS_DESC", "POINTS_ASC", "TIME_DESC", "TIME_ASC"];
@@ -29,17 +30,14 @@ class GiftListPage extends BaseTitlePage {
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
-            // if (this.refs.pullList)
-            //     this.refs.pullList.showRefreshState();
             // this._refresh();
         })
     }
 
     componentWillUnmount() {
-
     }
 
-    _title(){
+    _title() {
         return i18n("My_prize");
     }
 
@@ -47,14 +45,14 @@ class GiftListPage extends BaseTitlePage {
      * 刷新
      * */
     _refresh() {
-        let params = "name=" + this.state.text + "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort - 1];
-        productDao.mallDaoGet("product?" + params)
+        let params = "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort - 1];
+        vUserDao.giftList(params)
             .then((res) => {
                 let size = 0;
                 if (res && res.code === 200) {
                     this.page = 2;
                     this.setState({
-                        productData: res.data
+                        giftData: res.data
                     })
                     size = res.data.length;
                 }
@@ -70,14 +68,14 @@ class GiftListPage extends BaseTitlePage {
      * 加载更多
      * */
     _loadMore() {
-        let params = "name=" + this.state.text + "&pageNum=" + this.page + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort - 1];
-        productDao.mallDaoGet("product?" + params).then((res) => {
+        let params = "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort - 1];
+        vUserDao.giftList(params).then((res) => {
             this.page++;
             let size = 0;
             if (res && res.code === 200) {
-                let localData = this.state.productData.concat(res.data);
+                let localData = this.state.giftData.concat(res.data);
                 this.setState({
-                    productData: localData
+                    giftData: localData
                 })
                 size = res.data.length;
             }
@@ -138,7 +136,7 @@ class GiftListPage extends BaseTitlePage {
                 </View>
                 <View style={styles.dividerLineF6}/>
 
-                {/* <PullListView
+                <PullListView
                     style={{backgroundColor: Constant.grayBg, flex: 1}}
                     ref="pullList"
                     render
@@ -149,32 +147,38 @@ class GiftListPage extends BaseTitlePage {
                                               onPress={() => {
                                                   Actions.ProductDetailPage({"productStr": JSON.stringify(item)});
                                               }}>
-                                <View
-                                    style={[{
-                                        paddingLeft: 10,
-                                        paddingTop: 10,
-                                        paddingRight: 10,
-                                        paddingBottom: 20,
-                                        width: ((screenWidth - 12) / 2),
-                                        marginRight: marginRight,
-                                        marginLeft: 4,
-                                        marginTop: 4,
+                                <View style={[{
+                                    paddingVertical: 12,
+                                    paddingLeft: 20,
+                                    paddingRight: 13
+                                }, styles.flexDirectionRowNotFlex, styles.centerV]}>
+                                    <Image style={[{height: 85, width: 85}]}
+                                           source={{uri: "deife"}}
+                                           resizeMode={"stretch"}/>
 
-                                    }, styles.mainBgColor, styles.flexDirectionColumnNotFlex]}>
-                                    <Image style={[{height: 180, width: (screenWidth - 12) / 2 - 20}]}
-                                           source={{uri: item.icon}}
-                                           resizeMode={"center"}/>
+                                    <View
+                                        style={[{
+                                            width: screenWidth - 210,
+                                            marginLeft: 17
+                                        }, styles.flexDirectionColumnNotFlex]}>
 
-                                    <Text style={[styles.normalTextGrayCharter]}
-                                          numberOfLines={1}
-                                          ellipsizeMode='tail'>{item.productName}</Text>
+                                        <Text style={styles.normalTextBlack_Charter}>{item.item[0].productName}</Text>
 
-                                    <View style={[styles.flexDirectionRowNotFlex]}>
-                                        <Text style={[styles.minTextBlack]}>{item.points} {i18n("Integral")}</Text>
-                                        <Text style={[{
-                                            marginLeft: 3,
-                                            textDecorationLine: "line-through"
-                                        }, styles.minTextsGray]}>20000</Text>
+                                        <View style={[styles.flexDirectionRowNotFlex, styles.centerV]}>
+                                            <Text style={styles.sminText9Dgray}>{i18n("Order_number")}：</Text>
+                                            <Text style={styles.sminTextBlack}>{item.recordsUUID}</Text>
+                                        </View>
+                                        <View style={[styles.flexDirectionRowNotFlex, styles.centerV]}>
+                                            <Text style={styles.sminText9Dgray}>{i18n("Order_date")}：</Text>
+                                            <Text style={styles.sminTextBlack}>{item.createTime}</Text>
+                                        </View>
+                                    </View>
+
+                                    <View style={[{
+                                        width: 90,
+                                        paddingRight: 13
+                                    }, styles.flexDirectionColumnNotFlex, styles.justifyEnd]}>
+                                        <Text style={[{}, styles.normalTextBlack]}>x{item.item[0].productQuantity}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>
@@ -184,14 +188,12 @@ class GiftListPage extends BaseTitlePage {
                     numColumns={2}
                     refresh={this._refresh}
                     loadMore={this._loadMore}
-                    dataSource={this.state.productData}
-                />*/}
+                    dataSource={this.state.giftData}
+                />
 
             </View>
         );
     }
-
 }
-
 
 export default GiftListPage

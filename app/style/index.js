@@ -88,6 +88,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
     },
+    sminText9Dgray: {
+        color: constant.TextColorWhite,
+        fontSize: constant.sminTextSize
+    },
     smallTextWhite: {
         color: constant.TextColorWhite,
         fontSize: constant.smallTextSize
@@ -173,6 +177,10 @@ const styles = StyleSheet.create({
         color: constant.white,
         fontSize: constant.sminTextSize,
     },
+    sminTextBlack: {
+        color: constant.primaryBlackColor,
+        fontSize: constant.sminTextSize,
+    },
     middleTextWhite: {
         color: constant.TextColorWhite,
         fontSize: constant.middleTextWhite
@@ -195,7 +203,7 @@ const styles = StyleSheet.create({
         fontSize: constant.middleTextWhite,
         fontFamily: fontFamilyCharter,
     },
-    normalTextGrayCharter:{
+    normalTextGrayCharter: {
         color: constant.text_gray,
         fontSize: constant.middleTextWhite,
         fontFamily: fontFamilyCharter,
@@ -282,16 +290,16 @@ const styles = StyleSheet.create({
         padding: constant.normalMarginEdge,
     },
 
-    dividerLine:{
-        width:screenWidth,
-        height:0.5,
-        backgroundColor:"#A1A2B6"
+    dividerLine: {
+        width: screenWidth,
+        height: 0.5,
+        backgroundColor: "#A1A2B6"
     },
 
-    dividerLineF6:{
-        width:screenWidth,
-        height:1,
-        backgroundColor:"#F6F6F6"
+    dividerLineF6: {
+        width: screenWidth,
+        height: 1,
+        backgroundColor: "#F6F6F6"
     }
 });
 

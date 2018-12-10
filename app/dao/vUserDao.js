@@ -38,6 +38,13 @@ const addressList = async () => {
     return res.data;
 }
 
+const giftList = async (params) => {
+    let res = await Api.getFetch(API + "/user/info/redeem/records" + params);
+    if(res.data.code === 200){
+        res.data = res.data.data.list;
+    }
+    return res.data;
+}
 
 
 export default {
@@ -46,4 +53,5 @@ export default {
     localUserInfo,
     pointsHistory,
     addressList,
+    giftList,
 }
