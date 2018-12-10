@@ -24,8 +24,9 @@ class HomePage extends Component {
         return (
             <View style={[styles.mainBox, styles.centerH]}>
                 <StatusBar hidden={false} backgroundColor={'transparent'} translucent barStyle={'dark-content'}/>
-                <Image source={require("../../img/logo2.png")}
-                       style={[{height: 54, width: 275, marginTop: 138 + statusHeight}]}/>
+                <Image source={require("../../img/logo.png")}
+                       resizeMode={"stretch"}
+                       style={[{height: 100, width: 150, marginTop: 100 + statusHeight}]}/>
 
 
                 <View style={[{marginTop: 70, marginLeft: 16, marginRight: 16}, styles.flexDirectionRowNotFlex]}>

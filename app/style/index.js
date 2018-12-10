@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     sminText9Dgray: {
-        color: constant.TextColorWhite,
+        color: constant.gray9d,
         fontSize: constant.sminTextSize
     },
     smallTextWhite: {
@@ -120,8 +120,16 @@ const styles = StyleSheet.create({
         color: constant.subTextColor,
         fontSize: constant.smallTextSize
     },
+    gray6ASmallText: {
+        color: constant.gray6A,
+        fontSize: constant.smallTextSize
+    },
     subMinText: {
         color: constant.subTextColor,
+        fontSize: constant.minTextSize,
+    },
+    b40MinText: {
+        color: constant.black40,
         fontSize: constant.minTextSize,
     },
     subsMinText: {

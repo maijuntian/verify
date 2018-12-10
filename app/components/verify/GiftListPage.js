@@ -21,16 +21,16 @@ class GiftListPage extends BaseTitlePage {
         this._refresh = this._refresh.bind(this);
 
         this.state = {
-            sort: 1, //1,2,3,4
+            sort: 1, //1,2,
             giftData: [],
         }
         this.page = 2;
-        this.order = ["POINTS_DESC", "POINTS_ASC", "TIME_DESC", "TIME_ASC"];
+        this.order = ["DELIVERED", "IN_PROGRESS"];
     }
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
-            // this._refresh();
+            this._refresh();
         })
     }
 
@@ -45,7 +45,7 @@ class GiftListPage extends BaseTitlePage {
      * 刷新
      * */
     _refresh() {
-        let params = "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort - 1];
+        let params = "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&status=" + this.order[this.state.sort - 1];
         vUserDao.giftList(params)
             .then((res) => {
                 let size = 0;
@@ -95,6 +95,10 @@ class GiftListPage extends BaseTitlePage {
                 <View style={[{marginTop: 14}, styles.flexDirectionRowNotFlex,]}>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => {
+                        if (this.state.sort !== 1) {
+                            this.state.sort = 1;
+                            this._refresh();
+                        }
                     }}>
                         <View style={[{
                             paddingVertical: 8,
@@ -102,11 +106,15 @@ class GiftListPage extends BaseTitlePage {
                         }, styles.flexDirectionRowNotFlex, styles.centered]}>
 
                             <Text
-                                style={[(this.state.sort === 1 | this.state.sort === 2) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Delivered")}</Text>
+                                style={[(this.state.sort === 1) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Delivered")}</Text>
 
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => {
+                        if (this.state.sort !== 2) {
+                            this.state.sort = 2;
+                            this._refresh();
+                        }
                     }}>
                         <View style={[{
                             paddingVertical: 8,
@@ -114,7 +122,7 @@ class GiftListPage extends BaseTitlePage {
                         }, styles.flexDirectionRowNotFlex, styles.centered]}>
 
                             <Text
-                                style={[(this.state.sort === 3 | this.state.sort === 4) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("In_Progress")}</Text>
+                                style={[(this.state.sort === 2) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("In_Progress")}</Text>
 
                         </View>
                     </TouchableOpacity>
@@ -125,67 +133,70 @@ class GiftListPage extends BaseTitlePage {
                         marginLeft: 15,
                         width: screenWidth / 2 - 30,
                         height: 2,
-                        backgroundColor: (this.state.sort === 1 | this.state.sort === 2) ? Constant.grayBlue : Constant.white
+                        backgroundColor: (this.state.sort === 1) ? Constant.grayBlue : Constant.white
                     }]}/>
                     <View style={[{
                         marginLeft: 30,
                         width: screenWidth / 2 - 30,
                         height: 2,
-                        backgroundColor: (this.state.sort === 3 | this.state.sort === 4) ? Constant.grayBlue : Constant.white
+                        backgroundColor: (this.state.sort === 2) ? Constant.grayBlue : Constant.white
                     }]}/>
                 </View>
                 <View style={styles.dividerLineF6}/>
 
                 <PullListView
-                    style={{backgroundColor: Constant.grayBg, flex: 1}}
+                    style={{flex: 1}}
+                    bgColor={Constant.white}
                     ref="pullList"
                     render
                     renderRow={(item, index) => {
-                        let marginRight = index % 2 === 0 ? 0 : 4;
                         return (
-                            <TouchableOpacity activeOpacity={Constant.activeOpacity}
-                                              onPress={() => {
-                                                  Actions.ProductDetailPage({"productStr": JSON.stringify(item)});
-                                              }}>
-                                <View style={[{
-                                    paddingVertical: 12,
-                                    paddingLeft: 20,
-                                    paddingRight: 13
-                                }, styles.flexDirectionRowNotFlex, styles.centerV]}>
-                                    <Image style={[{height: 85, width: 85}]}
-                                           source={{uri: "deife"}}
-                                           resizeMode={"stretch"}/>
-
-                                    <View
-                                        style={[{
-                                            width: screenWidth - 210,
-                                            marginLeft: 17
-                                        }, styles.flexDirectionColumnNotFlex]}>
-
-                                        <Text style={styles.normalTextBlack_Charter}>{item.item[0].productName}</Text>
-
-                                        <View style={[styles.flexDirectionRowNotFlex, styles.centerV]}>
-                                            <Text style={styles.sminText9Dgray}>{i18n("Order_number")}：</Text>
-                                            <Text style={styles.sminTextBlack}>{item.recordsUUID}</Text>
-                                        </View>
-                                        <View style={[styles.flexDirectionRowNotFlex, styles.centerV]}>
-                                            <Text style={styles.sminText9Dgray}>{i18n("Order_date")}：</Text>
-                                            <Text style={styles.sminTextBlack}>{item.createTime}</Text>
-                                        </View>
-                                    </View>
-
+                            <View style={[styles.flexDirectionColumnNotFlex]}>
+                                <TouchableOpacity activeOpacity={Constant.activeOpacity}
+                                                  onPress={() => {
+                                                  }}>
                                     <View style={[{
-                                        width: 90,
+                                        paddingVertical: 12,
+                                        paddingLeft: 20,
                                         paddingRight: 13
-                                    }, styles.flexDirectionColumnNotFlex, styles.justifyEnd]}>
-                                        <Text style={[{}, styles.normalTextBlack]}>x{item.item[0].productQuantity}</Text>
+                                    }, styles.flexDirectionRowNotFlex, styles.centerV]}>
+                                        <Image style={[{height: 85, width: 85}]}
+                                               source={{uri: item.item[0].productIcon}}
+                                               resizeMode={"center"}/>
+
+                                        <View
+                                            style={[{
+                                                width: screenWidth - 210,
+                                                marginLeft: 13
+                                            }, styles.flexDirectionColumnNotFlex, ]}>
+
+                                            <Text
+                                                style={styles.normalTextBlack_Charter}>{item.item[0].productName}</Text>
+
+                                            <View style={[styles.flexDirectionRowNotFlex,]}>
+                                                <Text style={styles.sminText9Dgray}>{i18n("Order_number")}：</Text>
+                                                <Text style={styles.sminTextBlack}>{item.recordsUUID}</Text>
+                                            </View>
+                                            <View style={[styles.flexDirectionRowNotFlex,]}>
+                                                <Text style={styles.sminText9Dgray}>{i18n("Order_date")}：</Text>
+                                                <Text style={styles.sminTextBlack}>{item.createTime}</Text>
+                                            </View>
+                                        </View>
+
+                                        <View style={[{
+                                            width: 90,
+                                            paddingRight: 13
+                                        }, styles.flexDirectionRowNotFlex, styles.justifyEnd, styles.centerH]}>
+                                            <Text
+                                                style={[{}, styles.normalTextBlack]}>x{item.item[0].productQuantity}</Text>
+                                        </View>
                                     </View>
-                                </View>
-                            </TouchableOpacity>
+                                </TouchableOpacity>
+                                <View style={styles.dividerLineF6}/>
+                            </View>
                         )
                     }
                     }
-                    numColumns={2}
                     refresh={this._refresh}
                     loadMore={this._loadMore}
                     dataSource={this.state.giftData}

@@ -41,7 +41,7 @@ class PointsActivityPage extends BaseTitlePage {
      * */
     _refresh() {
         let params = "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE;
-        vUserDao.pointsHistory()
+        vUserDao.pointsHistory(params)
             .then((res) => {
                 let size = 0;
                 if (res && res.code === 200) {
@@ -64,7 +64,7 @@ class PointsActivityPage extends BaseTitlePage {
      * */
     _loadMore() {
         let params = "&pageNum=" + this.page + "&pageSize=" + Config.PAGE_SIZE;
-        vUserDao.pointsHistory().then((res) => {
+        vUserDao.pointsHistory(params).then((res) => {
             this.page++;
             let size = 0;
             if (res && res.code === 200) {
@@ -106,10 +106,10 @@ class PointsActivityPage extends BaseTitlePage {
                                         <Text style={[styles.smallTextBlack]}>{i18n("Time")}</Text>
                                     </View>
                                     <View style={[{width: (screenWidth - 60) * 2 / 7,}, styles.centered]}>
-                                        <Text style={[styles.smallTextBlack]}>{i18n("Integral")}</Text>
+                                        <Text style={[styles.smallTextBlack]}>{i18n("Activity")}</Text>
                                     </View>
                                     <View style={[{width: (screenWidth - 60) * 3 / 7,}, styles.centered]}>
-                                        <Text style={[styles.smallTextBlack]}>       {i18n("Reason")}</Text>
+                                        <Text style={[styles.smallTextBlack]}>{i18n("Reason")}</Text>
                                     </View>
                                 </View>
                                 <View style={styles.dividerLineF6}/>
@@ -137,7 +137,7 @@ class PointsActivityPage extends BaseTitlePage {
                                         }]}>{points}</Text>
                                     </View>
                                     <View
-                                        style={[{width: (screenWidth - 60) * 3 / 7,}, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
+                                        style={[{width: (screenWidth - 60) * 3 / 7,}, styles.centered]}>
                                         <Text style={[{color: Constant.gray9d, fontSize: 12}]}>{item.reason}</Text>
                                     </View>
 
@@ -147,7 +147,6 @@ class PointsActivityPage extends BaseTitlePage {
                         )
                     }
                     }
-                    numColumns={2}
                     refresh={this._refresh}
                     loadMore={this._loadMore}
                     dataSource={this.state.pointData}

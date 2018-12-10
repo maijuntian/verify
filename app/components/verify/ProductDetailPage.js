@@ -81,7 +81,7 @@ class ProductDetailPage extends BaseTitlePage {
                         }, styles.smallTextGray,]}>20000</Text>
                     </View>
 
-                    <Text style={[{}, styles.subMinText,]}>{I18n("Integral")}</Text>
+                    <Text style={[{}, styles.subMinText,]}>{I18n("Rank")}</Text>
 
                     <Image source={require("../../img/gold.png")}
                            style={{height: 14, width: 14, marginLeft: 3}}
@@ -113,7 +113,7 @@ class ProductDetailPage extends BaseTitlePage {
                                 paddingVertical: 10,
                                 borderColor: Constant.textGray,
                             }, styles.flexDirectionRowNotFlex, styles.centered]}>
-                                <Text style={[styles.smallTextBlack]}>{I18n("Exchange")}</Text>
+                                <Text style={[{color:"#586575", fontSize: Constant.smallTextSize}]}>{I18n("Exchange")}</Text>
                             </View>
                         </TouchableOpacity>
 

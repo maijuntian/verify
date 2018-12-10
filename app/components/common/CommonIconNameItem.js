@@ -42,7 +42,7 @@ class CommonIconNameItem extends Component {
                 </TouchableOpacity>
 
                 <Text
-                    style={[{color: Constant.subTextColor},  {fontSize: Constant.smallTextSize}]}>{this.props.itemTitle}</Text>
+                    style={[{color: "#404040"},  {fontSize: Constant.minTextSize}]}>{this.props.itemTitle}</Text>
             </View>
         )
     }

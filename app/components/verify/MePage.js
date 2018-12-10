@@ -55,7 +55,8 @@ class MePage extends Component {
         return (
             <View style={styles.mainBox}>
                 <ImageBackground source={require("../../img/me_bg.png")}
-                                 style={[{height: 180, width: screenWidth}, styles.flexDirectionColumnNotFlex]}>
+                                 style={[{height: 180, width: screenWidth}, styles.flexDirectionColumnNotFlex]}
+                                 resizeMode={"stretch"}>
                     <View style={[{
                         marginTop: 10 + statusHeight,
                         width: screenWidth,
@@ -66,7 +67,7 @@ class MePage extends Component {
                         />
 
                         <Text
-                            style={[{marginLeft: 10}, styles.largeTextWhite_Charter]}>{this.state.userInfo.name}</Text>
+                            style={[{marginLeft: 10}, styles.largeTextWhite_Charter]}>{this.state.userInfo.nickname}</Text>
                         <View style={[styles.flexDirectionRow, {
                             justifyContent: 'flex-end',
                         },]}>
@@ -101,7 +102,7 @@ class MePage extends Component {
                                 fontSize: Constant.minTextSize
                             },]}>{I18n("Integral")}: </Text>
 
-                            <Text style={[styles.smallTextWhite]}>1261</Text>
+                            <Text style={[styles.smallTextWhite]}>{this.state.userInfo.points}</Text>
                         </View>
 
                         <View style={[styles.flexDirectionRow, {
@@ -119,7 +120,7 @@ class MePage extends Component {
                                     fontSize: Constant.minTextSize
                                 },]}>{I18n("Grow_up")}: </Text>
 
-                                <Text style={[styles.smallTextWhite]}>9374</Text>
+                                <Text style={[styles.smallTextWhite]}>{this.state.userInfo.scores}</Text>
                             </View>
                         </View>
                     </View>

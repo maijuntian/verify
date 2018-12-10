@@ -28,20 +28,26 @@ const localUserInfo = async () => {
     return {};
 }
 
-const pointsHistory = async () => {
-    let res = await Api.getFetch(API + "/user/points/collect");
+const pointsHistory = async (params) => {
+    let res = await Api.getFetch(API + "/user/points/collect?" + params);
+    if (res.code === 200) {
+        res.data.data = res.data.data.list;
+    }
     return res.data;
 }
 
-const addressList = async () => {
-    let res = await Api.getFetch(API + "/user/info/address");
+const addressList = async (params) => {
+    let res = await Api.getFetch(API + "/user/info/address?" + params);
+    if (res.data.code === 200) {
+        res.data.data = res.data.data.list;
+    }
     return res.data;
 }
 
 const giftList = async (params) => {
-    let res = await Api.getFetch(API + "/user/info/redeem/records" + params);
-    if(res.data.code === 200){
-        res.data = res.data.data.list;
+    let res = await Api.getFetch(API + "/user/info/redeem/records?" + params);
+    if (res.data.code === 200) {
+        res.data.data = res.data.data.list;
     }
     return res.data;
 }

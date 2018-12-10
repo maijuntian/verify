@@ -33,6 +33,9 @@ export const primaryDarkColor = '#121917';
 export const primaryLightColor = '#42464b';
 
 export const text_gray = "#818199";
+export const black40 = '#404040';
+export const gray6A = '#6A6A6A';
+
 
 export const webDraculaBackgroundColor = '#282a36';
 

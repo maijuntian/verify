@@ -23,15 +23,18 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import {FlatList, InteractionManager, Text, TouchableOpacity, View} from "react-native";
 import Icon from 'react-native-vector-icons/Feather'
 import vUserDao from "../../dao/vUserDao";
-import Toast from '../common/ToastProxy';
+import PullListView from "../widget/PullLoadMoreListView";
+import * as Config from "../../config";
 
 class AddressPage extends BaseTitlePage {
 
     constructor(props) {
         super(props);
+        this._refresh = this._refresh.bind(this);
         this.state = {
             addressData: [],
         }
+        this.page = 2;
     }
 
     _title() {
@@ -48,16 +51,46 @@ class AddressPage extends BaseTitlePage {
      * 刷新
      * */
     _refresh() {
-        vUserDao.addressList()
+        let params = "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE;
+        vUserDao.addressList(params)
             .then((res) => {
+                let size = 0;
                 if (res && res.code === 200) {
+                    this.page = 2;
                     this.setState({
                         addressData: res.data
-                    })
-                } else {
-                    Toast(res && res.message);
+                    });
+                    size = res.data.length;
                 }
+                setTimeout(() => {
+                    if (this.refs.pullList) {
+                        this.refs.pullList.refreshComplete((size >= Config.PAGE_SIZE), false);
+                    }
+                }, 500);
             })
+    }
+
+    /**
+     * 加载更多
+     * */
+    _loadMore() {
+        let params = "&pageNum=" + this.page + "&pageSize=" + Config.PAGE_SIZE;
+        vUserDao.addressList(params).then((res) => {
+            this.page++;
+            let size = 0;
+            if (res && res.code === 200) {
+                let localData = this.state.addressData.concat(res.data);
+                this.setState({
+                    addressData: localData
+                })
+                size = res.data.length;
+            }
+            setTimeout(() => {
+                if (this.refs.pullList) {
+                    this.refs.pullList.loadMoreComplete((size >= Config.PAGE_SIZE));
+                }
+            }, 500);
+        });
     }
 
     _reader() {
@@ -65,10 +98,13 @@ class AddressPage extends BaseTitlePage {
 
             <View style={[styles.flexDirectionColumn, styles.alignItemsEnd]}>
 
-                <FlatList
-                    style={[styles.flex]}
-                    data={this.state.addressData}
-                    renderItem={({item, index}) => {
+                <PullListView
+                    bgColor={Constant.white}
+                    style={{flex: 1}}
+                    ref="pullList"
+                    render
+                    renderRow={(item, index) => {
+                        console.log("item-->" + JSON.stringify(item));
                         return (
                             <View style={styles.flexDirectionColumnNotFlex}>
                                 <TouchableOpacity style={[styles.flexDirectionRowNotFlex, styles.centerH]}
@@ -103,23 +139,27 @@ class AddressPage extends BaseTitlePage {
                                 <View style={styles.dividerLineF6}/>
                             </View>
                         )
-                    }}/>
+                    }}
+                    refresh={this._refresh}
+                    loadMore={this._loadMore}
+                    dataSource={this.state.addressData}
+                />
 
-                    <TouchableOpacity
-                        activeOpacity={Constant.activeOpacity}
-                        style={[{
-                            width:screenWidth - 72,
-                            marginHorizontal: 36,
-                            marginBottom: 16,
-                            borderColor: "#D7D7D7",
-                            borderWidth: 1,
-                            borderRadius: 20,
-                            paddingVertical: 10,
-                        }, styles.centered]} onPress={() => {
+                <TouchableOpacity
+                    activeOpacity={Constant.activeOpacity}
+                    style={[{
+                        width: screenWidth - 72,
+                        marginHorizontal: 36,
+                        marginBottom: 16,
+                        borderColor: "#D7D7D7",
+                        borderWidth: 1,
+                        borderRadius: 20,
+                        paddingVertical: 10,
+                    }, styles.centered]} onPress={() => {
 
-                    }}>
-                        <Text style={[{}, styles.smallTextBlack]}>{i18n("Add")}</Text>
-                    </TouchableOpacity>
+                }}>
+                    <Text style={[{}, styles.smallTextBlack]}>{i18n("Add")}</Text>
+                </TouchableOpacity>
             </View>
         )
     }

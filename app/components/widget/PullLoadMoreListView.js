@@ -51,15 +51,7 @@ class PullLoadMoreListView extends Component {
                 <Text style={{fontSize: 15, color: 'black'}}>
                     {I18n('loadMoreing')}
                 </Text>
-            </View> : <View style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <Text style={{fontSize: 15, color: 'black', margin: Constant.normalMarginEdge}}>
-                    {this.props.dataSource.length > 0 ? I18n('loadMoreEnd') : " "}
-                </Text>
-            </View>;
+            </View> : <View/>;
 
         return (footer);
     }
@@ -108,7 +100,7 @@ class PullLoadMoreListView extends Component {
             colors: [Constant.primaryColor, Constant.primaryLightColor],
         };
 
-        let emptyView = (!this.props.hasOwnProperty("renderHeader")) ?
+        let emptyView = /*(!this.props.hasOwnProperty("renderHeader")) ?
             <View style={[styles.centered, {
                 flex: 1,
                 height: this.state.listHeight
@@ -125,7 +117,7 @@ class PullLoadMoreListView extends Component {
                         {I18n("listEmpty")}
                     </Text>
                 </TouchableOpacity>
-            </View> : <View/>;
+            </View> : */<View/>;
         return (
             <FlatList
                 style={{backgroundColor: this.props.bgColor, flex: 1}}

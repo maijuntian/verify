@@ -219,30 +219,32 @@ class ProductListPage extends Component {
                                               }}>
                                 <View
                                     style={[{
-                                        paddingLeft: 10,
-                                        paddingTop: 10,
-                                        paddingRight: 10,
-                                        paddingBottom: 20,
-                                        width: ((screenWidth - 12) / 2),
+                                        width: ((screenWidth - 30) / 2),
                                         marginRight: marginRight,
-                                        marginLeft: 4,
-                                        marginTop: 4,
-
+                                        marginLeft: 10,
+                                        marginTop: 10,
                                     }, styles.mainBgColor, styles.flexDirectionColumnNotFlex]}>
-                                    <Image style={[{height: 180, width: (screenWidth - 12) / 2 - 20}]}
+                                    <Image style={[{height: (screenWidth - 30) / 2, width: (screenWidth - 30) / 2}]}
                                            source={{uri: item.icon}}
-                                           resizeMode={"center"}/>
+                                           resizeMode={"stretch"}/>
 
-                                    <Text style={[styles.normalTextGrayCharter]}
-                                          numberOfLines={1}
-                                          ellipsizeMode='tail'>{item.productName}</Text>
-
-                                    <View style={[styles.flexDirectionRowNotFlex]}>
-                                        <Text style={[styles.minTextBlack]}>{item.points} {i18n("Integral")}</Text>
+                                    <View style={[{height: 75}]}>
                                         <Text style={[{
-                                            marginLeft: 3,
-                                            textDecorationLine: "line-through"
-                                        }, styles.minTextsGray]}>20000</Text>
+                                            marginLeft: 10,
+                                            marginTop: 14,
+                                            marginRight: 30
+                                        }, styles.sminText9Dgray]}
+                                              numberOfLines={2}
+                                              ellipsizeMode='tail'>{item.productName}</Text>
+
+                                        <View style={[{marginLeft: 10, marginTop: 5}, styles.flexDirectionRowNotFlex, styles.centerH]}>
+                                            <Text
+                                                style={[styles.smallTextBlack]}>{item.points} {i18n("Integral")}</Text>
+                                            <Text style={[{
+                                                marginLeft: 5,
+                                                textDecorationLine: "line-through"
+                                            }, styles.minTextsGray]}>20000</Text>
+                                        </View>
                                     </View>
                                 </View>
                             </TouchableOpacity>

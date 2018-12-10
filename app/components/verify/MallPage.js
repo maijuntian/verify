@@ -90,7 +90,8 @@ class MallPage extends Component {
                     </ImageBackground>
 
                     <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10, paddingBottom: 10}]}>
-                        <Text style={[{marginTop: 5}, styles.largeTextBlackCharter]}>{this.state.userInfo.name}</Text>
+                        <Text
+                            style={[{marginTop: 5}, styles.largeTextBlackCharter]}>{this.state.userInfo.nickname}</Text>
                         <Text style={[{marginTop: 5}, styles.subMinText]}>1261 {I18n("Integral")}</Text>
                         <Text style={[{marginTop: -3}, styles.subMinText]}></Text>
                     </View>
@@ -122,7 +123,7 @@ class MallPage extends Component {
 
                 <View style={[{marginTop: 15, marginLeft: 30}, styles.flexDirectionColumnNotFlex]}>
                     <View style={[styles.flexDirectionRowNotFlex, {height: 20}]}>
-                        <Text style={[styles.subMinText, {marginTop: -1}]}>{I18n("Rank")}:</Text>
+                        <Text style={[styles.b40MinText, {marginTop: -1}]}>{I18n("Rank")}:</Text>
                         <Image style={[{marginLeft: 4, height: 15, width: 15}]}
                                source={require("../../img/silver.png")}/>
                         <View style={[
@@ -181,7 +182,7 @@ class MallPage extends Component {
                                 borderRadius: 5
                             },
                                 styles.flexDirectionRowNotFlex, styles.centered]}>
-                            <Text style={[styles.minTextBlack]}>{I18n("Promotion")} ▸</Text>
+                            <Text style={[styles.b40MinText]}>{I18n("Promotion")} ▸</Text>
                         </View>
 
                         <Text
@@ -199,7 +200,7 @@ class MallPage extends Component {
                                 height: 18,
                             }, styles.centered]}>
                                 <CommonIconText
-                                    textStyle={[styles.minTextBlack]}
+                                    textStyle={[styles.b40MinText]}
                                     text={I18n("Check_in")}
                                     icon={require("../../img/check_in1.png")}
                                     iconStyle={[{height: 7, width: 9}]}/>
@@ -225,7 +226,7 @@ class MallPage extends Component {
                         }}>
                             <View style={[styles.flexDirectionRowNotFlex, styles.centerH,]}>
                                 <Text
-                                    style={[styles.subSmallText]}>{I18n("More")}</Text>
+                                    style={[styles.gray6ASmallText]}>{I18n("More")}</Text>
 
                                 <Icon
                                     name={"chevron-right"}
@@ -254,7 +255,7 @@ class MallPage extends Component {
                 ListHeaderComponent={this._renderHeader()}
                 numColumns={2}
                 renderItem={({item, index}) => {
-                    let marginRight = index % 2 === 0 ? 0 : 4;
+                    let marginRight = index % 2 === 0 ? 0 : 10;
                     return (
                         <TouchableOpacity activeOpacity={constant.activeOpacity}
                                           onPress={() => {
@@ -262,30 +263,32 @@ class MallPage extends Component {
                                           }}>
                             <View
                                 style={[{
-                                    paddingLeft: 10,
-                                    paddingTop: 10,
-                                    paddingRight: 10,
-                                    paddingBottom: 20,
-                                    width: ((screenWidth - 12) / 2),
+                                    width: ((screenWidth - 30) / 2),
                                     marginRight: marginRight,
-                                    marginLeft: 4,
-                                    marginTop: 4,
-
+                                    marginLeft: 10,
+                                    marginTop: 10,
                                 }, styles.mainBgColor, styles.flexDirectionColumnNotFlex]}>
-                                <Image style={[{height: 180, width: (screenWidth - 12) / 2 - 20}]}
+                                <Image style={[{height: (screenWidth - 30) / 2, width: (screenWidth - 30) / 2}]}
                                        source={{uri: item.icon}}
-                                       resizeMode={"center"}/>
+                                       resizeMode={"stretch"}/>
 
-                                <Text style={[styles.normalTextGrayCharter]}
-                                      numberOfLines={1}
-                                      ellipsizeMode='tail'>{item.productName}</Text>
-
-                                <View style={[styles.flexDirectionRowNotFlex]}>
-                                    <Text style={[styles.minTextBlack]}>{item.points} {I18n("Integral")}</Text>
+                                <View style={[{height: 75}]}>
                                     <Text style={[{
-                                        marginLeft: 3,
-                                        textDecorationLine: "line-through"
-                                    }, styles.minTextsGray]}>20000</Text>
+                                        marginLeft: 10,
+                                        marginTop: 14,
+                                        marginRight: 30
+                                    }, styles.sminText9Dgray]}
+                                          numberOfLines={2}
+                                          ellipsizeMode='tail'>{item.productName}</Text>
+
+                                    <View style={[{marginLeft: 10, marginTop: 5}, styles.flexDirectionRowNotFlex, styles.centerH]}>
+                                        <Text
+                                            style={[styles.smallTextBlack]}>{item.points} {I18n("Integral")}</Text>
+                                        <Text style={[{
+                                            marginLeft: 5,
+                                            textDecorationLine: "line-through"
+                                        }, styles.minTextsGray]}>20000</Text>
+                                    </View>
                                 </View>
                             </View>
                         </TouchableOpacity>
