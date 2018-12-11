@@ -181,6 +181,8 @@ I18n.translations = {
         Order_number:"Order number",
         Order_date:"Order date",
         Activity:"Activity",
+        Success:"Success",
+        Fail:"Fail",
     }
 };
 

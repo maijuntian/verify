@@ -93,8 +93,8 @@ class MePage extends Component {
                     <View style={[{marginTop: 15, marginLeft: 30,}, styles.flexDirectionRowNotFlex,]}>
                         <View style={[styles.flexDirectionRowNotFlex, styles.centered]}>
 
-                            <Image style={[{height: 12, width: 12},]}
-                                   source={require("../../img/integral.png")}/>
+                            <Image style={[{height: 18, width: 18},]}
+                                   source={require("../../img/integral_2.png")}/>
 
                             <Text style={[{
                                 marginLeft: 5,
@@ -111,8 +111,8 @@ class MePage extends Component {
                         }]}>
                             <View style={[styles.flexDirectionRowNotFlex, styles.centered]}>
 
-                                <Image style={[{height: 12, width: 12},]}
-                                       source={require("../../img/grow_up.png")}/>
+                                <Image style={[{height: 18, width: 18},]}
+                                       source={require("../../img/grow_up_2.png")}/>
 
                                 <Text style={[{
                                     marginLeft: 5,
