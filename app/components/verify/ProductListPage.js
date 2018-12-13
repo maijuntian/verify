@@ -211,7 +211,8 @@ class ProductListPage extends Component {
                     ref="pullList"
                     render
                     renderRow={(item, index) => {
-                        let marginRight = index % 2 === 0 ? 0 : 4;
+                        let dividerW = screenWidth * 0.02;
+                        let marginRight = index % 2 === 0 ? 0 : dividerW;
                         return (
                             <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                               onPress={() => {
@@ -219,12 +220,12 @@ class ProductListPage extends Component {
                                               }}>
                                 <View
                                     style={[{
-                                        width: ((screenWidth - 30) / 2),
+                                        width: ((screenWidth - dividerW*3) / 2),
                                         marginRight: marginRight,
-                                        marginLeft: 10,
-                                        marginTop: 10,
+                                        marginLeft: dividerW,
+                                        marginTop: dividerW,
                                     }, styles.mainBgColor, styles.flexDirectionColumnNotFlex]}>
-                                    <Image style={[{height: (screenWidth - 30) / 2, width: (screenWidth - 30) / 2}]}
+                                    <Image style={[{height: (screenWidth - dividerW*3) / 2, width: (screenWidth - dividerW*3) / 2}]}
                                            source={{uri: item.icon}}
                                            resizeMode={"stretch"}/>
 

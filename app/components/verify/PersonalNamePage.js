@@ -9,6 +9,7 @@ import i18n from "../../style/i18n";
 import * as Constant from "../../style/constant";
 import Icon from 'react-native-vector-icons/Feather'
 import BaseTitlePage from "../widget/BaseTitlePage";
+import vUserDao from "../../dao/vUserDao";
 
 /**
  * 登录
@@ -17,6 +18,21 @@ class PersonalNamePage extends BaseTitlePage {
 
     constructor(props) {
         super(props);
+        this.state={
+            userInfo: {},
+        }
+    }
+
+    componentDidMount() {
+        this.initUserInfo();
+    }
+
+    initUserInfo() {
+        vUserDao.localUserInfo().then((res) => {
+            this.setState({
+                userInfo: res
+            });
+        })
     }
 
     _title() {
@@ -46,7 +62,7 @@ class PersonalNamePage extends BaseTitlePage {
                     <TextInput
                         style={[styles.middleTexBlackCharter, {width: 250, textAlign: "right"}]}
                         underlineColorAndroid='transparent'>
-                        Lisa Lewis
+                        {this.state.userInfo.nickname}
                     </TextInput>
                 </View>
 

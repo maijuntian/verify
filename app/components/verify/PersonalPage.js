@@ -10,6 +10,7 @@ import i18n from "../../style/i18n";
 import * as Constant from "../../style/constant";
 import Icon from 'react-native-vector-icons/Feather'
 import {Actions} from "react-native-router-flux";
+import vUserDao from "../../dao/vUserDao";
 
 /**
  * 个人资料
@@ -18,10 +19,25 @@ class PersonalPage extends BaseTitlePage {
 
     constructor(props) {
         super(props);
+        this.state={
+            userInfo: {},
+        }
+    }
+
+    componentDidMount() {
+        this.initUserInfo();
     }
 
     _title() {
         return i18n("Personal")
+    }
+
+    initUserInfo() {
+        vUserDao.localUserInfo().then((res) => {
+            this.setState({
+                userInfo: res
+            });
+        })
     }
 
     _reader() {
@@ -45,7 +61,7 @@ class PersonalPage extends BaseTitlePage {
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
                         <Image style={[{height: 40, width: 40}]}
-                               source={require("../../img/picture_girl.png")}/>
+                               source={{uri: this.state.userInfo.icon}}/>
 
                         <Icon
                             style={[{marginLeft: 12}]}
@@ -73,7 +89,7 @@ class PersonalPage extends BaseTitlePage {
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
-                        <Text style={[{}, styles.middleTexBlackCharter]}>Lisa Lewis</Text>
+                        <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.nickname}</Text>
 
                         <Icon
                             style={[{marginLeft: 12}]}
@@ -100,7 +116,7 @@ class PersonalPage extends BaseTitlePage {
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
-                        <Text style={[{}, styles.middleTexBlackCharter]}>Female</Text>
+                        <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.sex}</Text>
 
                         <Icon
                             style={[{marginLeft: 12}]}
@@ -128,7 +144,7 @@ class PersonalPage extends BaseTitlePage {
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
-                        <Text style={[{}, styles.middleTexBlackCharter]}>2018/10/24</Text>
+                        <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.birthday}</Text>
 
                         <Icon
                             style={[{marginLeft: 12}]}

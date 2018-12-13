@@ -36,7 +36,7 @@ class ProductHistoryPage extends BaseTitlePage {
                 product: {},
                 tracingResults: [],
             },
-            index: 0,
+            index: 1,
             infos: [{key: "1"}, {key: "2"}],
             routes: [
                 {key: '1', title: I18n('INFO')},
@@ -237,9 +237,9 @@ class ProductHistoryPage extends BaseTitlePage {
         )
     }
 
-    _renderScene = ({route}) => {
-        switch (route.key) {
-            case '1':
+    _renderScene = () => {
+        switch (this.state.index) {
+            case 1:
                 let dataList = this.state.data.tracingResults;
                 let items = [];
                 dataList.forEach((data, index) => {
@@ -251,7 +251,7 @@ class ProductHistoryPage extends BaseTitlePage {
                         {items}
                     </View>
                 );
-            case '2':
+            case 2:
                 return (
                     <View style={{backgroundColor: Constant.grayBg, height: screenWidth * 1.3}}>
                         <Image style={[{height: screenWidth * 1.3, width: screenWidth}]}
@@ -264,6 +264,7 @@ class ProductHistoryPage extends BaseTitlePage {
     }
 
     _reader() {
+        let bottomView = this._renderScene();
         return (
             <ScrollView>
                 <View style={styles.mainBox}>
@@ -293,25 +294,55 @@ class ProductHistoryPage extends BaseTitlePage {
                         </View>
                     </View>
 
-                    <TabView
-                        style={{
-                            flex: 1,
-                            // height: this.state.index === 0 ? 240 * 3 + 100 : screenWidth * 1.3
-                        }}
-                        lazy={true}
-                        swipeEnabled={true}
-                        navigationState={this.state}
-                        renderScene={this._renderScene.bind(this)}
-                        renderTabBar={this._renderHeader}
-                        renderPager={this._renderPager}
-                        onIndexChange={this._handleIndexChange}
-                        initialLayout={{
-                            height: 0,
-                            width: Dimensions.get('window').width,
-                        }}
-                        useNativeDriver
-                    />
+                    <View style={[{marginTop: 14}, styles.flexDirectionRowNotFlex,]}>
+
+                        <TouchableOpacity activeOpacity={1} onPress={() => {
+                            if (this.state.index !== 1) {
+                                this.setState({index : 1});
+                            }
+                        }}>
+                            <View style={[{
+                                paddingVertical: 8,
+                                width: screenWidth / 2,
+                            }, styles.flexDirectionRowNotFlex, styles.centered]}>
+
+                                <Text
+                                    style={[(this.state.index === 1) ? styles.minTextBlack : styles.minTextsGray]}>{I18n("INFO")}</Text>
+
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} onPress={() => {
+                            if (this.state.index !== 2) {
+                                this.setState({index : 2});
+                            }
+                        }}>
+                            <View style={[{
+                                paddingVertical: 8,
+                                width: screenWidth / 2,
+                            }, styles.flexDirectionRowNotFlex, styles.centered]}>
+
+                                <Text
+                                    style={[(this.state.index === 2) ? styles.minTextBlack : styles.minTextsGray]}>{I18n("JOURNEY")}</Text>
+
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.flexDirectionRowNotFlex,]}>
+                        <View style={[{
+                            marginLeft: 15,
+                            width: screenWidth / 2 - 30,
+                            height: 2,
+                            backgroundColor: (this.state.index === 1) ? Constant.grayBlue : Constant.white
+                        }]}/>
+                        <View style={[{
+                            marginLeft: 30,
+                            width: screenWidth / 2 - 30,
+                            height: 2,
+                            backgroundColor: (this.state.index === 2) ? Constant.grayBlue : Constant.white
+                        }]}/>
+                    </View>
                 </View>
+                {bottomView}
             </ScrollView>
         )
     }

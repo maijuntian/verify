@@ -13,6 +13,7 @@ import {Actions} from 'react-native-router-flux'
 import * as Config from "../../config";
 import vUserDao from "../../dao/vUserDao";
 import AddressPage from "./AddressPage";
+import RankInterestsPage from "./RankInterestsPage";
 
 /**
  * 我的
@@ -144,6 +145,9 @@ class MePage extends Component {
                                         break;
                                     case 2:
                                         Actions.GiftListPage();
+                                        break;
+                                    case 5:
+                                        Actions.RankInterestsPage();
                                         break;
                                     case 6:
                                         Actions.AddressPage();

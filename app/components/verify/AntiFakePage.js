@@ -127,7 +127,7 @@ class AntiFakePage extends BaseTitlePage {
                                                       }}>
                                         <View style={[{height: 46, backgroundColor: Constant.white}, styles.flexDirectionColumnNotFlex]}>
 
-                                            <View style={[styles.dividerLine]}/>
+                                            <View style={[styles.dividerLineE3]}/>
                                             <View style={[styles.flex, styles.centerV,]}>
 
                                                 <Image source={{uri: item.platformIcon}}

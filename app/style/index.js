@@ -308,6 +308,12 @@ const styles = StyleSheet.create({
         width: screenWidth,
         height: 1,
         backgroundColor: "#F6F6F6"
+    },
+
+    dividerLineE3: {
+        width: screenWidth,
+        height: 1,
+        backgroundColor: "#E3E3E3"
     }
 });
 

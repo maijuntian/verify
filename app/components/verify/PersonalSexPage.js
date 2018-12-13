@@ -58,14 +58,14 @@ class PersonalSexPage extends BaseTitlePage {
                     <View
                         style={[styles.flexDirectionRowNotFlex, styles.centerH, {
                             paddingVertical: 20,
-                            paddingLeft: 16,
-                            paddingRight: 20,
+                            paddingLeft: 23,
+                            paddingRight: 32,
                             backgroundColor: Constant.white,
                         }]}>
-                        <Text style={[{color: "#1E1E1E", fontSize: 14}]}>{i18n("Male")}</Text>
+                        <Text style={[{color: "#1E1E1E", fontSize: 18}]}>{i18n("Male")}</Text>
 
                         <View style={[styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
-                            <Image style={[{height: 26, width: 26,}]}
+                            <Image style={[{height: 18, width: 18,}]}
                                    source={checkIcon1}/>
                         </View>
 
@@ -83,14 +83,14 @@ class PersonalSexPage extends BaseTitlePage {
                     <View
                         style={[styles.flexDirectionRowNotFlex, styles.centerH, {
                             paddingVertical: 20,
-                            paddingLeft: 16,
-                            paddingRight: 20,
+                            paddingLeft: 23,
+                            paddingRight: 32,
                             backgroundColor: Constant.white,
                         }]}>
-                        <Text style={[{color: "#1E1E1E", fontSize: 14}]}>{i18n("Female")}</Text>
+                        <Text style={[{color: "#1E1E1E", fontSize: 18}]}>{i18n("Female")}</Text>
 
                         <View style={[styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
-                            <Image style={[{height: 26, width: 26,}]}
+                            <Image style={[{height: 18, width: 18,}]}
                                    source={checkIcon2}/>
                         </View>
                     </View>

@@ -72,7 +72,7 @@ class ProductDetailPage extends BaseTitlePage {
                 }, styles.flexDirectionRowNotFlex, styles.justifyEnd, styles.alignItemsEnd]}>
 
                     <View style={[styles.flexDirectionRow, styles.alignItemsEnd]}>
-                        <Text style={[styles.subMinText, {marginBottom: 3,}]}>{I18n("Integral")}：</Text>
+                        <Text style={[styles.subMinText, {marginBottom: 3,}]}>{I18n("Integral")}:</Text>
                         <Text style={[styles.normalTextBlack]}>{this.state.product.points}</Text>
                         <Text style={[{
                             marginLeft: 5,
@@ -81,10 +81,10 @@ class ProductDetailPage extends BaseTitlePage {
                         }, styles.smallTextGray,]}>20000</Text>
                     </View>
 
-                    <Text style={[{}, styles.subMinText,]}>{I18n("Rank")}</Text>
+                    <Text style={[{}, styles.subMinText,]}>{I18n("Rank")}:</Text>
 
                     <Image source={require("../../img/gold.png")}
-                           style={{height: 14, width: 14, marginLeft: 3}}
+                           style={{height: 14, width: 14,}}
                            resizeMode={"cover"}/>
                 </View>
 

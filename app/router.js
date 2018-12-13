@@ -31,6 +31,7 @@ import PersonalNamePage from "./components/verify/PersonalNamePage";
 import PointsActivityPage from "./components/verify/PointsActivityPage";
 import AddressPage from "./components/verify/AddressPage";
 import GiftListPage from "./components/verify/GiftListPage";
+import RankInterestsPage from "./components/verify/RankInterestsPage";
 
 /**
  * 全局路由
@@ -95,6 +96,7 @@ const getRouter = () => {
                     <Scene key="PointsActivityPage" component={PointsActivityPage}/>
                     <Scene key="AddressPage" component={AddressPage}/>
                     <Scene key="GiftListPage" component={GiftListPage}/>
+                    <Scene key="RankInterestsPage" component={RankInterestsPage}/>
 
 
                 </Scene>

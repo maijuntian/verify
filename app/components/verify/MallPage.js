@@ -73,6 +73,19 @@ class MallPage extends Component {
         let bg_max = "M5 8 l" + maxWidth + " 0";
         let bg_progress = "M5 8 l" + progressWidth + " 0";
         let tipMarginLeft = progressWidth - 10;
+
+        let rankIcon = require("../../img/silver.png");
+        switch (this.state.userInfo.rank){
+            case 1:
+                rankIcon = require("../../img/copper.png");
+                break;
+            case 2:
+                rankIcon = require("../../img/silver.png");
+                break;
+            case 3:
+                rankIcon = require("../../img/gold.png");
+                break;
+        }
         return (
             <View style={styles.mainBox}>
                 <StatusBar hidden={false} backgroundColor={'transparent'} translucent barStyle={'dark-content'}/>
@@ -92,7 +105,7 @@ class MallPage extends Component {
                     <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10, paddingBottom: 10}]}>
                         <Text
                             style={[{marginTop: 5}, styles.largeTextBlackCharter]}>{this.state.userInfo.nickname}</Text>
-                        <Text style={[{marginTop: 5}, styles.subMinText]}>1261 {I18n("Integral")}</Text>
+                        <Text style={[{marginTop: 5}, styles.subMinText]}>{this.state.userInfo.points} {I18n("Integral")}</Text>
                         <Text style={[{marginTop: -3}, styles.subMinText]}></Text>
                     </View>
 
@@ -125,7 +138,7 @@ class MallPage extends Component {
                     <View style={[styles.flexDirectionRowNotFlex, {height: 20}]}>
                         <Text style={[styles.b40MinText, {marginTop: -1}]}>{I18n("Rank")}:</Text>
                         <Image style={[{marginLeft: 4, height: 15, width: 15}]}
-                               source={require("../../img/silver.png")}/>
+                               source={rankIcon}/>
                         <View style={[
                             styles.absoluteFull, styles.flexDirectionColumnNotFlex, styles.centerV, {
                                 marginRight: 30,
@@ -191,13 +204,18 @@ class MallPage extends Component {
                             zIndex: -999,
                             alignItems: 'flex-end',
                         }]}>
+                           {/* <Image source={require("../../img/mall_check_in.png")}
+                                style={{
+                                    width: 86,
+                                    height: 18,}}/>*/}
 
-                            <View style={[{
+                           <View style={[{
                                 borderColor: constant.grayBg,
                                 borderWidth: 1,
                                 borderRadius: 5,
                                 width: 86,
                                 height: 18,
+                               marginRight:-1,
                             }, styles.centered]}>
                                 <CommonIconText
                                     textStyle={[styles.b40MinText]}
@@ -248,6 +266,8 @@ class MallPage extends Component {
 
 
     render() {
+
+        let dividerW = screenWidth * 0.02;
         return (
             <FlatList
                 style={{backgroundColor: constant.grayBg, flex: 1,}}
@@ -255,7 +275,7 @@ class MallPage extends Component {
                 ListHeaderComponent={this._renderHeader()}
                 numColumns={2}
                 renderItem={({item, index}) => {
-                    let marginRight = index % 2 === 0 ? 0 : 10;
+                    let marginRight = index % 2 === 0 ? 0 : dividerW;
                     return (
                         <TouchableOpacity activeOpacity={constant.activeOpacity}
                                           onPress={() => {
@@ -263,12 +283,12 @@ class MallPage extends Component {
                                           }}>
                             <View
                                 style={[{
-                                    width: ((screenWidth - 30) / 2),
+                                    width: ((screenWidth - dividerW*3) / 2),
                                     marginRight: marginRight,
-                                    marginLeft: 10,
-                                    marginTop: 10,
+                                    marginLeft: dividerW,
+                                    marginTop: dividerW,
                                 }, styles.mainBgColor, styles.flexDirectionColumnNotFlex]}>
-                                <Image style={[{height: (screenWidth - 30) / 2, width: (screenWidth - 30) / 2}]}
+                                <Image style={[{height: (screenWidth - dividerW*3) / 2, width: (screenWidth - dividerW*3) / 2}]}
                                        source={{uri: item.icon}}
                                        resizeMode={"stretch"}/>
 
