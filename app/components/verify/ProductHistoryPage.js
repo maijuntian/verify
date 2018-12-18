@@ -105,7 +105,7 @@ class ProductHistoryPage extends BaseTitlePage {
             backgroundColor: "#C5C5C5"
         }]}/> : <View/>;
 
-        let identity = config[data.identity];
+        let identity = data.behavior;
 
         let iconPoint;
         console.log("test--->" + index + "   " + (this.state.data.tracingResults.length - 1))
@@ -115,56 +115,27 @@ class ProductHistoryPage extends BaseTitlePage {
             iconPoint = require("../../img/icon_point2.png");
         }
 
-        let icon;
-        switch (data.identity) {
-            case "MANUFACTURER":
-                icon = require("../../img/info_distillery.png");
-                break;
-            case "LOGISTICS":
-                icon = require("../../img/info_logistics.png");
-                break;
-            case "CUSTOMS":
-                icon = require("../../img/info_customs.png");
-                break;
-            case "DEALER":
-                icon = require("../../img/info_shops.png");
-                break;
-        }
+        /* let icon;
+         switch (data.identity) {
+             case "MANUFACTURER":
+                 icon = require("../../img/info_distillery.png");
+                 break;
+             case "LOGISTICS":
+                 icon = require("../../img/info_logistics.png");
+                 break;
+             case "CUSTOMS":
+                 icon = require("../../img/info_customs.png");
+                 break;
+             case "DEALER":
+                 icon = require("../../img/info_shops.png");
+                 break;
+         }*/
 
         let lineV = index !== this.state.data.tracingResults.length - 1 ? <View style={[{
             width: 1,
             marginTop: -3,
             backgroundColor: "#C5C5C5"
         }, styles.flexDirectionColumn]}/> : <View/>;
-
-        let contentV;
-
-        if (index === 0) {
-            contentV = <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10}]}>
-                <Text
-                    style={[{marginTop: -3}, styles.subSmallText]}>Product</Text>
-                <Text
-                    style={[styles.smallTextBlack, {marginTop: -3}]}>Manuka Honey</Text>
-                <Text
-                    style={[{marginTop: 17}, styles.subSmallText]}>Batch</Text>
-                <Text
-                    style={[styles.smallTextBlack, {marginTop: -3}]}>2 tons</Text>
-            </View>
-        } else if (index === 1) {
-            contentV = <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10}]}>
-                <Text
-                    style={[{marginTop: 20}, styles.subSmallText]}>Logistic Provider</Text>
-                <Text
-                    style={[styles.smallTextBlack, {marginTop: -3}]}>DB Schenker</Text>
-            </View>
-        } else {
-            contentV = <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10}]}>
-                <Text
-                    style={[{marginTop: 20}, styles.subSmallText]}>Retailer</Text>
-                <Text
-                    style={[styles.smallTextBlack, {marginTop: -3}]}>Woolworths</Text>
-            </View>
-        }
 
         let imageView = <Image style={[{height: 75, width: 75,}]}
                                source={{uri: data.imgUrl}}
@@ -177,10 +148,62 @@ class ProductHistoryPage extends BaseTitlePage {
             {imageView}
         </TouchableOpacity> : imageView;
 
+        let contentV;
+
+        if (data.data === null || data.data.length === 0) {
+            contentV = <View/>;
+        } else if (data.data.length === 2) {
+            contentV = <View
+                style={[{marginVertical: 10}, styles.flexDirectionRowNotFlex]}>
+
+                <View style={[{
+                    height: 84,
+                    width: 84,
+                    borderColor: "#E6E6E6",
+                    borderWidth: 1,
+                    borderRadius: 3
+                }, styles.centered]}>
+
+                    {touchImage}
+
+                </View>
+                <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10}]}>
+                    <Text
+                        style={[{marginTop: -3}, styles.subSmallText]}>data.data[0].key</Text>
+                    <Text
+                        style={[styles.smallTextBlack, {marginTop: -3}]}>data.data[0].value</Text>
+                    <Text
+                        style={[{marginTop: 17}, styles.subSmallText]}>data.data[1].key</Text>
+                    <Text
+                        style={[styles.smallTextBlack, {marginTop: -3}]}>data.data[1].value</Text>
+                </View>
+            </View>
+        } else if (data.data.length === 1) {
+            contentV = <View
+                style={[{marginVertical: 10}, styles.flexDirectionRowNotFlex]}>
+
+                <View style={[{
+                    height: 84,
+                    width: 84,
+                    borderColor: "#E6E6E6",
+                    borderWidth: 1,
+                    borderRadius: 3
+                }, styles.centered]}>
+                    {touchImage}
+                </View>
+                <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10}]}>
+                    <Text
+                        style={[{marginTop: 20}, styles.subSmallText]}>data.data[0].key</Text>
+                    <Text
+                        style={[styles.smallTextBlack, {marginTop: -3}]}>data.data[0].value</Text>
+                </View>
+            </View>
+        }
+
         return (
             <View
                 style={[{paddingHorizontal: Constant.normalMarginEdge}, styles.flexDirectionRowNotFlex]}>
-                <Image source={icon}
+                <Image source={{uri: data.identityIcon}}
                        style={{height: 20, width: 20, marginTop: 40}}/>
 
                 <View
@@ -208,23 +231,7 @@ class ProductHistoryPage extends BaseTitlePage {
                         <Text style={[styles.subSmallText]}>{identity}</Text>
                         <Text style={[styles.normalTextBlack_Charter]}>{data.name}</Text>
 
-                        <View
-                            style={[{marginVertical: 10}, styles.flexDirectionRowNotFlex]}>
-
-                            <View style={[{
-                                height: 84,
-                                width: 84,
-                                borderColor: "#E6E6E6",
-                                borderWidth: 1,
-                                borderRadius: 3
-                            }, styles.centered]}>
-
-                                {touchImage}
-
-                            </View>
-
-                            {contentV}
-                        </View>
+                        {contentV}
 
                         <CommonIconText
                             iconStyle={[{height: 10, width: 8}]}
@@ -298,7 +305,7 @@ class ProductHistoryPage extends BaseTitlePage {
 
                         <TouchableOpacity activeOpacity={1} onPress={() => {
                             if (this.state.index !== 1) {
-                                this.setState({index : 1});
+                                this.setState({index: 1});
                             }
                         }}>
                             <View style={[{
@@ -313,7 +320,7 @@ class ProductHistoryPage extends BaseTitlePage {
                         </TouchableOpacity>
                         <TouchableOpacity activeOpacity={1} onPress={() => {
                             if (this.state.index !== 2) {
-                                this.setState({index : 2});
+                                this.setState({index: 2});
                             }
                         }}>
                             <View style={[{

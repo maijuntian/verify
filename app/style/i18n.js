@@ -178,11 +178,16 @@ I18n.translations = {
         Add:"Add",
         Delivered:"Delivered",
         In_Progress:"In Progress",
-        Order_number:"Order number",
-        Order_date:"Order date",
+        Order_number:"Order Number",
+        Order_date:"Order Date",
         Activity:"Activity",
         Success:"Success",
         Fail:"Fail",
+        Select_from_album:"Select from album",
+        Take_a_picture:"Take a picture",
+        Cancel:"Cancel",
+        Please_choose:"Please Choose",
+        Delivery_Date:"Delivery Date",
     }
 };
 
