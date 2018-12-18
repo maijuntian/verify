@@ -169,13 +169,13 @@ class ProductHistoryPage extends BaseTitlePage {
                 </View>
                 <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10}]}>
                     <Text
-                        style={[{marginTop: -3}, styles.subSmallText]}>data.data[0].key</Text>
+                        style={[{marginTop: -3}, styles.subSmallText]}>{data.data[0].key}</Text>
                     <Text
-                        style={[styles.smallTextBlack, {marginTop: -3}]}>data.data[0].value</Text>
+                        style={[styles.smallTextBlack, {marginTop: -3}]}>{data.data[0].value}</Text>
                     <Text
-                        style={[{marginTop: 17}, styles.subSmallText]}>data.data[1].key</Text>
+                        style={[{marginTop: 17}, styles.subSmallText]}>{data.data[1].key}</Text>
                     <Text
-                        style={[styles.smallTextBlack, {marginTop: -3}]}>data.data[1].value</Text>
+                        style={[styles.smallTextBlack, {marginTop: -3}]}>{data.data[1].value}</Text>
                 </View>
             </View>
         } else if (data.data.length === 1) {
@@ -193,9 +193,9 @@ class ProductHistoryPage extends BaseTitlePage {
                 </View>
                 <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10}]}>
                     <Text
-                        style={[{marginTop: 20}, styles.subSmallText]}>data.data[0].key</Text>
+                        style={[{marginTop: 20}, styles.subSmallText]}>{data.data[0].key}</Text>
                     <Text
-                        style={[styles.smallTextBlack, {marginTop: -3}]}>data.data[0].value</Text>
+                        style={[styles.smallTextBlack, {marginTop: -3}]}>{data.data[0].value}</Text>
                 </View>
             </View>
         }
@@ -204,7 +204,8 @@ class ProductHistoryPage extends BaseTitlePage {
             <View
                 style={[{paddingHorizontal: Constant.normalMarginEdge}, styles.flexDirectionRowNotFlex]}>
                 <Image source={{uri: data.identityIcon}}
-                       style={{height: 20, width: 20, marginTop: 40}}/>
+                       style={{height: 20, width: 20, marginTop: 40}}
+                       resizeMode={"center"}/>
 
                 <View
                     style={[{marginLeft: 2}, styles.flexDirectionColumnNotFlex, styles.centerH]}>

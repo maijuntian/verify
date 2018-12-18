@@ -25,6 +25,7 @@
     "react-native-image-picker": "^0.26.10",
     "react-native-image-zoom-viewer": "^2.0.14",
     "react-native-lewin-qrcode": "^1.0.1",
+    "react-native-maps": "^0.22.1",
     "react-native-modal-dropdown": "^0.5.0",
     "react-native-modalbox": "^1.4.2",
     "react-native-root-toast": "^2.2.0",

@@ -76,27 +76,44 @@ class AntiFakePage extends BaseTitlePage {
                                   onPress={() => {
                                   }}/>
         </View>);
+        let resultView;
+        switch (this.state.code){
+            case 200:
+                resultView = <View style={[styles.centerH, styles.flexDirectionColumnNotFlex]}>
+                    <Text
+                        style={[styles.subSmallText, {marginTop: 80}]}>{I18n("Viverify_Code")}</Text>
+                    <Text
+                        style={[styles.superLargeTextBlackCharter]}>{this.state.data.manufacturerCode}</Text>
+                    <Text style={[styles.subSmallText, {
+                        marginTop: 10,
+                        marginBottom: 80,
+                        textAlign: 'center'
+                    }]}>{I18n("anti_fake_tip3")}</Text>
+                    {button}
+                </View>;
+                break;
+            case 410:
+                resultView = <View style={[styles.centerH, styles.flexDirectionColumnNotFlex]}>
+                    <Text style={[styles.subSmallText, {
+                        marginTop: 120,
+                        marginBottom: 120,
+                        textAlign: 'center'
+                    }]}>{I18n("anti_fake_tip33")}</Text>
+                    {button}
+                </View>;
+                break;
+            case 208:
+                resultView = <View style={[styles.centerH, styles.flexDirectionColumnNotFlex]}>
+                    <Text style={[styles.subSmallText, {
+                        marginTop: 120,
+                        marginBottom: 120,
+                        textAlign: 'center'
+                    }]}>{I18n("anti_fake_tip33")}</Text>
+                    {button}
+                </View>;
+                break;
+        }
 
-        let resultView = (this.state.code === 200 ? <View style={[styles.centerH, styles.flexDirectionColumnNotFlex]}>
-                <Text
-                    style={[styles.subSmallText, {marginTop: 80}]}>{I18n("Viverify_Code")}</Text>
-                <Text
-                    style={[styles.superLargeTextBlackCharter]}>{this.state.data.manufacturerCode}</Text>
-                <Text style={[styles.subSmallText, {
-                    marginTop: 10,
-                    marginBottom: 80,
-                    textAlign: 'center'
-                }]}>{I18n("anti_fake_tip3")}</Text>
-                {button}
-            </View> :
-            <View style={[styles.centerH, styles.flexDirectionColumnNotFlex]}>
-                <Text style={[styles.subSmallText, {
-                    marginTop: 120,
-                    marginBottom: 120,
-                    textAlign: 'center'
-                }]}>{I18n("anti_fake_tip33")}</Text>
-                {button}
-            </View>);
 
         return (
             <View style={[{backgroundColor: Constant.grayBg}, styles.flexDirectionColumn]}>

@@ -42,6 +42,23 @@ class ProductDetailPage extends BaseTitlePage {
 
 
     _reader() {
+
+        let rankIcon;
+        switch(this.state.product.needUserGrade){
+            case "Gold":
+                rankIcon = require("../../img/gold.png");
+                break;
+            case "Silver":
+                rankIcon = require("../../img/silver.png");
+                break;
+            case "Copper":
+                rankIcon = require("../../img/copper.png");
+                break;
+            default:
+                rankIcon = require("../../img/gold.png");
+                break;
+        }
+
         return (
             <View style={[styles.flexDirectionColumn]}>
                 <Image source={{uri: this.state.product.focusImg}}
@@ -72,18 +89,18 @@ class ProductDetailPage extends BaseTitlePage {
                 }, styles.flexDirectionRowNotFlex, styles.justifyEnd, styles.alignItemsEnd]}>
 
                     <View style={[styles.flexDirectionRow, styles.alignItemsEnd]}>
-                        <Text style={[styles.subMinText, {marginBottom: 3,}]}>{I18n("Integral")}:</Text>
-                        <Text style={[styles.normalTextBlack]}>{this.state.product.points}</Text>
+                        <Text style={[styles.subMinText, {marginBottom: 3,}]}>{I18n("Integral")}:  </Text>
+                        <Text style={[styles.normalTextBlack]}>{this.state.product.discount}</Text>
                         <Text style={[{
                             marginLeft: 5,
                             marginBottom: 2,
                             textDecorationLine: "line-through",
-                        }, styles.smallTextGray,]}>20000</Text>
+                        }, styles.smallTextGray,]}>{this.state.product.points}</Text>
                     </View>
 
-                    <Text style={[{}, styles.subMinText,]}>{I18n("Rank")}:</Text>
+                    <Text style={[{}, styles.subMinText,]}>{I18n("Rank")}:  </Text>
 
-                    <Image source={require("../../img/gold.png")}
+                    <Image source={rankIcon}
                            style={{height: 14, width: 14,}}
                            resizeMode={"cover"}/>
                 </View>

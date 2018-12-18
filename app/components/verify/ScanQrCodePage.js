@@ -119,7 +119,7 @@ class ScanQrCodePage extends Component {
         product.authentication(codeStr).then((res) => {
             this.exitLoading();
 
-            if (res.code && (res.code === 200 || res.code === 410)) {
+            if (res.code && (res.code === 200 || res.code === 410 )) {
                 if (codeStr.indexOf("tracing") !== -1) {
                     // Actions.ProductHistoryPage({"responseStr": JSON.stringify(res.data)});
                     Actions.replace("ProductHistoryPage", {"responseStr": JSON.stringify(res.data)});

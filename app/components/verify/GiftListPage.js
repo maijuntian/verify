@@ -150,6 +150,52 @@ class GiftListPage extends BaseTitlePage {
                     ref="pullList"
                     render
                     renderRow={(item, index) => {
+
+                        let centerV;
+
+                        if(this.state.sort === 1){
+                            centerV = <View
+                                style={[{
+                                    width: screenWidth - 210,
+                                    marginLeft: 13
+                                }, styles.flexDirectionColumnNotFlex, ]}>
+
+                                <Text
+                                    style={styles.normalTextBlack_Charter}>{item.item[0].productName}</Text>
+
+                                <View style={[styles.flexDirectionRowNotFlex,]}>
+                                    <Text style={styles.sminText9Dgray}>{i18n("Order_number")}：</Text>
+                                    <Text style={styles.sminTextBlack}>{item.recordsNumber}</Text>
+                                </View>
+                                <View style={[styles.flexDirectionRowNotFlex,]}>
+                                    <Text style={styles.sminText9Dgray}>{i18n("Delivery_Date")}：</Text>
+                                    <Text style={styles.sminTextBlack}>{item.deliveryTime}</Text>
+                                </View>
+                            </View>;
+                        } else {
+                            centerV = <View
+                                style={[{
+                                    width: screenWidth - 210,
+                                    marginLeft: 13
+                                }, styles.flexDirectionColumnNotFlex, ]}>
+
+                                <Text
+                                    style={styles.normalTextBlack_Charter}>{item.item[0].productName}</Text>
+
+                                <View style={[styles.flexDirectionRowNotFlex,]}>
+                                    <Text style={styles.sminText9Dgray}>{i18n("Tracking_Number")}：</Text>
+                                    <Text style={styles.sminTextBlack}>{item.trackingNumber}</Text>
+                                </View>
+                                <View style={[styles.flexDirectionRowNotFlex,]}>
+                                    <Text style={styles.sminText9Dgray}>{i18n("Logistics")}：</Text>
+                                    <Text style={styles.sminTextBlack}>{item.logistics}</Text>
+                                </View>
+                                <View style={[styles.flexDirectionRowNotFlex,]}>
+                                    <Text style={styles.sminText9Dgray}>{i18n("Order_date")}：</Text>
+                                    <Text style={styles.sminTextBlack}>{item.createTime}</Text>
+                                </View>
+                            </View>;
+                        }
                         return (
                             <View style={[styles.flexDirectionColumnNotFlex]}>
                                 <TouchableOpacity activeOpacity={Constant.activeOpacity}
@@ -163,25 +209,7 @@ class GiftListPage extends BaseTitlePage {
                                         <Image style={[{height: 85, width: 85}]}
                                                source={{uri: item.item[0].productIcon}}
                                                resizeMode={"center"}/>
-
-                                        <View
-                                            style={[{
-                                                width: screenWidth - 210,
-                                                marginLeft: 13
-                                            }, styles.flexDirectionColumnNotFlex, ]}>
-
-                                            <Text
-                                                style={styles.normalTextBlack_Charter}>{item.item[0].productName}</Text>
-
-                                            <View style={[styles.flexDirectionRowNotFlex,]}>
-                                                <Text style={styles.sminText9Dgray}>{i18n("Order_number")}：</Text>
-                                                <Text style={styles.sminTextBlack}>{item.recordsUUID}</Text>
-                                            </View>
-                                            <View style={[styles.flexDirectionRowNotFlex,]}>
-                                                <Text style={styles.sminText9Dgray}>{i18n("Order_date")}：</Text>
-                                                <Text style={styles.sminTextBlack}>{item.createTime}</Text>
-                                            </View>
-                                        </View>
+                                        {centerV}
 
                                         <View style={[{
                                             width: 90,

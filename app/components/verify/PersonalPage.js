@@ -60,7 +60,7 @@ class PersonalPage extends BaseTitlePage {
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
-                        <Image style={[{height: 40, width: 40}]}
+                        <Image style={[{height: 40, width: 40, borderRadius: 20}]}
                                source={{uri: this.state.userInfo.icon}}/>
 
                         <Icon
