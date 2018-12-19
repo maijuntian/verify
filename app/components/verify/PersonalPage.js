@@ -11,6 +11,31 @@ import * as Constant from "../../style/constant";
 import Icon from 'react-native-vector-icons/Feather'
 import {Actions} from "react-native-router-flux";
 import vUserDao from "../../dao/vUserDao";
+import ImagePicker from "react-native-image-picker";
+
+const options = {
+    title: i18n("Please_choose"),
+    cancelButtonTitle: i18n("Cancel"),
+    takePhotoButtonTitle: i18n("Take_a_picture"),
+    chooseFromLibraryButtonTitle: i18n("Select_from_album"),
+    cameraType: 'front',
+    mediaType: 'photo',
+    videoQuality: 'high',
+    durationLimit: 10,
+    maxWidth: 600,
+    maxHeight: 600,
+    aspectX: 1,
+    aspectY: 1,
+    quality: 0.8,
+    angle: 0,
+    allowsEditing: false,
+    noData: false,
+    storageOptions: {
+        skipBackup: true,
+        path: 'images',
+        cameraRoll: true,
+    }
+};
 
 /**
  * 个人资料
@@ -19,7 +44,8 @@ class PersonalPage extends BaseTitlePage {
 
     constructor(props) {
         super(props);
-        this.state={
+        this._showPickerImage = this._showPickerImage.bind(this);
+        this.state = {
             userInfo: {},
         }
     }
@@ -40,6 +66,19 @@ class PersonalPage extends BaseTitlePage {
         })
     }
 
+    _showPickerImage() {
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log(response);
+            if (response.didCancel) {
+            } else if (response.error) {
+                console.log("ImagePicker error-->" + response.error);
+            } else {
+                console.log("ImagePicker uri-->" + response.uri);
+                console.log("ImagePicker data-->" + response.data);
+            }
+        })
+    }
+
     _reader() {
 
         return (
@@ -52,9 +91,7 @@ class PersonalPage extends BaseTitlePage {
                         paddingLeft: 16,
                         paddingRight: 10
                     }]}
-                    onPress={() => {
-
-                    }}>
+                    onPress={this._showPickerImage()}>
 
                     <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Picture")}</Text>
 
