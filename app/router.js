@@ -32,6 +32,7 @@ import PointsActivityPage from "./components/verify/PointsActivityPage";
 import AddressPage from "./components/verify/AddressPage";
 import GiftListPage from "./components/verify/GiftListPage";
 import RankInterestsPage from "./components/verify/RankInterestsPage";
+import {TestPage} from "./components/verify/TestPage";
 
 /**
  * 全局路由
@@ -46,7 +47,7 @@ const getRouter = () => {
                 BackUtils()}>
             <Lightbox>
                 <Scene key="main">
-                    <Scene key="WelcomePage" component={WelcomePage} hideNavBar hideTabBar hide/>
+                    <Scene key="TestPage" component={TestPage} hideNavBar hideTabBar hide/>
                 </Scene>
                 <Scene key="root"
                        hideNavBar>
