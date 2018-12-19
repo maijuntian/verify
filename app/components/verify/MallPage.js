@@ -303,11 +303,11 @@ class MallPage extends Component {
 
                                     <View style={[{marginLeft: 10, marginTop: 5}, styles.flexDirectionRowNotFlex, styles.centerH]}>
                                         <Text
-                                            style={[styles.smallTextBlack]}>{item.points} {I18n("Integral")}</Text>
+                                            style={[styles.smallTextBlack]}>{item.discount} {I18n("Integral")}</Text>
                                         <Text style={[{
                                             marginLeft: 5,
                                             textDecorationLine: "line-through"
-                                        }, styles.minTextsGray]}>20000</Text>
+                                        }, styles.minTextsGray]}>{item.points}</Text>
                                     </View>
                                 </View>
                             </View>

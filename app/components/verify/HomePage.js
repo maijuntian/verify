@@ -20,13 +20,14 @@ class HomePage extends Component {
     }
 
     render() {
-
+        iconWidth = screenWidth * 0.417;
+        iconHeight = iconWidth*0.6622;
         return (
             <View style={[styles.mainBox, styles.centerH]}>
                 <StatusBar hidden={false} backgroundColor={'transparent'} translucent barStyle={'dark-content'}/>
                 <Image source={require("../../img/logo.png")}
                        resizeMode={"stretch"}
-                       style={[{height: 100, width: screenWidth * 0.417, marginTop: 100 + statusHeight}]}/>
+                       style={[{height: iconHeight, width: screenWidth * 0.417, marginTop: 100 + statusHeight}]}/>
 
 
                 <View style={[{marginTop: 70, marginLeft: 16, marginRight: 16}, styles.flexDirectionRowNotFlex]}>
@@ -54,7 +55,7 @@ class HomePage extends Component {
                         zIndex: -999,
                         justifyContent: "flex-end"
                     }, {marginBottom: 40}]}>
-                    <Text style={[Constant.sminTextSize, {color: "#C4C4C4"}]}>{I18n("home_tip")}</Text>
+                    <Text style={[{color: "#C4C4C4", fontSize:12}]}>{I18n("home_tip")}</Text>
                 </View>
             </View>
         )
