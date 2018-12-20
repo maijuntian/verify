@@ -19,6 +19,9 @@ const userinfo = async () => {
     }
     return res.data;
 }
+const saveLocalUserInfo = async (data) => {
+    return AsyncStorage.setItem(Constant.USER_INFOV, JSON.stringify(data));
+}
 
 const localUserInfo = async () => {
     let userInfo = await AsyncStorage.getItem(Constant.USER_INFOV);
@@ -52,11 +55,18 @@ const giftList = async (params) => {
     return res.data;
 }
 
+const updateInfo = async (params) => {
+    let res = await Api.netFetch(API + "/user/info/base/update", "POST", params, true, null, false);
+    return res.data;
+}
+
 
 export default {
     login,
     userinfo,
     localUserInfo,
+    saveLocalUserInfo,
+    updateInfo,
     pointsHistory,
     addressList,
     giftList,

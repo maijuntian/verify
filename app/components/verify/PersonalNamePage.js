@@ -18,8 +18,9 @@ class PersonalNamePage extends BaseTitlePage {
 
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             userInfo: {},
+            nickname: "",
         }
     }
 
@@ -30,7 +31,8 @@ class PersonalNamePage extends BaseTitlePage {
     initUserInfo() {
         vUserDao.localUserInfo().then((res) => {
             this.setState({
-                userInfo: res
+                userInfo: res,
+                nickname: res.nickname
             });
         })
     }
@@ -61,8 +63,9 @@ class PersonalNamePage extends BaseTitlePage {
 
                     <TextInput
                         style={[styles.middleTexBlackCharter, {width: 250, textAlign: "right"}]}
-                        underlineColorAndroid='transparent'>
-                        {this.state.userInfo.nickname}
+                        underlineColorAndroid='transparent'
+                        onChangeText={(text) => this.setState({nickname: text})}
+                        value={this.state.nickname}>
                     </TextInput>
                 </View>
 

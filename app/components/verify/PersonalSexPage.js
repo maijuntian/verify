@@ -3,11 +3,13 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Image, View, Text, StatusBar, TouchableOpacity} from "react-native";
+import {StyleSheet, Image, View, Text, StatusBar, TouchableOpacity, DeviceEventEmitter} from "react-native";
 import styles, {screenHeight, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
 import BaseTitlePage from "../widget/BaseTitlePage";
 import * as Constant from "../../style/constant";
+import vUserDao from "../../dao/vUserDao";
+import {Actions} from "react-native-router-flux";
 
 /**
  * 登录
@@ -18,8 +20,22 @@ class PersonalSexPage extends BaseTitlePage {
         super(props);
 
         this.state = {
-            sex: 1,
+            userInfo: {},
+            gender: "",
         }
+    }
+
+    componentDidMount() {
+        this.initUserInfo();
+    }
+
+    initUserInfo() {
+        vUserDao.localUserInfo().then((res) => {
+            this.setState({
+                userInfo: res,
+                gender: res.gender
+            });
+        })
     }
 
     _title() {
@@ -27,14 +43,25 @@ class PersonalSexPage extends BaseTitlePage {
     }
 
     _rightPress() {
-
+        Actions.LoadingModal({text: i18n("Saving"), backExit: false});
+        vUserDao.updateInfo({"gender": this.state.gender}).then((res) => {
+            if (res.code === 200) {
+                this.state.userInfo.gender = this.state.gender;
+                vUserDao.saveLocalUserInfo(this.state.userInfo).then((res) => {
+                    DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                    Actions.pop();
+                })
+            } else {
+                Toast.show(res.message);
+            }
+        })
     }
 
     _reader() {
 
         let checkIcon1, checkIcon2;
 
-        if (this.state.sex === 1) { //男
+        if (this.state.gender === "Male") { //男
             checkIcon1 = require("../../img/choice1.png");
             checkIcon2 = require("../../img/choice2.png");
         } else { //女
@@ -48,12 +75,11 @@ class PersonalSexPage extends BaseTitlePage {
 
                 <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                   onPress={() => {
-                                      if(this.state.sex === 0){
+                                      if (this.state.gender !== "Male") {
                                           this.setState({
-                                              sex: 1
+                                              gender: "Male"
                                           })
                                       }
-
                                   }}>
                     <View
                         style={[styles.flexDirectionRowNotFlex, styles.centerH, {
@@ -74,9 +100,9 @@ class PersonalSexPage extends BaseTitlePage {
                 <View style={styles.dividerLineF6}/>
                 <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                   onPress={() => {
-                                      if(this.state.sex === 1){
+                                      if (this.state.gender !== "Female") {
                                           this.setState({
-                                              sex: 0
+                                              gender: "Female"
                                           })
                                       }
                                   }}>

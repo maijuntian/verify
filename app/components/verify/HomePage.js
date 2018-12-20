@@ -20,8 +20,8 @@ class HomePage extends Component {
     }
 
     render() {
-        iconWidth = screenWidth * 0.417;
-        iconHeight = iconWidth*0.6622;
+        let iconWidth = screenWidth * 0.417;
+        let iconHeight = iconWidth * 0.6111;
         return (
             <View style={[styles.mainBox, styles.centerH]}>
                 <StatusBar hidden={false} backgroundColor={'transparent'} translucent barStyle={'dark-content'}/>
@@ -55,7 +55,7 @@ class HomePage extends Component {
                         zIndex: -999,
                         justifyContent: "flex-end"
                     }, {marginBottom: 40}]}>
-                    <Text style={[{color: "#C4C4C4", fontSize:12}]}>{I18n("home_tip")}</Text>
+                    <Text style={[{color: "#C4C4C4", fontSize: 12}]}>{I18n("home_tip")}</Text>
                 </View>
             </View>
         )

@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Image, View, Text, StatusBar, TouchableOpacity, FlatList} from "react-native";
+import {StyleSheet, Image, View, Text, StatusBar, TouchableOpacity, FlatList, DeviceEventEmitter} from "react-native";
 import styles, {screenHeight, statusHeight} from "../../style";
 import BaseTitlePage from "../widget/BaseTitlePage";
 import i18n from "../../style/i18n";
@@ -52,10 +52,11 @@ class PersonalPage extends BaseTitlePage {
 
     componentDidMount() {
         this.initUserInfo();
-    }
 
-    _title() {
-        return i18n("Personal")
+        DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
+            //接收到详情页发送的通知，刷新数据
+            this.initUserInfo();
+        });
     }
 
     initUserInfo() {
@@ -64,6 +65,10 @@ class PersonalPage extends BaseTitlePage {
                 userInfo: res
             });
         })
+    }
+
+    _title() {
+        return i18n("Personal")
     }
 
     _showPickerImage() {
@@ -91,7 +96,9 @@ class PersonalPage extends BaseTitlePage {
                         paddingLeft: 16,
                         paddingRight: 10
                     }]}
-                    onPress={this._showPickerImage()}>
+                    onPress={() => {
+                        this._showPickerImage()
+                    }}>
 
                     <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Picture")}</Text>
 
@@ -153,7 +160,7 @@ class PersonalPage extends BaseTitlePage {
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
-                        <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.sex}</Text>
+                        <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.gender}</Text>
 
                         <Icon
                             style={[{marginLeft: 12}]}

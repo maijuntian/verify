@@ -107,5 +107,7 @@ export const USER_INFOV = "user-infoV";
 
 export const USER_AUTH ="USER-AUTH";
 
-/****************请求地址**************/
+export const CHANGE_PERSONAL = "CHANGE_PERSONAL";
+
+    /****************请求地址**************/
 export const API = "http://47.107.92.207:9000/";

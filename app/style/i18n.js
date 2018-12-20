@@ -203,6 +203,7 @@ I18n.translations = {
         Delivery_Date:"Delivery Date",
         Tracking_Number:"Tracking Number",
         Logistics:"Logistics",
+        Saving:"Saving",
     }
 };
 

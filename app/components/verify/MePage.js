@@ -46,6 +46,10 @@ class MePage extends Component {
 
     componentDidMount() {
         this.initUserInfo();
+        DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL,()=>{
+            //接收到详情页发送的通知，刷新数据
+            this.initUserInfo();
+        });
     }
 
     componentWillUnmount() {
