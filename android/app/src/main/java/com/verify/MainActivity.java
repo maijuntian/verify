@@ -3,6 +3,7 @@ package com.verify;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 
 import com.facebook.react.ReactActivity;
 import com.verify.module.splash.SplashScreen;
@@ -14,7 +15,8 @@ public class MainActivity extends ReactActivity {
     protected void onCreate(Bundle savedInstanceState) {
 //        SplashScreen.show(this,true);
         super.onCreate(savedInstanceState);
-		if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+
+        if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
 		   finish();
 		   return;
 		}
