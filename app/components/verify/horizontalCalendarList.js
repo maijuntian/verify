@@ -10,7 +10,7 @@ LocaleConfig.locales['en'] = {
     monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     monthNamesShort: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    dayNamesShort: ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']
+    dayNamesShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 };
 
 LocaleConfig.defaultLocale = 'en';
@@ -32,8 +32,8 @@ export default class HorizontalCalendarList extends Component {
                     futureScrollRange={0}
                     monthFormat={"MMM"}
                     markedDates={{
-                        '2018-12-22': {select:true, startingDay: true, endingDay: true, color: '#EFEFEF'},
-                        '2018-12-25': {select:true, startingDay: true, endingDay: true, color: '#EFEFEF'},
+                        '2018-12-22': {selected: true, selectedColor: '#EFEFEF', textColor:"black"},
+                        '2018-12-25': {selected: true, selectedColor: '#EFEFEF', textColor:"black"},
                     }}
                     markingType={'period'}
                     theme={{
@@ -43,6 +43,10 @@ export default class HorizontalCalendarList extends Component {
                         textMonthFontSize: 20,
                         textDayHeaderFontSize: 12,
                         selectedDayTextColor: 'black',
+                        dayTextColor: '#9D9EB1',
+                        todayTextColor: '#9D9EB1',
+                        arrowColor: "black",
+                        textSectionTitleColor: 'black',
                     }}
                 />
             </View>
