@@ -33,6 +33,7 @@ import AddressPage from "./components/verify/AddressPage";
 import GiftListPage from "./components/verify/GiftListPage";
 import RankInterestsPage from "./components/verify/RankInterestsPage";
 import {TestPage} from "./components/verify/TestPage";
+import horizontalCalendarList from "./components/verify/horizontalCalendarList";
 
 /**
  * 全局路由
@@ -47,7 +48,7 @@ const getRouter = () => {
                 BackUtils()}>
             <Lightbox>
                 <Scene key="main">
-                    <Scene key="TestPage" component={TestPage} hideNavBar hideTabBar hide/>
+                    <Scene key="horizontalCalendarList" component={horizontalCalendarList} hideNavBar hideTabBar hide/>
                 </Scene>
                 <Scene key="root"
                        hideNavBar>

@@ -22,7 +22,8 @@ class CommonTitleBar extends Component {
             <TouchableOpacity
                 style={[{height: 25, width: 25, marginRight: 8}]}
                 onPress={() => {
-                    this.props.onRightPress();
+                    console.log("点击右键--->");
+                    this.props.onRightPress && this.props.onRightPress();
                 }}>
                 <Icon
                     name={"check"}

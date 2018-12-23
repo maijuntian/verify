@@ -10,6 +10,7 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import * as Constant from "../../style/constant";
 import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
+import Toast from '../../components/common/ToastProxy';
 
 /**
  * 登录
@@ -42,9 +43,14 @@ class PersonalSexPage extends BaseTitlePage {
         return i18n("Sexuality");
     }
 
+    _isRightPress() {
+        return true;
+    }
+
     _rightPress() {
         Actions.LoadingModal({text: i18n("Saving"), backExit: false});
         vUserDao.updateInfo({"gender": this.state.gender}).then((res) => {
+            this.exitLoading();
             if (res.code === 200) {
                 this.state.userInfo.gender = this.state.gender;
                 vUserDao.saveLocalUserInfo(this.state.userInfo).then((res) => {
@@ -55,6 +61,12 @@ class PersonalSexPage extends BaseTitlePage {
                 Toast.show(res.message);
             }
         })
+    }
+
+    exitLoading() {
+        if (Actions.currentScene === 'LoadingModal') {
+            Actions.pop();
+        }
     }
 
     _reader() {
