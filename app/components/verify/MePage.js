@@ -150,6 +150,9 @@ class MePage extends Component {
                                     case 2:
                                         Actions.GiftListPage();
                                         break;
+                                    case 4:
+                                        Actions.CheckInPage();
+                                        break;
                                     case 5:
                                         Actions.RankInterestsPage();
                                         break;

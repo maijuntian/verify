@@ -34,6 +34,7 @@ import GiftListPage from "./components/verify/GiftListPage";
 import RankInterestsPage from "./components/verify/RankInterestsPage";
 import {TestPage} from "./components/verify/TestPage";
 import horizontalCalendarList from "./components/verify/horizontalCalendarList";
+import CheckInPage from "./components/verify/CheckInPage";
 
 /**
  * 全局路由
@@ -48,7 +49,7 @@ const getRouter = () => {
                 BackUtils()}>
             <Lightbox>
                 <Scene key="main">
-                    <Scene key="horizontalCalendarList" component={horizontalCalendarList} hideNavBar hideTabBar hide/>
+                    <Scene key="WelcomePage" component={WelcomePage} hideNavBar hideTabBar hide/>
                 </Scene>
                 <Scene key="root"
                        hideNavBar>
@@ -99,7 +100,7 @@ const getRouter = () => {
                     <Scene key="AddressPage" component={AddressPage}/>
                     <Scene key="GiftListPage" component={GiftListPage}/>
                     <Scene key="RankInterestsPage" component={RankInterestsPage}/>
-
+                    <Scene key="CheckInPage" component={CheckInPage}/>
 
                 </Scene>
                 <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>

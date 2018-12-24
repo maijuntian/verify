@@ -2,7 +2,7 @@ import Api from '../net'
 import {API} from "../style/constant";
 import {AsyncStorage} from "react-native";
 import * as Constant from "../style/constant";
-
+import moment from "moment";
 
 const login = async (username, password) => {
     let res = await Api.netFetch(API + "/user/auth/login", "POST", {
@@ -60,6 +60,27 @@ const updateInfo = async (params) => {
     return res.data;
 }
 
+//
+const getCheckInRecord = async () => {
+
+    let startMoment = moment().subtract(moment().format("D")-1, "days").hour(0).minute(0).second(0);
+    let startTime = startMoment.format(Constant.TIME_FORMAT);
+    console.log("startTime--->" + startTime);
+
+
+    let endTime = startMoment.add(1, "months").subtract(1, "days").hour(23).minute(59).second(59).format(Constant.TIME_FORMAT);
+    console.log("endTime--->" + endTime);
+
+     let res = await Api.netFetch(API + "/user/check-in/record", "POST", {
+         "startTime": startTime,
+         "endTime": endTime, "pageNum": 1, "pageSize": 31
+     }, false, null, false);
+     if (res.data.code === 200) {
+         res.data.data = res.data.data.list;
+     }
+     return res.data;
+}
+
 
 export default {
     login,
@@ -70,4 +91,5 @@ export default {
     pointsHistory,
     addressList,
     giftList,
+    getCheckInRecord,
 }

@@ -4,9 +4,7 @@
 
 import moment from 'moment';
 import I18n from '../style/i18n'
-import momentLocale from 'moment/locale/zh-cn';
-
-moment.updateLocale('zh-cn', momentLocale);
+import * as Constant from "../style/constant";
 
 const second = 1000;
 const min = second * 60;
@@ -18,7 +16,7 @@ const year = day * 30 * 11;
 /**
  * 时间转化
  */
-export default function resolveTime(longTime) {
+export function resolveTime(longTime) {
     if (!longTime)
         return "";
     let now = moment().toDate().getTime();
@@ -46,7 +44,7 @@ function calcTimer(delta, ori) {
 }
 
 const calculator = {
-    [year]:(a, b, ori) => {
+    [year]: (a, b, ori) => {
         return moment(ori).format('YYYY-MM-DD')
     },
     [week]: (a, b, ori) => {
@@ -65,3 +63,19 @@ const calculator = {
         return I18n('justNow')
     }
 };
+
+
+/**
+ * 时间转化
+ */
+export default function formatDate(date) {
+    if (!date)
+        return "";
+    return moment(date, Constant.EN_DATE_FORMAT).format(Constant.DATE_FORMAT);
+}
+
+export const isBehind = (before, next) => {
+    let beforeDay = moment(before, Constant.EN_DATE_FORMAT).get("day");
+    let nextDay = moment(next, Constant.EN_DATE_FORMAT).get("day");
+    return beforeDay === nextDay - 1;
+}
