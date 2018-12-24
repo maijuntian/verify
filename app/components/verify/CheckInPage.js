@@ -65,7 +65,7 @@ class CheckInPage extends BaseTitlePage {
     }
 
     _title() {
-        return i18n("Name");
+        return i18n("Check_in");
     }
 
     exitLoading() {
@@ -108,11 +108,11 @@ class CheckInPage extends BaseTitlePage {
                 textColor: "black",
             }
 
-            if(todayDate === date)
+            if (todayDate === date)
                 hasToday = true;
         }
 
-        if(!hasToday){
+        if (!hasToday) {
             markedDates[todayDate] = {
                 startingDay: true,
                 endingDay: true,
@@ -125,7 +125,6 @@ class CheckInPage extends BaseTitlePage {
             <View style={[styles.flexDirectionColumn]}>
                 <CalendarList
                     style={[{marginTop: 10}]}
-                    current={'2018-12-16'}
                     scrollEnabled={false}
                     pagingEnabled={true}
                     horizontal
@@ -142,9 +141,7 @@ class CheckInPage extends BaseTitlePage {
                         textDayFontSize: 12,
                         textMonthFontSize: 20,
                         textDayHeaderFontSize: 12,
-                        selectedDayTextColor: 'black',
                         dayTextColor: '#9D9EB1',
-                        todayTextColor: '#9D9EB1',
                         arrowColor: "black",
                         textSectionTitleColor: 'black',
                     }}

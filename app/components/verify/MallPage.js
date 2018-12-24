@@ -296,7 +296,7 @@ class MallPage extends Component {
                                     <Text style={[{
                                         marginLeft: 10,
                                         marginTop: 14,
-                                        marginRight: 30
+                                        marginRight: 10
                                     }, styles.sminText9Dgray]}
                                           numberOfLines={2}
                                           ellipsizeMode='tail'>{item.productName}</Text>

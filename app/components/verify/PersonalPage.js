@@ -12,6 +12,8 @@ import Icon from 'react-native-vector-icons/Feather'
 import {Actions} from "react-native-router-flux";
 import vUserDao from "../../dao/vUserDao";
 import ImagePicker from "react-native-image-picker";
+import ImagePickerCrop from "react-native-image-crop-picker";
+import Toast from '../common/ToastProxy'
 
 const options = {
     title: i18n("Please_choose"),
@@ -28,7 +30,7 @@ const options = {
     aspectY: 1,
     quality: 0.8,
     angle: 0,
-    allowsEditing: false,
+    allowsEditing: true,
     noData: false,
     storageOptions: {
         skipBackup: true,
@@ -78,10 +80,34 @@ class PersonalPage extends BaseTitlePage {
             } else if (response.error) {
                 console.log("ImagePicker error-->" + response.error);
             } else {
-                console.log("ImagePicker uri-->" + response.uri);
-                console.log("ImagePicker data-->" + response.data);
+                ImagePickerCrop.openCropper({
+                    width: 400,
+                    height: 400,
+                    path: response.uri,
+                }).then((image) => {
+                    console.log(' 图片路径：' + image.path);
+                    Actions.LoadingModal({text: i18n("Saving"), backExit: false});
+                    vUserDao.updateAvatar(image.path).then((res) => {
+                        this.exitLoading();
+                        if (res && res.code === 200) {
+                            this.state.userInfo.icon = res.data;
+                            vUserDao.saveLocalUserInfo(this.state.userInfo).then((res) => {
+                                DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                            })
+                        } else {
+                            Toast(res.message);
+                        }
+                    });
+                });
+
             }
         })
+    }
+
+    exitLoading() {
+        if (Actions.currentScene === 'LoadingModal') {
+            Actions.pop();
+        }
     }
 
     _reader() {

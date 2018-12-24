@@ -44,9 +44,10 @@ class HttpManager {
      * @param json 是否需要json格式的参数请求
      * @param header 外加头
      * @param text 是否text返回
+     * @param isFile 是否是文件上传
      * @return {Promise.<*>}
      */
-    async netFetch(url, method = 'GET', params, json, header, text) {
+    async netFetch(url, method = 'GET', params, json, header, text, isFile = false) {
         let isConnected = await NetInfo.isConnected.fetch().done;
 
         if (!isConnected) {
@@ -73,7 +74,9 @@ class HttpManager {
 
         headers.Authorization = this.optionParams.authorizationCode;
 
-        if (method !== 'GET') {
+        if(isFile){
+            requestParams = this.formParamsFile(method, params, headers)
+        }else if (method !== 'GET') {
             if (json) {
                 requestParams = this.formParamsJson(method, params, headers)
             } else {
@@ -197,6 +200,21 @@ class HttpManager {
         return req
     }
 
+    /**
+     * 格式化上传文件参数
+     */
+    formParamsFile(method, params, headers) {
+        const req = {
+            method: method,
+            headers: new Headers({
+                    'Content-Type': CONTENT_TYPE_FORM,
+                    ...(headers || {})
+                }
+            ),
+            body:params,
+        };
+        return req
+    }
     /**
      * 超时管理
      */

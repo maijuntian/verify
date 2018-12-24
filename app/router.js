@@ -33,8 +33,9 @@ import AddressPage from "./components/verify/AddressPage";
 import GiftListPage from "./components/verify/GiftListPage";
 import RankInterestsPage from "./components/verify/RankInterestsPage";
 import {TestPage} from "./components/verify/TestPage";
-import horizontalCalendarList from "./components/verify/horizontalCalendarList";
+import VerifyHistoryPage from "./components/verify/VerifyHistoryPage";
 import CheckInPage from "./components/verify/CheckInPage";
+
 
 /**
  * 全局路由
@@ -101,6 +102,7 @@ const getRouter = () => {
                     <Scene key="GiftListPage" component={GiftListPage}/>
                     <Scene key="RankInterestsPage" component={RankInterestsPage}/>
                     <Scene key="CheckInPage" component={CheckInPage}/>
+                    <Scene key="VerifyHistoryPage" component={VerifyHistoryPage}/>
 
                 </Scene>
                 <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>

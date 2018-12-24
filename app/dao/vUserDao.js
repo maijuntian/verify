@@ -55,30 +55,44 @@ const giftList = async (params) => {
     return res.data;
 }
 
+const authRecord = async (params) => {
+    let res = await Api.getFetch(API + "/user/auth/record?" + params);
+    if (res.data.code === 200) {
+        res.data.data = res.data.data.list;
+    }
+    return res.data;
+}
+
+
 const updateInfo = async (params) => {
-    let res = await Api.netFetch(API + "/user/info/base/update", "POST", params, true, null, false);
+    let res = await Api.netFetch(API + "/user/info/base", "PUT", params, true, null, false);
+    return res.data;
+}
+
+const updateAvatar = async (uri) => {
+    let file = {uri:uri, type:'multipart/form-data', name:"image.png"};
+    let formData = new FormData();
+    formData.append("file", file);
+    let res = await Api.netFetch(API + "/user/info/base/avatar", "PUT", formData, false, {"Content-Type":"multipart/form-data"}, false, true);
     return res.data;
 }
 
 //
 const getCheckInRecord = async () => {
 
-    let startMoment = moment().subtract(moment().format("D")-1, "days").hour(0).minute(0).second(0);
+    let startMoment = moment().subtract(moment().format("D") - 1, "days").hour(0).minute(0).second(0);
     let startTime = startMoment.format(Constant.TIME_FORMAT);
     console.log("startTime--->" + startTime);
-
 
     let endTime = startMoment.add(1, "months").subtract(1, "days").hour(23).minute(59).second(59).format(Constant.TIME_FORMAT);
     console.log("endTime--->" + endTime);
 
-     let res = await Api.netFetch(API + "/user/check-in/record", "POST", {
-         "startTime": startTime,
-         "endTime": endTime, "pageNum": 1, "pageSize": 31
-     }, false, null, false);
-     if (res.data.code === 200) {
-         res.data.data = res.data.data.list;
-     }
-     return res.data;
+    let params = "startTime=" + startTime + "&endTime=" + endTime + "&pageNum=1&pageSize=31";
+    let res = await Api.getFetch(API + "/user/check-in/record?" + params);
+    if (res.data.code === 200) {
+        res.data.data = res.data.data.list;
+    }
+    return res.data;
 }
 
 
@@ -92,4 +106,6 @@ export default {
     addressList,
     giftList,
     getCheckInRecord,
+    authRecord,
+    updateAvatar,
 }

@@ -21,7 +21,7 @@ class VerifyHistoryPage extends BaseTitlePage {
             giftData: [],
         }
         this.page = 2;
-        this.order = ["DELIVERED", "IN_PROGRESS"];
+        this.order = ["Success", "Failure"];
     }
 
     componentDidMount() {
@@ -42,13 +42,13 @@ class VerifyHistoryPage extends BaseTitlePage {
      * */
     _refresh() {
         let params = "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&status=" + this.order[this.state.sort - 1];
-        vUserDao.giftList(params)
+        vUserDao.authRecord(params)
             .then((res) => {
                 let size = 0;
                 if (res && res.code === 200) {
                     this.page = 2;
                     this.setState({
-                        giftData: res.data
+                        recordData: res.data
                     })
                     size = res.data.length;
                 }
@@ -69,9 +69,9 @@ class VerifyHistoryPage extends BaseTitlePage {
             this.page++;
             let size = 0;
             if (res && res.code === 200) {
-                let localData = this.state.giftData.concat(res.data);
+                let localData = this.state.recordData.concat(res.data);
                 this.setState({
-                    giftData: localData
+                    recordData: localData
                 })
                 size = res.data.length;
             }
@@ -102,7 +102,7 @@ class VerifyHistoryPage extends BaseTitlePage {
                         }, styles.flexDirectionRowNotFlex, styles.centered]}>
 
                             <Text
-                                style={[(this.state.sort === 1) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Delivered")}</Text>
+                                style={[(this.state.sort === 1) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Success")}</Text>
 
                         </View>
                     </TouchableOpacity>
@@ -118,7 +118,7 @@ class VerifyHistoryPage extends BaseTitlePage {
                         }, styles.flexDirectionRowNotFlex, styles.centered]}>
 
                             <Text
-                                style={[(this.state.sort === 2) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("In_Progress")}</Text>
+                                style={[(this.state.sort === 2) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Fail")}</Text>
 
                         </View>
                     </TouchableOpacity>
@@ -153,11 +153,15 @@ class VerifyHistoryPage extends BaseTitlePage {
                                     paddingHorizontal: 30
                                 }, styles.flexDirectionRowNotFlex]}>
                                     <View style={[{width: (screenWidth - 60) / 2,},]}>
-                                        <Text style={[{color: Constant.gray9d, fontSize: 12}]}>{item.createTime}</Text>
+                                        <Text style={[{color: Constant.gray9d, fontSize: 12}]}>{item.authTime}</Text>
                                     </View>
                                     <View
                                         style={[{width: (screenWidth - 60) / 2,}, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
-                                        <Text style={[{color: Constant.primaryBlackColor, fontSize: 12}]}>{item.reason}</Text>
+                                        <Text style={[{
+                                            color: Constant.primaryBlackColor,
+                                            fontSize: 12,
+                                            textAlign:"right",
+                                        }]}>{item.productName + "\nauthentic"}</Text>
                                     </View>
 
                                 </View>
@@ -168,7 +172,7 @@ class VerifyHistoryPage extends BaseTitlePage {
                     }
                     refresh={this._refresh}
                     loadMore={this._loadMore}
-                    dataSource={this.state.giftData}
+                    dataSource={this.state.recordData}
                 />
 
             </View>
