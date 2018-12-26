@@ -70,10 +70,10 @@ const updateInfo = async (params) => {
 }
 
 const updateAvatar = async (uri) => {
-    let file = {uri:uri, type:'multipart/form-data', name:"image.png"};
+    let file = {uri: uri, type: 'multipart/form-data', name: "image.png"};
     let formData = new FormData();
     formData.append("file", file);
-    let res = await Api.netFetch(API + "/user/info/base/avatar", "PUT", formData, false, {"Content-Type":"multipart/form-data"}, false, true);
+    let res = await Api.netFetch(API + "/user/info/base/avatar", "PUT", formData, false, {"Content-Type": "multipart/form-data"}, false, true);
     return res.data;
 }
 
@@ -95,6 +95,11 @@ const getCheckInRecord = async () => {
     return res.data;
 }
 
+const checkIn = async () => {
+    let res = await Api.netFetch(API + "/user/check-in", "POST", {}, true, null, false);
+    return res.data;
+}
+
 
 export default {
     login,
@@ -108,4 +113,5 @@ export default {
     getCheckInRecord,
     authRecord,
     updateAvatar,
+    checkIn,
 }

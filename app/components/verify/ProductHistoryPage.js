@@ -4,7 +4,7 @@
 
 import React, {Component} from 'react';
 import {Dimensions, Image, FlatList, ScrollView, Text, ImageBackground, View, TouchableOpacity} from "react-native";
-import styles, {screenWidth, shadowRadius} from "../../style";
+import styles, {screenHeight, screenWidth, shadowRadius} from "../../style";
 import * as Constant from "../../style/constant";
 import BaseTitlePage from "../widget/BaseTitlePage";
 import I18n from "../../style/i18n";
@@ -12,6 +12,7 @@ import {PagerPan, TabBar, TabView} from "react-native-tab-view";
 import CommonProductHeader from "../common/CommonProductHeader";
 import CommonIconText from "../common/CommonIconText";
 import {Actions} from "react-native-router-flux";
+import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from "react-native-maps";
 
 const config = {
     ["MANUFACTURER"]: "Registered By",
@@ -19,6 +20,12 @@ const config = {
     ["CUSTOMS"]: "Registered By",
     ["DEALER"]: "Transferred to",
 };
+
+const ASPECT_RATIO = screenWidth / screenHeight;
+const LATITUDE = 37.78825;
+const LONGITUDE = -122.4324;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 /**
  * 追溯
@@ -42,6 +49,62 @@ class ProductHistoryPage extends BaseTitlePage {
                 {key: '1', title: I18n('INFO')},
                 {key: '2', title: I18n('JOURNEY')},
             ],
+            polyline: [],
+            markers: [],
+            latitude: LATITUDE,
+            longitude: LATITUDE_DELTA,
+            polylineT: [
+                {
+                    latitude: LATITUDE + 0.1,
+                    longitude: LONGITUDE + 0.1,
+                },
+                {
+                    latitude: LATITUDE - 0.1,
+                    longitude: LONGITUDE - 0.1,
+                },
+                {
+                    latitude: LATITUDE - (2 * 0.1),
+                    longitude: LONGITUDE - (2 * 0.1),
+                },
+                {
+                    latitude: LATITUDE - (3 * 0.1),
+                    longitude: LONGITUDE - (3 * 0.1),
+                },
+            ],
+            markersT: [
+                {
+                    latlng: {
+                        latitude: LATITUDE + 0.1,
+                        longitude: LONGITUDE + 0.1,
+                    },
+                    title: "a",
+                    description: "testa"
+                },
+                {
+                    latlng: {
+                        latitude: LATITUDE - 0.1,
+                        longitude: LONGITUDE - 0.1,
+                    },
+                    title: "b",
+                    description: "testa"
+                },
+                {
+                    latlng: {
+                        latitude: LATITUDE - (0.1 * 2),
+                        longitude: LONGITUDE - (0.1 * 2),
+                    },
+                    title: "c",
+                    description: "testa"
+                },
+                {
+                    latlng: {
+                        latitude: LATITUDE - (0.1 * 3),
+                        longitude: LONGITUDE - (0.1 * 3),
+                    },
+                    title: "d",
+                    description: "testa"
+                },
+            ]
         }
     }
 
@@ -56,9 +119,39 @@ class ProductHistoryPage extends BaseTitlePage {
 
     refreshData() {
         let dataJson = JSON.parse(this.state.dataStr);
+
+        let polyline = [];
+        let markers = [];
+        let latitude = LATITUDE;
+        let longitude = LONGITUDE;
+
+        dataJson.tracingResults.forEach((data, index) => {
+            polyline.push({
+                latitude: data.latitude,
+                longitude: data.longitude,
+            })
+            markers.push({
+                latlng: {
+                    latitude: data.latitude,
+                    longitude: data.longitude,
+                },
+                title: data.name,
+            })
+
+            if (index === (dataJson.tracingResults.length / 2)) {
+                latitude = data.latitude;
+                longitude = data.longitude;
+            }
+        });
+
         this.setState({
-            data: dataJson
-        })
+            data: dataJson,
+            polyline: polyline,
+            markers: markers,
+            latitude: latitude,
+            longitude: longitude,
+        });
+
     }
 
     _title() {
@@ -246,9 +339,9 @@ class ProductHistoryPage extends BaseTitlePage {
     }
 
     _renderScene = () => {
+        let dataList = this.state.data.tracingResults;
         switch (this.state.index) {
             case 1:
-                let dataList = this.state.data.tracingResults;
                 let items = [];
                 dataList.forEach((data, index) => {
                     items.push(this._renderItem(index, data))
@@ -262,9 +355,33 @@ class ProductHistoryPage extends BaseTitlePage {
             case 2:
                 return (
                     <View style={{backgroundColor: Constant.grayBg, height: screenWidth * 1.3}}>
-                        <Image style={[{height: screenWidth * 1.3, width: screenWidth}]}
-                               source={require("../../img/map.png")}
-                               resizeMode={"cover"}/>
+                        <MapView
+                            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                            style={{
+                                height: screenWidth * 1.3,
+                                width: screenWidth,
+                            }}
+                            region={{
+                                latitude: this.state.latitude,
+                                longitude: this.state.longitude,
+                                latitudeDelta: LATITUDE_DELTA,
+                                longitudeDelta: LONGITUDE_DELTA,
+                            }}>
+                            <Polyline
+                                coordinates={this.state.polyline}
+                                strokeColor="rgba(122,125,127,1)"
+                                strokeWidth={2}
+                                lineDashPattern={[5, 2, 3, 2]}
+                            />
+                            {this.state.markers.map(marker => (
+                                <Marker
+                                    coordinate={marker.latlng}
+                                    title={marker.title}
+                                    image={require("../../img/icon_point1.png")}
+                                    anchor={{x: 0.5, y: 0.5}}
+                                />
+                            ))}
+                        </MapView>
 
                     </View>
                 );

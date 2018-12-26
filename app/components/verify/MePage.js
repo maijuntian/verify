@@ -149,6 +149,7 @@ class MePage extends Component {
                                         break;
                                     case 2:
                                         Actions.GiftListPage();
+                                        break;
                                     case 3:
                                         Actions.VerifyHistoryPage();
                                         break;

@@ -16,10 +16,78 @@
  *
  */
 import React, {Component} from 'react';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import {View} from "react-native"; // remove PROVIDER_GOOGLE import if not using Google Maps
+import MapView, {Marker, PROVIDER_GOOGLE, Polyline} from 'react-native-maps';
+import {View} from "react-native";
+import {screenHeight, screenWidth} from "../../style"; // remove PROVIDER_GOOGLE import if not using Google Maps
+
+
+const ASPECT_RATIO = screenWidth / screenHeight;
+const LATITUDE = 37.78825;
+const LONGITUDE = -122.4324;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const SPACE = 0.01;
 
 export class TestPage extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            polyline: [
+                {
+                    latitude: LATITUDE + SPACE,
+                    longitude: LONGITUDE + SPACE,
+                },
+                {
+                    latitude: LATITUDE - SPACE,
+                    longitude: LONGITUDE - SPACE,
+                },
+                {
+                    latitude: LATITUDE - (2 * SPACE),
+                    longitude: LONGITUDE - (2 * SPACE),
+                },
+                {
+                    latitude: LATITUDE - (3 * SPACE),
+                    longitude: LONGITUDE - (3 * SPACE),
+                },
+            ],
+            markers: [
+                {
+                    latlng: {
+                        latitude: LATITUDE + SPACE,
+                        longitude: LONGITUDE + SPACE,
+                    },
+                    title: "a",
+                    description: "testa"
+                },
+                {
+                    latlng: {
+                        latitude: LATITUDE - SPACE,
+                        longitude: LONGITUDE - SPACE,
+                    },
+                    title: "b",
+                    description: "testa"
+                },
+                {
+                    latlng: {
+                        latitude: LATITUDE - (SPACE * 2),
+                        longitude: LONGITUDE - (SPACE * 2),
+                    },
+                    title: "c",
+                    description: "testa"
+                },
+                {
+                    latlng: {
+                        latitude: LATITUDE - (SPACE * 3),
+                        longitude: LONGITUDE - (SPACE * 3),
+                    },
+                    title: "d",
+                    description: "testa"
+                },
+            ]
+        }
+    }
 
     render() {
         return (
@@ -36,12 +104,29 @@ export class TestPage extends Component {
                         width: 400,
                     }}
                     region={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.015,
-                        longitudeDelta: 0.0121,
+                        latitude: LATITUDE,
+                        longitude: LONGITUDE,
+                        latitudeDelta: LATITUDE_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA,
                     }}
                 >
+                    <Polyline
+                        coordinates={this.state.polyline}
+                        strokeColor="rgba(122,125,127,1)"
+                        strokeWidth={2}
+                        lineDashPattern={[5, 2, 3, 2]}
+                    />
+                    {this.state.markers.map(marker => (
+                        <Marker
+                            coordinate={marker.latlng}
+                            title={marker.title}
+                            description={marker.description}
+                            image={require("../../img/icon_point1.png")}
+                            anchor={{ x: 0.5, y: 0.5 }}
+                        />
+                    ))}
+
+
                 </MapView>
             </View>
         )

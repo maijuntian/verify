@@ -12,7 +12,7 @@ import {
     TouchableOpacity,
     Keyboard,
     TextInput,
-    DeviceEventEmitter
+    DeviceEventEmitter, ScrollView
 } from "react-native";
 import styles, {fontFamilyCharter, screenHeight, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
@@ -146,6 +146,39 @@ class CheckInPage extends BaseTitlePage {
                         textSectionTitleColor: 'black',
                     }}
                 />
+
+                <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
+
+
+                    <View style={[{paddingHorizontal: 36, paddingVertical: 14,},]}>
+
+                        <TouchableOpacity activeOpacity={Constant.activeOpacity}
+                                          onPress={() => {
+                                              vUserDao.checkIn().then((res) => {
+                                                  if (res.code === 200) {
+
+                                                  } else {
+                                                      Toast(res.message);
+                                                  }
+                                              })
+                                          }}>
+
+                            <View style={[{
+                                borderWidth: 1,
+                                borderRadius: 30,
+                                paddingVertical: 10,
+                                borderColor: Constant.textGray,
+                            }, styles.flexDirectionRowNotFlex, styles.centered]}>
+                                <Text style={[{
+                                    color: "#586575",
+                                    fontSize: Constant.smallTextSize
+                                }]}>{I18n("Check_in")}</Text>
+                            </View>
+                        </TouchableOpacity>
+
+                    </View>
+
+                </View>
 
             </View>
         )

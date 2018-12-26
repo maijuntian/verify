@@ -37,7 +37,8 @@ class ScanQrCodePage extends Component {
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
-            this.startAnimation()
+            this.startAnimation();
+            this.parseCode("http://47.107.92.207:9000/source/tracing/10000001");
         })
     }
 
