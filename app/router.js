@@ -35,6 +35,7 @@ import RankInterestsPage from "./components/verify/RankInterestsPage";
 import {TestPage} from "./components/verify/TestPage";
 import VerifyHistoryPage from "./components/verify/VerifyHistoryPage";
 import CheckInPage from "./components/verify/CheckInPage";
+import HorizontalCalendarList from "./components/verify/horizontalCalendarList";
 
 
 /**
@@ -50,7 +51,7 @@ const getRouter = () => {
                 BackUtils()}>
             <Lightbox>
                 <Scene key="main">
-                    <Scene key="WelcomePage" component={WelcomePage} hideNavBar hideTabBar hide/>
+                    <Scene key="HorizontalCalendarList" component={HorizontalCalendarList} hideNavBar hideTabBar hide/>
                 </Scene>
                 <Scene key="root"
                        hideNavBar>

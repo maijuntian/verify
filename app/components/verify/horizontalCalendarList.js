@@ -32,8 +32,14 @@ export default class HorizontalCalendarList extends Component {
                     futureScrollRange={0}
                     monthFormat={"MMM"}
                     markedDates={{
-                        '2018-12-22': {startingDay: true, selectedColor: '#EFEFEF', textColor: "black"},
-                        '2018-12-25': {endingDay: true, selectedColor: '#EFEFEF', textColor: "black"},
+                        '2018-12-19': {
+                            startingDay: true,
+                            endingDay: true,
+                            color: '#EFEFEF',
+                            textColor: "black",
+                        },
+                        '2018-12-22': {
+                            startingDay: true,endingDay: true, color: '#EFEFEF', textColor: "black"},
                     }}
                     markingType={'period'}
                     theme={{

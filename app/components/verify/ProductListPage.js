@@ -167,7 +167,7 @@ class ProductListPage extends Component {
                             <Text
                                 style={[(this.state.sort === 1 | this.state.sort === 2) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Integral")}</Text>
 
-                            <Image style={{marginLeft: 5, height: 10, width: 5}}
+                            <Image style={{marginLeft: 5, height: 7, width: 5}}
                                    source={rightIcon1}/>
 
                         </View>
@@ -184,7 +184,7 @@ class ProductListPage extends Component {
                             <Text
                                 style={[(this.state.sort === 3 | this.state.sort === 4) ? styles.minTextBlack : styles.minTextsGray]}>{i18n("Time")}</Text>
 
-                            <Image style={{marginLeft: 5, height: 10, width: 5}}
+                            <Image style={{marginLeft: 5, height: 7, width: 5}}
                                    source={rightIcon2}/>
 
                         </View>

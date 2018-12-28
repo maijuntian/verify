@@ -52,7 +52,7 @@ class ProductHistoryPage extends BaseTitlePage {
             polyline: [],
             markers: [],
             latitude: LATITUDE,
-            longitude: LATITUDE_DELTA,
+            longitude: LONGITUDE,
             polylineT: [
                 {
                     latitude: LATITUDE + 0.1,

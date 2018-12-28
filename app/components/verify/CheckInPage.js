@@ -4,15 +4,9 @@
 
 import React, {Component} from 'react';
 import {
-    StyleSheet,
-    Image,
     View,
     Text,
-    StatusBar,
     TouchableOpacity,
-    Keyboard,
-    TextInput,
-    DeviceEventEmitter, ScrollView
 } from "react-native";
 import styles, {fontFamilyCharter, screenHeight, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
@@ -73,6 +67,13 @@ class CheckInPage extends BaseTitlePage {
             Actions.pop();
         }
     }
+
+    exitLoading() {
+        if (Actions.currentScene === 'LoadingModal') {
+            Actions.pop();
+        }
+    }
+
 
     _reader() {
 
@@ -154,7 +155,9 @@ class CheckInPage extends BaseTitlePage {
 
                         <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                           onPress={() => {
+                                              Actions.LoadingModal({text: i18n("Checking"), backExit: false});
                                               vUserDao.checkIn().then((res) => {
+                                                  this.exitLoading();
                                                   if (res.code === 200) {
 
                                                   } else {
@@ -172,7 +175,7 @@ class CheckInPage extends BaseTitlePage {
                                 <Text style={[{
                                     color: "#586575",
                                     fontSize: Constant.smallTextSize
-                                }]}>{I18n("Check_in")}</Text>
+                                }]}>{i18n("Check_in")}</Text>
                             </View>
                         </TouchableOpacity>
 

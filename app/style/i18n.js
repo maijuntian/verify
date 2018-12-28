@@ -204,6 +204,7 @@ I18n.translations = {
         Tracking_Number:"Tracking Number",
         Logistics:"Logistics",
         Saving:"Saving",
+        Checking:"Checking",
     }
 };
 
