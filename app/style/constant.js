@@ -108,10 +108,14 @@ export const USER_INFOV = "user-infoV";
 export const USER_AUTH = "USER-AUTH";
 
 export const CHANGE_PERSONAL = "CHANGE_PERSONAL";
+export const CHANGE_ADDRESS = "CHANGE_ADDRESS";
+export const CHANGE_DEFAULT_ADDRESS = "CHANGE_DEFAULT_ADDRESS";
 
 export const TIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
 export const DATE_FORMAT = "YYYY-MM-DD";
 export const EN_DATE_FORMAT = "MMM DD YYYY";
+
+export let DEFAULT_ADDRESS = "";
 
 /****************请求地址**************/
 export const API = "http://47.107.92.207:9000/";

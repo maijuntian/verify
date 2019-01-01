@@ -10,6 +10,8 @@ import CommonIconNameItem from "../common/CommonIconNameItem";
 import {Actions} from 'react-native-router-flux';
 import I18n from "../../style/i18n";
 import BaseTitlePage from "../widget/BaseTitlePage";
+import vUserDao from "../../dao/vUserDao";
+import Toast from '../common/ToastProxy';
 
 /**
  * 详情
@@ -20,7 +22,7 @@ class ProductDetailPage extends BaseTitlePage {
         super(props);
         this.state = {
             productStr: this.props.productStr,
-            product:{},
+            product: {},
         }
     }
 
@@ -39,12 +41,16 @@ class ProductDetailPage extends BaseTitlePage {
         })
     }
 
-
+    exitLoading() {
+        if (Actions.currentScene === 'LoadingModal') {
+            Actions.pop();
+        }
+    }
 
     _reader() {
 
         let rankIcon;
-        switch(this.state.product.needUserGrade){
+        switch (this.state.product.needUserGrade) {
             case "Gold":
                 rankIcon = require("../../img/gold.png");
                 break;
@@ -70,7 +76,8 @@ class ProductDetailPage extends BaseTitlePage {
                     marginLeft: 20,
                     marginRight: 12,
                 }, styles.flexDirectionRowNotFlex, styles.justifyEnd, styles.alignItemsEnd]}>
-                    <Text style={[{}, styles.normalTextBlack_Charter, styles.flex]}>{this.state.product.productName}</Text>
+                    <Text
+                        style={[{}, styles.normalTextBlack_Charter, styles.flex]}>{this.state.product.productName}</Text>
                     <View style={[{
                         borderRadius: 20,
                         width: 56,
@@ -89,7 +96,7 @@ class ProductDetailPage extends BaseTitlePage {
                 }, styles.flexDirectionRowNotFlex, styles.justifyEnd, styles.alignItemsEnd]}>
 
                     <View style={[styles.flexDirectionRow, styles.alignItemsEnd]}>
-                        <Text style={[styles.subMinText, {marginBottom: 3,}]}>{I18n("Integral")}:  </Text>
+                        <Text style={[styles.subMinText, {marginBottom: 3,}]}>{I18n("Integral")}: </Text>
                         <Text style={[styles.normalTextBlack]}>{this.state.product.discount}</Text>
                         <Text style={[{
                             marginLeft: 5,
@@ -98,7 +105,7 @@ class ProductDetailPage extends BaseTitlePage {
                         }, styles.smallTextGray,]}>{this.state.product.points}</Text>
                     </View>
 
-                    <Text style={[{}, styles.subMinText,]}>{I18n("Rank")}:  </Text>
+                    <Text style={[{}, styles.subMinText,]}>{I18n("Rank")}: </Text>
 
                     <Image source={rankIcon}
                            style={{height: 14, width: 14,}}
@@ -122,6 +129,26 @@ class ProductDetailPage extends BaseTitlePage {
                         <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                           onPress={() => {
 
+                                              Actions.LoadingModal({text: I18n("Order_confirming"), backExit: false});
+
+                                              vUserDao.getDefaultAddress().then((res) => {
+                                                  this.exitLoading();
+                                                  if (res.code === 200) {
+                                                      let addressStr = JSON.stringify(res.data);
+                                                      if (addressStr === "{}") {
+                                                          Actions.OrderAddressEditPage({addressStr: "", productStr:this.state.productStr});
+                                                      } else {
+                                                          Actions.OrderConfirmPage({
+                                                              addressStr: addressStr,
+                                                              productStr: this.state.productStr
+                                                          });
+                                                      }
+                                                  } else {
+                                                      Toast(res.message);
+                                                  }
+
+                                              });
+
                                           }}>
 
                             <View style={[{
@@ -130,7 +157,10 @@ class ProductDetailPage extends BaseTitlePage {
                                 paddingVertical: 10,
                                 borderColor: Constant.textGray,
                             }, styles.flexDirectionRowNotFlex, styles.centered]}>
-                                <Text style={[{color:"#586575", fontSize: Constant.smallTextSize}]}>{I18n("Exchange")}</Text>
+                                <Text style={[{
+                                    color: "#586575",
+                                    fontSize: Constant.smallTextSize
+                                }]}>{I18n("Exchange")}</Text>
                             </View>
                         </TouchableOpacity>
 

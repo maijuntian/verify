@@ -32,9 +32,13 @@ import PointsActivityPage from "./components/verify/PointsActivityPage";
 import AddressPage from "./components/verify/AddressPage";
 import GiftListPage from "./components/verify/GiftListPage";
 import RankInterestsPage from "./components/verify/RankInterestsPage";
+import AddressEditPage from "./components/verify/AddressEditPage";
 import {TestPage} from "./components/verify/TestPage";
 import VerifyHistoryPage from "./components/verify/VerifyHistoryPage";
 import CheckInPage from "./components/verify/CheckInPage";
+import OrderConfirmPage from "./components/verify/OrderConfirmPage";
+import OrderAddressEditPage from "./components/verify/OrderAddressEditPage";
+import OrderAddressPage from "./components/verify/OrderAddressPage";
 import HorizontalCalendarList from "./components/verify/horizontalCalendarList";
 
 
@@ -104,6 +108,10 @@ const getRouter = () => {
                     <Scene key="RankInterestsPage" component={RankInterestsPage}/>
                     <Scene key="CheckInPage" component={CheckInPage}/>
                     <Scene key="VerifyHistoryPage" component={VerifyHistoryPage}/>
+                    <Scene key="AddressEditPage" component={AddressEditPage}/>
+                    <Scene key="OrderConfirmPage" component={OrderConfirmPage}/>
+                    <Scene key="OrderAddressEditPage" component={OrderAddressEditPage}/>
+                    <Scene key="OrderAddressPage" component={OrderAddressPage}/>
 
                 </Scene>
                 <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>

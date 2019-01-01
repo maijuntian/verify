@@ -3,7 +3,16 @@
  */
 
 import React, {Component} from 'react';
-import {Image, ImageBackground, StatusBar, Text, View, TouchableOpacity, FlatList} from "react-native";
+import {
+    Image,
+    ImageBackground,
+    StatusBar,
+    Text,
+    View,
+    TouchableOpacity,
+    FlatList,
+    DeviceEventEmitter
+} from "react-native";
 import BaseTitlePage from "../widget/BaseTitlePage";
 import styles, {screenWidth, statusHeight} from "../../style";
 import * as constant from "../../style/constant";
@@ -44,6 +53,11 @@ class MallPage extends Component {
     componentDidMount() {
         this.initUserInfo();
         this._getProductList()
+
+        this.subscription = DeviceEventEmitter.addListener(constant.CHANGE_PERSONAL,()=>{
+            //接收到详情页发送的通知，刷新数据
+            this.initUserInfo();
+        });
     }
 
     _getProductList() {
@@ -61,6 +75,7 @@ class MallPage extends Component {
     }
 
     componentWillUnmount() {
+        this.subscription.remove();
     }
 
 
