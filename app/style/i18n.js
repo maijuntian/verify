@@ -49,7 +49,7 @@ I18n.translations = {
         anti_fake_tip22: "Sorry!",
         anti_fake_tip33: "This code cannot be verified. This may not \nbe a genuine product.Please contact the seller, \nor provide your feedbacks to us.",
         anti_fake_tip41: "You had verified this code at",
-        anti_fake_tip42: "If you have any further questions, please provide your feedbacks to us.",
+        anti_fake_tip42: "If you have any further questions, \nplease provide your feedbacks to us.",
         Check_in: "Check-in",
         Personal: "Personal",
         Integral_detail: "Points Activity",
@@ -108,6 +108,9 @@ I18n.translations = {
         Delivery_Date:"Delivery Date",
         Tracking_Number:"Tracking Number",
         Logistics:"Logistics",
+        Saving:"Saving",
+        Checking:"Checking",
+        check_in_successful:"Check-in successful",
     },
     'zh-CN': {
         appName: 'VerifyAPP',
@@ -205,6 +208,7 @@ I18n.translations = {
         Logistics:"Logistics",
         Saving:"Saving",
         Checking:"Checking",
+        check_in_successful:"Check-in successful",
     }
 };
 

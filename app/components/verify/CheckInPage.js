@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 import {
     View,
     Text,
-    TouchableOpacity,
+    TouchableOpacity, DeviceEventEmitter,
 } from "react-native";
 import styles, {fontFamilyCharter, screenHeight, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
@@ -125,7 +125,6 @@ class CheckInPage extends BaseTitlePage {
         return (
             <View style={[styles.flexDirectionColumn]}>
                 <CalendarList
-                    style={[{marginTop: 10}]}
                     scrollEnabled={false}
                     pagingEnabled={true}
                     horizontal
@@ -135,6 +134,7 @@ class CheckInPage extends BaseTitlePage {
                     markedDates={
                         markedDates
                     }
+                    calendarHeight={500}
                     markingType={'period'}
                     theme={{
                         monthTextColor: 'black',
@@ -159,7 +159,14 @@ class CheckInPage extends BaseTitlePage {
                                               vUserDao.checkIn().then((res) => {
                                                   this.exitLoading();
                                                   if (res.code === 200) {
-
+                                                      vUserDao.localUserInfo().then((data)=>{
+                                                          data.points = data.points + res.data.points;
+                                                          return vUserDao.saveLocalUserInfo(data)
+                                                      }).then((result) => {
+                                                          DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                                                          Toast(i18n("check_in_successful")+"  +"+res.data.points+"  "+ i18n("integral"));
+                                                          this._getCheckInRecord();
+                                                      })
                                                   } else {
                                                       Toast(res.message);
                                                   }

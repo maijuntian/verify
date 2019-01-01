@@ -51,7 +51,7 @@ const getRouter = () => {
                 BackUtils()}>
             <Lightbox>
                 <Scene key="main">
-                    <Scene key="HorizontalCalendarList" component={HorizontalCalendarList} hideNavBar hideTabBar hide/>
+                    <Scene key="WelcomePage" component={WelcomePage} hideNavBar hideTabBar hide/>
                 </Scene>
                 <Scene key="root"
                        hideNavBar>

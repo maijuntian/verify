@@ -355,6 +355,12 @@ class ProductHistoryPage extends BaseTitlePage {
             case 2:
                 return (
                     <View style={{backgroundColor: Constant.grayBg, height: screenWidth * 1.3}}>
+                        <Image style={[{height: screenWidth * 1.3, width: screenWidth}]}
+                               source={require("../../img/map.png")}
+                               resizeMode={"cover"}/>
+
+                    </View>
+                    /*{/!*<View style={{backgroundColor: Constant.grayBg, height: screenWidth * 1.3}}>
                         <MapView
                             provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                             style={{
@@ -383,7 +389,7 @@ class ProductHistoryPage extends BaseTitlePage {
                             ))}
                         </MapView>
 
-                    </View>
+                    </View>*!/}*/
                 );
         }
     }

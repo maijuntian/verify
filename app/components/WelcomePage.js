@@ -36,7 +36,7 @@ class WelcomePage extends Component {
 
     toNext(res) {
         setTimeout(() => {
-            vUserDao.login("test", "test").then((res) => {
+            vUserDao.login("android", "test").then((res) => {
                 if (res.code === 200) {
                     return vUserDao.userinfo();
                 } else {
