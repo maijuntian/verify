@@ -151,20 +151,23 @@ class CheckInPage extends BaseTitlePage {
                 <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
 
 
-                    <View style={[{paddingHorizontal: 36, paddingVertical: 14,},]}>
+                    <View style={[{paddingHorizontal: 36, paddingVertical: 14, opacity: hasToday ? 0.6 : 1},]}>
 
                         <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                           onPress={() => {
+                                              if (hasToday) {
+                                                  return;
+                                              }
                                               Actions.LoadingModal({text: i18n("Checking"), backExit: false});
                                               vUserDao.checkIn().then((res) => {
                                                   this.exitLoading();
                                                   if (res.code === 200) {
-                                                      vUserDao.localUserInfo().then((data)=>{
+                                                      vUserDao.localUserInfo().then((data) => {
                                                           data.points = data.points + res.data.points;
                                                           return vUserDao.saveLocalUserInfo(data)
                                                       }).then((result) => {
                                                           DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
-                                                          Toast(i18n("check_in_successful")+"  +"+res.data.points+"  "+ i18n("integral"));
+                                                          Toast(i18n("check_in_successful") + "  +" + res.data.points + "  " + i18n("integral"));
                                                           this._getCheckInRecord();
                                                       })
                                                   } else {

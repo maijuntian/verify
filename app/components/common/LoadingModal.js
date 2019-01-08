@@ -50,6 +50,7 @@ class LoadingModal extends Component {
                    position={"center"}
                    backButtonClose={false}
                    swipeToClose={this.props.backExit}
+                   backdrop={true}
                    backdropOpacity={0.8}>
                 <View style={[styles.centered, {flex: 1}]}>
                     <View>

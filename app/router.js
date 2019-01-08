@@ -9,6 +9,8 @@ import {
 } from 'react-native-router-flux';
 import TabIcon from './components/widget/TabIcon'
 import LoadingModal from './components/common/LoadingModal'
+import ConfirmModal from './components/common/ConfirmModal'
+import SuccessModal from './components/common/SuccessModal'
 import styles from './style'
 import I18n, {changeLocale} from './style/i18n'
 import * as Constant from './style/constant'
@@ -116,6 +118,8 @@ const getRouter = () => {
                 </Scene>
                 <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>
                 <Scene key="LoadingModal" component={LoadingModal}/>
+                <Scene key="ConfirmModal" component={ConfirmModal}/>
+                <Scene key="SuccessModal" component={SuccessModal}/>
             </Lightbox>
         </Router>
     )

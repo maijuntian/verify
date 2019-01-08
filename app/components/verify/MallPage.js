@@ -24,6 +24,7 @@ import * as Config from "../../config";
 import productDao from "../../dao/productDao";
 import {Actions} from "react-native-router-flux";
 import vUserDao from "../../dao/vUserDao";
+import PersonalPage from "./PersonalPage";
 
 /**
  * 商城
@@ -54,7 +55,7 @@ class MallPage extends Component {
         this.initUserInfo();
         this._getProductList()
 
-        this.subscription = DeviceEventEmitter.addListener(constant.CHANGE_PERSONAL,()=>{
+        this.subscription = DeviceEventEmitter.addListener(constant.CHANGE_PERSONAL, () => {
             //接收到详情页发送的通知，刷新数据
             this.initUserInfo();
         });
@@ -90,7 +91,7 @@ class MallPage extends Component {
         let tipMarginLeft = progressWidth - 10;
 
         let rankIcon = require("../../img/silver.png");
-        switch (this.state.userInfo.rank){
+        switch (this.state.userInfo.rank) {
             case 1:
                 rankIcon = require("../../img/copper.png");
                 break;
@@ -109,18 +110,26 @@ class MallPage extends Component {
                     height: 86,
                     width: screenWidth
                 }, styles.flexDirectionRowNotFlex, styles.centerH]}>
-                    <ImageBackground
-                        source={require("../../img/bg_user_icon.png")}
-                        style={[{height: 86, width: 86, borderRadius: 43, marginLeft: 27,}, styles.centered]}>
-                        <Image style={[{height: 72, width: 72, borderRadius: 36,},]}
-                               source={{uri: this.state.userInfo.icon}}
-                        />
-                    </ImageBackground>
+
+                    <TouchableOpacity
+                        activeOpacity={constant.activeOpacity}
+                        onPress={() => {
+                            Actions.PersonalPage();
+                        }}>
+                        <ImageBackground
+                            source={require("../../img/bg_user_icon.png")}
+                            style={[{height: 86, width: 86, borderRadius: 43, marginLeft: 27,}, styles.centered]}>
+                            <Image style={[{height: 72, width: 72, borderRadius: 36,},]}
+                                   source={{uri: this.state.userInfo.icon}}
+                            />
+                        </ImageBackground>
+                    </TouchableOpacity>
 
                     <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10, paddingBottom: 10}]}>
                         <Text
                             style={[{marginTop: 5}, styles.largeTextBlackCharter]}>{this.state.userInfo.nickname}</Text>
-                        <Text style={[{marginTop: 5}, styles.subMinText]}>{this.state.userInfo.points} {I18n("Integral")}</Text>
+                        <Text
+                            style={[{marginTop: 5}, styles.subMinText]}>{this.state.userInfo.points} {I18n("Integral")}</Text>
                         <Text style={[{marginTop: -3}, styles.subMinText]}></Text>
                     </View>
 
@@ -219,25 +228,30 @@ class MallPage extends Component {
                             zIndex: -999,
                             alignItems: 'flex-end',
                         }]}>
-                           {/* <Image source={require("../../img/mall_check_in.png")}
+                            {/* <Image source={require("../../img/mall_check_in.png")}
                                 style={{
                                     width: 86,
                                     height: 18,}}/>*/}
-
-                           <View style={[{
-                                borderColor: constant.grayBg,
-                                borderWidth: 1,
-                                borderRadius: 5,
-                                width: 86,
-                                height: 18,
-                               marginRight:-1,
-                            }, styles.centered]}>
-                                <CommonIconText
-                                    textStyle={[styles.b40MinText]}
-                                    text={I18n("Check_in")}
-                                    icon={require("../../img/check_in1.png")}
-                                    iconStyle={[{height: 7, width: 9}]}/>
-                            </View>
+                            <TouchableOpacity
+                                activeOpacity={constant.activeOpacity}
+                                onPress={() => {
+                                    Actions.CheckInPage();
+                                }}>
+                                <View style={[{
+                                    borderColor: constant.grayBg,
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    width: 86,
+                                    height: 18,
+                                    marginRight: -1,
+                                }, styles.centered]}>
+                                    <CommonIconText
+                                        textStyle={[styles.b40MinText]}
+                                        text={I18n("Check_in")}
+                                        icon={require("../../img/check_in1.png")}
+                                        iconStyle={[{height: 7, width: 9}]}/>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -298,12 +312,15 @@ class MallPage extends Component {
                                           }}>
                             <View
                                 style={[{
-                                    width: ((screenWidth - dividerW*3) / 2),
+                                    width: ((screenWidth - dividerW * 3) / 2),
                                     marginRight: marginRight,
                                     marginLeft: dividerW,
                                     marginTop: dividerW,
                                 }, styles.mainBgColor, styles.flexDirectionColumnNotFlex]}>
-                                <Image style={[{height: (screenWidth - dividerW*3) / 2, width: (screenWidth - dividerW*3) / 2}]}
+                                <Image style={[{
+                                    height: (screenWidth - dividerW * 3) / 2,
+                                    width: (screenWidth - dividerW * 3) / 2
+                                }]}
                                        source={{uri: item.icon}}
                                        resizeMode={"stretch"}/>
 
@@ -316,7 +333,10 @@ class MallPage extends Component {
                                           numberOfLines={2}
                                           ellipsizeMode='tail'>{item.productName}</Text>
 
-                                    <View style={[{marginLeft: 10, marginTop: 5}, styles.flexDirectionRowNotFlex, styles.centerH]}>
+                                    <View style={[{
+                                        marginLeft: 10,
+                                        marginTop: 5
+                                    }, styles.flexDirectionRowNotFlex, styles.centerH]}>
                                         <Text
                                             style={[styles.smallTextBlack]}>{item.discount} {I18n("Integral")}</Text>
                                         <Text style={[{

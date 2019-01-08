@@ -15,6 +15,8 @@ import * as Constant from "../../style/constant";
 import Icon from 'react-native-vector-icons/Feather'
 import BaseTitlePage from "../widget/BaseTitlePage";
 import {Actions} from "react-native-router-flux";
+import vUserDao from "../../dao/vUserDao";
+import Toast from "../common/ToastProxy";
 
 /**
  * 登录
@@ -62,6 +64,18 @@ class OrderConfirmPage extends BaseTitlePage {
 
     exitLoading() {
         if (Actions.currentScene === 'LoadingModal') {
+            Actions.pop();
+        }
+    }
+
+    exitConfirm() {
+        if (Actions.currentScene === 'ConfirmModal') {
+            Actions.pop();
+        }
+    }
+
+    exitSuccess() {
+        if (Actions.currentScene === 'SuccessModal') {
             Actions.pop();
         }
     }
@@ -157,6 +171,35 @@ class OrderConfirmPage extends BaseTitlePage {
                         }, styles.centered]}
                                           activeOpacity={Constant.activeOpacity}
                                           onPress={() => {
+
+                                               Actions.ConfirmModal({
+                                                   text: this.state.product.discount + "",
+                                                   backExit: true,
+                                                   confirmFun: () => {
+                                                       this.exitConfirm();
+                                                       Actions.LoadingModal({text: i18n("Redeeming"), backExit: false});
+                                                       vUserDao.redeem(this.state.product.code, this.state.address).then((res) => {
+                                                           if (res.code === 200) {
+                                                               vUserDao.localUserInfo().then((data) => {
+                                                                   data.points = data.points - this.state.product.discount;
+                                                                   return vUserDao.saveLocalUserInfo(data)
+                                                               }).then((result) => {
+                                                                   DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                                                                   this.exitLoading();
+                                                                   Actions.SuccessModal({
+                                                                       finishFunc: () => {
+                                                                           Actions.pop();
+                                                                       }
+                                                                   });
+                                                               })
+
+                                                           } else {
+                                                               Toast(res.message);
+                                                           }
+                                                       })
+
+                                                   }
+                                               });
                                           }}>
                             <Text style={[styles.middleTextWhite]}>{i18n("Confirm")}</Text>
                         </TouchableOpacity>

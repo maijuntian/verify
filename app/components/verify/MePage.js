@@ -44,13 +44,13 @@ class MePage extends Component {
 
     componentDidMount() {
         this.initUserInfo();
-        this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL,()=>{
+        this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
             //接收到详情页发送的通知，刷新数据
             this.initUserInfo();
         });
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.subscription.remove();
     };
 
@@ -76,21 +76,27 @@ class MePage extends Component {
                             justifyContent: 'flex-end',
                         },]}>
 
-                            <View style={[{
-                                borderColor: Constant.white,
-                                borderWidth: 1,
-                                marginRight: -1,
-                                borderTopLeftRadius: 5,
-                                borderBottomLeftRadius: 5,
-                                width: 86,
-                                height: 18,
-                            }, styles.centered]}>
-                                <CommonIconText
-                                    textStyle={[styles.minTextWhite]}
-                                    text={I18n("Check_in")}
-                                    icon={require("../../img/check_in2.png")}
-                                    iconStyle={[{height: 7, width: 9}]}/>
-                            </View>
+                            <TouchableOpacity
+                                activeOpacity={Constant.activeOpacity}
+                                onPress={() => {
+                                    Actions.CheckInPage();
+                                }}>
+                                <View style={[{
+                                    borderColor: Constant.white,
+                                    borderWidth: 1,
+                                    marginRight: -1,
+                                    borderTopLeftRadius: 5,
+                                    borderBottomLeftRadius: 5,
+                                    width: 86,
+                                    height: 18,
+                                }, styles.centered]}>
+                                    <CommonIconText
+                                        textStyle={[styles.minTextWhite]}
+                                        text={I18n("Check_in")}
+                                        icon={require("../../img/check_in2.png")}
+                                        iconStyle={[{height: 7, width: 9}]}/>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
 

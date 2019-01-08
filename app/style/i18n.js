@@ -202,6 +202,7 @@ I18n.translations = {
         Order_date: "Order Date",
         Activity: "Activity",
         Success: "Success",
+        Success2: "Success!",
         Fail: "Fail",
         Select_from_album: "Select from album",
         Take_a_picture: "Take a picture",
@@ -219,10 +220,15 @@ I18n.translations = {
         Set_as_default: "Set as default",
         Save: "Save",
         Order_Confirmation: "Order Confirmation",
-        List:'List',
-        Total:"Total",
-        Confirm:"Confirm",
-        Order_confirming:"Order is confirming...",
+        List: 'List',
+        Total: "Total",
+        Confirm: "Confirm",
+        Order_confirming: "Order is confirming...",
+        Reminder: "Reminder",
+        redeem_gift_confirm: "Redeem gifts will cost",
+        OK: "OK",
+        Redeeming:"Redeeming",
+        SuccessTip:"We will send the gift to you\nas soon as possible.",
     }
 };
 
