@@ -18,7 +18,7 @@ import AntiFakePage from "./AntiFakePage";
 import Toast from '../common/ToastProxy';
 import Icon from "react-native-vector-icons/Feather";
 import * as Constant from "../../style/constant";
-import styles, {statusHeight} from "../../style";
+import styles, {screenWidth, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
 import {readerQR} from "react-native-lewin-qrcode";
 
@@ -139,6 +139,8 @@ class ScanQrCodePage extends Component {
     render() {
         let showF = this.props.show || null;
         console.log("--->" + showF);
+
+        let sWidth = screenWidth*2/3;
         return (
             <View style={[styles.flex,]}>
                 <RNCamera
@@ -152,7 +154,7 @@ class ScanQrCodePage extends Component {
 
                     <View style={[styles.flex, styles.centered,]}>
                         <ImageBackground source={require("../../img/shape_scan.png")}
-                                         style={[{width: 238, height: 238}]}>
+                                         style={[{width: sWidth, height: sWidth}]}>
                             <Animated.View style={{
                                 alignItems: 'center',
                                 transform: [{
@@ -160,11 +162,11 @@ class ScanQrCodePage extends Component {
                                     // translateY: y轴移动
                                     translateY: this.state.animate.interpolate({
                                         inputRange: [0, 1],
-                                        outputRange: [0, 238]
+                                        outputRange: [0, sWidth]
                                     })
                                 }]
                             }}>
-                                <Text style={{width: 230, height: 1, backgroundColor: '#00ff00'}}></Text>
+                                <Text style={{width: sWidth, height: 1, backgroundColor: '#00ff00'}}></Text>
                             </Animated.View>
                         </ImageBackground>
                     </View>
