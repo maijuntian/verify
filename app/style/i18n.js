@@ -229,6 +229,8 @@ I18n.translations = {
         OK: "OK",
         Redeeming:"Redeeming",
         SuccessTip:"We will send the gift to you\nas soon as possible.",
+        feedback_tip:"Please provide relevant is information of the purchase channels: online shopping mall, offline retail;\nPurchase  :  a certain road in a certain city;\nStore :  XX\nDate  :  2018/10/18\nDetails :",
+        Send:"Send",
     }
 };
 

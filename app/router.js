@@ -42,6 +42,7 @@ import OrderConfirmPage from "./components/verify/OrderConfirmPage";
 import OrderAddressEditPage from "./components/verify/OrderAddressEditPage";
 import OrderAddressPage from "./components/verify/OrderAddressPage";
 import HorizontalCalendarList from "./components/verify/horizontalCalendarList";
+import FeedBackPage from "./components/verify/FeedBackPage";
 
 
 /**
@@ -114,6 +115,7 @@ const getRouter = () => {
                     <Scene key="OrderConfirmPage" component={OrderConfirmPage}/>
                     <Scene key="OrderAddressEditPage" component={OrderAddressEditPage}/>
                     <Scene key="OrderAddressPage" component={OrderAddressPage}/>
+                    <Scene key="FeedBackPage" component={FeedBackPage}/>
 
                 </Scene>
                 <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>
