@@ -55,17 +55,19 @@ class WelcomePage extends Component {
     }
 
     render() {
+        let iconWidth = screenWidth * 0.417;
+        let iconHeight = iconWidth * 0.6111;
         return (
             <View style={[styles.mainBox, {backgroundColor: Constant.white}]}>
                 <StatusBar hidden={true}/>
                 <View style={[styles.centered, {flex: 1}]}>
                     <Image source={require("../img/logo.png")}
                            resizeMode={"stretch"}
-                           style={{width: 150, height: 100}}/>
+                           style={{width: iconWidth, height: iconHeight}}/>
                     <View
                         style={[styles.absoluteFull, styles.centered, {justifyContent: "flex-end"}, {marginBottom: 61}]}>
                         <Text
-                            style={[styles.subSmallText, {fontSize: constant.minTextSize}]}>www.viverify.com</Text>
+                            style={[styles.subSmallText, {fontSize: constant.smallTextSize}]}>www.viverify.com</Text>
                     </View>
                 </View>
             </View>

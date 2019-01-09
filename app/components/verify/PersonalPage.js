@@ -55,7 +55,7 @@ class PersonalPage extends BaseTitlePage {
     componentDidMount() {
         this.initUserInfo();
 
-        DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
+        this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
             //接收到详情页发送的通知，刷新数据
             this.initUserInfo();
         });
@@ -68,6 +68,10 @@ class PersonalPage extends BaseTitlePage {
             });
         })
     }
+
+    componentWillUnmount(){
+        this.subscription.remove();
+    };
 
     _title() {
         return i18n("Personal")

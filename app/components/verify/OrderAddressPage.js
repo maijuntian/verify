@@ -120,7 +120,8 @@ class AddressPage extends BaseTitlePage {
                             <View style={styles.flexDirectionColumnNotFlex}>
                                 <TouchableOpacity style={[styles.flexDirectionRowNotFlex, styles.centerH]}
                                                   onPress={() => {
-                                                      Actions.AddressEditPage({addressStr: JSON.stringify(item)});
+                                                      DeviceEventEmitter.emit(Constant.CHANGE_DEFAULT_ADDRESS, JSON.stringify(item));
+                                                      Actions.pop();
                                                   }}>
 
                                     <View style={[{

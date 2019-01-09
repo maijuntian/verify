@@ -47,6 +47,17 @@ const addressList = async (params) => {
     return res.data;
 }
 
+const saveAddress = async (params) => {
+    let res = await Api.netFetch(API + "/user/info/address", (params.id === null || params.id === "") ? "POST" : "PUT", params, true, null, false);
+    return res.data;
+}
+
+const getDefaultAddress = async () => {
+    let res = await Api.getFetch(API + "/user/info/address/default");
+    return res.data;
+}
+
+
 const giftList = async (params) => {
     let res = await Api.getFetch(API + "/user/info/redeem/records?" + params);
     if (res.data.code === 200) {
@@ -100,6 +111,11 @@ const checkIn = async () => {
     return res.data;
 }
 
+const redeem = async (code, params) => {
+    let res = await Api.netFetch(API + "/mall/product/redeem?code=" + code, "POST", params, true, null, false);
+    return res.data;
+}
+
 
 export default {
     login,
@@ -109,9 +125,12 @@ export default {
     updateInfo,
     pointsHistory,
     addressList,
+    saveAddress,
+    getDefaultAddress,
     giftList,
     getCheckInRecord,
     authRecord,
     updateAvatar,
     checkIn,
+    redeem
 }

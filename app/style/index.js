@@ -211,6 +211,11 @@ const styles = StyleSheet.create({
         fontSize: constant.middleTextWhite,
         fontFamily: fontFamilyCharter,
     },
+    middleTextBlackCharter: {
+        color: constant.primaryBlackColor,
+        fontSize: constant.middleTextWhite,
+        fontFamily: fontFamilyCharter,
+    },
     normalTextGrayCharter: {
         color: constant.text_gray,
         fontSize: constant.middleTextWhite,
@@ -310,10 +315,21 @@ const styles = StyleSheet.create({
         backgroundColor: "#F6F6F6"
     },
 
+    dividerLineF65: {
+        width: screenWidth,
+        height: 0.5,
+        backgroundColor: "#F6F6F6"
+    },
+
     dividerLineE3: {
         width: screenWidth,
         height: 1,
         backgroundColor: "#E3E3E3"
+    },
+    dividerLineE6: {
+        width: screenWidth,
+        height: 1,
+        backgroundColor: "#E6E6E6"
     }
 });
 

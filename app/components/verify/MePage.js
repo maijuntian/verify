@@ -9,11 +9,9 @@ import * as Constant from "../../style/constant";
 import CommonIconText from "../common/CommonIconText";
 import I18n from "../../style/i18n";
 import Icon from 'react-native-vector-icons/Feather'
-import {Actions} from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux';
 import * as Config from "../../config";
 import vUserDao from "../../dao/vUserDao";
-import AddressPage from "./AddressPage";
-import RankInterestsPage from "./RankInterestsPage";
 
 /**
  * 我的
@@ -33,7 +31,7 @@ class MePage extends Component {
                 , {key: I18n("Rights_and_interests")}
                 , {key: I18n("Receiving_address")}]
 
-        }
+        };
     }
 
     initUserInfo() {
@@ -46,14 +44,15 @@ class MePage extends Component {
 
     componentDidMount() {
         this.initUserInfo();
-        DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL,()=>{
+        this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
             //接收到详情页发送的通知，刷新数据
             this.initUserInfo();
         });
     }
 
     componentWillUnmount() {
-    }
+        this.subscription.remove();
+    };
 
 
     render() {
@@ -77,21 +76,27 @@ class MePage extends Component {
                             justifyContent: 'flex-end',
                         },]}>
 
-                            <View style={[{
-                                borderColor: Constant.white,
-                                borderWidth: 1,
-                                marginRight: -1,
-                                borderTopLeftRadius: 5,
-                                borderBottomLeftRadius: 5,
-                                width: 86,
-                                height: 18,
-                            }, styles.centered]}>
-                                <CommonIconText
-                                    textStyle={[styles.minTextWhite]}
-                                    text={I18n("Check_in")}
-                                    icon={require("../../img/check_in2.png")}
-                                    iconStyle={[{height: 7, width: 9}]}/>
-                            </View>
+                            <TouchableOpacity
+                                activeOpacity={Constant.activeOpacity}
+                                onPress={() => {
+                                    Actions.CheckInPage();
+                                }}>
+                                <View style={[{
+                                    borderColor: Constant.white,
+                                    borderWidth: 1,
+                                    marginRight: -1,
+                                    borderTopLeftRadius: 5,
+                                    borderBottomLeftRadius: 5,
+                                    width: 86,
+                                    height: 18,
+                                }, styles.centered]}>
+                                    <CommonIconText
+                                        textStyle={[styles.minTextWhite]}
+                                        text={I18n("Check_in")}
+                                        icon={require("../../img/check_in2.png")}
+                                        iconStyle={[{height: 7, width: 9}]}/>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
 
