@@ -15,8 +15,14 @@ const mallDaoGet = async (url, ) => {
     return res.data;
 }
 
+const feedback = async (code, feedback) => {
+    let res = await Api.netFetch(API +"/source/authentication/"+code+"/feedback?feedback="+ feedback, "POST");
+    return res.data;
+}
+
 
 export default {
     authenticationDao,
     mallDaoGet,
+    feedback,
 }
