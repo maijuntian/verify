@@ -33,7 +33,7 @@ class FeedBackPage extends BaseTitlePage {
         super(props);
         this.state = {
             content: "",
-            code:this.props.code,
+            code: this.props.code,
         }
     }
 
@@ -58,43 +58,57 @@ class FeedBackPage extends BaseTitlePage {
 
                 <TextInput
                     style={[styles.smallTextBlack, {
-                        width: screenHeight - 20,
+                        width: screenWidth - 20,
                         height: 226,
+                        borderColor: "#D7D7D7",
+                        borderWidth: 1,
                         marginHorizontal: 10,
-                        marginTop: 16
+                        marginTop: 16,
+                        borderRadius: 5,
+                        textAlignVertical: "top",
+                        paddingVertical: 15,
+                        paddingHorizontal: 30
                     }]}
+                    multiline={true}
                     underlineColorAndroid='transparent'
                     placeholder={i18n("feedback_tip")}
                     onChangeText={(text) => this.setState({content: text})}>
                 </TextInput>
-                <TouchableOpacity
-                    activeOpacity={Constant.activeOpacity}
-                    style={[{
-                        width: screenWidth * 0.4,
-                        marginHorizontal: screenWidth * 0.3,
-                        marginBottom: 16,
-                        borderColor: "#D7D7D7",
-                        borderWidth: 1,
-                        borderRadius: 20,
-                        paddingVertical: 10,
-                    }, styles.centered]}
-                    onPress={() => {
-                        Actions.LoadingModal({text: i18n("Saving"), backExit: false});
-                        productDao.feedback(this.state.code, this.state.content).then((res)=>{
-                            this.exitLoading();
-                            if(res.code === 200){
-                                Toast("Feedback success.")
-                                Actions.pop();
+                <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
+                    <TouchableOpacity
+                        activeOpacity={Constant.activeOpacity}
+                        style={[{
+                            width: screenWidth * 0.4,
+                            marginHorizontal: screenWidth * 0.3,
+                            marginBottom: 16,
+                            borderColor: "#D7D7D7",
+                            borderWidth: 1,
+                            borderRadius: 20,
+                            paddingVertical: 10,
+                        }, styles.centered]}
+                        onPress={() => {
+                            if (this.state.content === "") {
+                                Toast(i18n("Content_cannot_be_empty"));
                             } else {
-                                Toast(res.message);
+                                Actions.LoadingModal({text: i18n("Saving"), backExit: false});
+                                Keyboard.dismiss();
+                                productDao.feedback(this.state.code, this.state.content).then((res) => {
+                                    this.exitLoading();
+                                    if (res.code === 200) {
+                                        Toast(i18n("Feedback_success"))
+                                        Actions.pop();
+                                    } else {
+                                        Toast(res.message);
+                                    }
+                                })
                             }
-                        })
-                    }}>
-                    <Text style={[{
-                        color: Constant.grayBlue,
-                        fontSize: Constant.smallTextSize
-                    }]}>{i18n("Send")}</Text>
-                </TouchableOpacity>
+                        }}>
+                        <Text style={[{
+                            color: Constant.grayBlue,
+                            fontSize: Constant.smallTextSize
+                        }]}>{i18n("Send")}</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }

@@ -155,7 +155,7 @@ class OrderConfirmPage extends BaseTitlePage {
                     <View style={styles.dividerLineE6}/>
                     <View style={styles.flexDirectionRowNotFlex}>
                         <View style={[{
-                            width: screenWidth / 2,
+                            width: screenWidth * 2 / 3,
                             height: 55
                         }, styles.flexDirectionRowNotFlex, styles.centered]}>
                             <Text style={[styles.minTextBlack]}>{i18n("Total")}:</Text>
@@ -165,41 +165,41 @@ class OrderConfirmPage extends BaseTitlePage {
                         </View>
 
                         <TouchableOpacity style={[{
-                            width: screenWidth / 2,
+                            width: screenWidth / 3,
                             height: 55,
                             backgroundColor: "#7DA75F"
                         }, styles.centered]}
                                           activeOpacity={Constant.activeOpacity}
                                           onPress={() => {
 
-                                               Actions.ConfirmModal({
-                                                   text: this.state.product.discount + "",
-                                                   backExit: true,
-                                                   confirmFun: () => {
-                                                       this.exitConfirm();
-                                                       Actions.LoadingModal({text: i18n("Redeeming"), backExit: false});
-                                                       vUserDao.redeem(this.state.product.code, this.state.address).then((res) => {
-                                                           if (res.code === 200) {
-                                                               vUserDao.localUserInfo().then((data) => {
-                                                                   data.points = data.points - this.state.product.discount;
-                                                                   return vUserDao.saveLocalUserInfo(data)
-                                                               }).then((result) => {
-                                                                   DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
-                                                                   this.exitLoading();
-                                                                   Actions.SuccessModal({
-                                                                       finishFunc: () => {
-                                                                           Actions.pop();
-                                                                       }
-                                                                   });
-                                                               })
+                                              Actions.ConfirmModal({
+                                                  text: this.state.product.discount + "",
+                                                  backExit: true,
+                                                  confirmFun: () => {
+                                                      this.exitConfirm();
+                                                      Actions.LoadingModal({text: i18n("Redeeming"), backExit: false});
+                                                      vUserDao.redeem(this.state.product.code, this.state.address).then((res) => {
+                                                          if (res.code === 200) {
+                                                              vUserDao.localUserInfo().then((data) => {
+                                                                  data.points = data.points - this.state.product.discount;
+                                                                  return vUserDao.saveLocalUserInfo(data)
+                                                              }).then((result) => {
+                                                                  DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                                                                  this.exitLoading();
+                                                                  Actions.SuccessModal({
+                                                                      finishFunc: () => {
+                                                                          Actions.pop();
+                                                                      }
+                                                                  });
+                                                              })
 
-                                                           } else {
-                                                               Toast(res.message);
-                                                           }
-                                                       })
+                                                          } else {
+                                                              Toast(res.message);
+                                                          }
+                                                      })
 
-                                                   }
-                                               });
+                                                  }
+                                              });
                                           }}>
                             <Text style={[styles.middleTextWhite]}>{i18n("Confirm")}</Text>
                         </TouchableOpacity>

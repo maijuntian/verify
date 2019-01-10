@@ -4,16 +4,16 @@ import Toast from 'react-native-root-toast'
 /**
  * 文本提示框
  */
-export default function toast(text, duration = Toast.durations.SHORT, position = Toast.positions.CENTER) {
+export default function toast(text, duration = Toast.durations.SHORT, position = -80) {
     return Toast.show(text, {
         duration: duration,
         position: position,
-        shadow: true,
+        shadow: false,
         animation: true,
         hideOnPress: true,
         delay: 0,
-        backgroundColor:"#ffffff",
-        textColor:"#000000"
+        backgroundColor:"#6f6e6f",
+        textColor:"#ffffff"
     });
 }
 
