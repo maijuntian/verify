@@ -189,6 +189,7 @@ dependencies {
     api project(':react-native-image-crop-picker')
     api project(':realm')
     api project(':lottie-react-native')
+    api project(':react-native-wheel-picker')
     api fileTree(dir: "libs", include: ["*.jar"])
     api "com.android.support:appcompat-v7:27.1.1"
     api "com.facebook.react:react-native:+"  // From node_modules
