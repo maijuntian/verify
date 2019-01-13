@@ -75,7 +75,7 @@ class AntiFakePage extends BaseTitlePage {
                                       iconStyle={[{height: 14, width: 15}]}
                                       icon={require("../../img/icon_message.png")}
                                       onPress={() => {
-                                          Actions.FeedBackPage({code:this.state.data.productCode})
+                                          Actions.FeedBackPage({code:this.state.data.code})
                                       }}/>
             </View>;
         let resultView;

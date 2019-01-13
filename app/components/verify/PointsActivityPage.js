@@ -99,7 +99,7 @@ class PointsActivityPage extends BaseTitlePage {
                         return (
                             <View style={styles.flexDirectionColumnNotFlex}>
                                 <View style={[{
-                                    paddingVertical: 8,
+                                    paddingVertical: 10,
                                     paddingHorizontal: 30
                                 }, styles.flexDirectionRowNotFlex]}>
                                     <View style={[{width: (screenWidth - 60) * 2 / 7,}, styles.centered]}>
@@ -124,7 +124,7 @@ class PointsActivityPage extends BaseTitlePage {
                         return (
                             <View style={styles.flexDirectionColumnNotFlex}>
                                 <View style={[{
-                                    paddingVertical: 6,
+                                    paddingVertical: 14,
                                     paddingHorizontal: 30
                                 }, styles.flexDirectionRowNotFlex]}>
                                     <View style={[{width: (screenWidth - 60) * 2 / 7,},]}>

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {
     View,
     Text,
-    StyleSheet
+    StyleSheet, Keyboard, DeviceEventEmitter
 } from 'react-native'
 import moment from "moment";
 import {screenWidth} from "../../style";
@@ -12,10 +12,13 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import i18n from "../../style/i18n";
 import * as Constant from "../../style/constant";
 import styles from "../../style";
+import vUserDao from "../../dao/vUserDao";
+import Toast from "../common/ToastProxy";
+import {Actions} from "react-native-router-flux";
 
 const month_en = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-export class TestPage extends BaseTitlePage {
+class PersonalBirthdayPage extends BaseTitlePage {
 
     // 定义默认属性
     static defaultProps = {
@@ -42,6 +45,47 @@ export class TestPage extends BaseTitlePage {
 
     _title() {
         return i18n('Date_of_Birth');
+    }
+
+    _isRightPress() {
+        return true;
+    }
+
+    _rightPress() {
+
+        let monthStr = (this.state.selectedMonth + 1);
+        if(monthStr < 10)
+            monthStr = "0" + monthStr;
+
+
+        let dayStr = this.state.day[this.state.selectedDay];
+        if(dayStr < 10)
+            dayStr = "0" + dayStr;
+
+        let birthday = this.state.year[this.state.selectedYear] + "-" + monthStr + "-" + dayStr;
+
+        Actions.LoadingModal({text: i18n("Saving"), backExit: false});
+
+        vUserDao.updateInfo({"birthday": birthday}).then((res) => {
+            this.exitLoading();
+            if (res.code === 200) {
+                vUserDao.localUserInfo().then((data) => {
+                    data.birthday = birthday;
+                    return vUserDao.saveLocalUserInfo(data)
+                }).then((result) => {
+                    DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                    Actions.pop();
+                });
+            } else {
+                Toast.show(res.message);
+            }
+        })
+    }
+
+    exitLoading() {
+        if (Actions.currentScene === 'LoadingModal') {
+            Actions.pop();
+        }
     }
 
     getYear() {
@@ -80,7 +124,7 @@ export class TestPage extends BaseTitlePage {
 
         this.state.selectedYear = 100 - (currYear - birthday.get("year"));
         this.state.selectedMonth = birthday.get("month");
-        this.state.selectedDay = birthday.get("date")-1;
+        this.state.selectedDay = birthday.get("date") - 1;
 
         console.log("test-->" + this.state.selectedYear + "  " + this.state.selectedMonth + "  " + this.state.selectedDay);
         let year = this.getYear();
@@ -103,7 +147,6 @@ export class TestPage extends BaseTitlePage {
     }
 
     updateYear(year) {
-
         let day = this.getDay(year, this.state.selectedMonth);
 
         let selDay = this.state.selectedDay;
@@ -146,7 +189,7 @@ export class TestPage extends BaseTitlePage {
         return <Picker.Item label={value} value={i} key={"money" + value}/>
     }
 
-    render() {
+    _reader() {
         console.log("test-->" + this.state.year.length + "   " + this.state.month.length + "   " + this.state.day.length)
         return (
             <View style={[styles.flexDirectionColumn, {backgroundColor: "#F5F5F5"}]}>
@@ -195,3 +238,5 @@ export class TestPage extends BaseTitlePage {
         );
     }
 }
+
+export default PersonalBirthdayPage;

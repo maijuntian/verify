@@ -43,6 +43,8 @@ import OrderAddressEditPage from "./components/verify/OrderAddressEditPage";
 import OrderAddressPage from "./components/verify/OrderAddressPage";
 import HorizontalCalendarList from "./components/verify/horizontalCalendarList";
 import FeedBackPage from "./components/verify/FeedBackPage";
+import PersonalBirthdayPage from "./components/verify/PersonalBirthdayPage";
+import SettingPage from "./components/verify/SettingPage";
 
 
 /**
@@ -58,7 +60,7 @@ const getRouter = () => {
                 BackUtils()}>
             <Lightbox>
                 <Scene key="main">
-                    <Scene key="TestPage" component={TestPage} hideNavBar hideTabBar hide/>
+                    <Scene key="WelcomePage" component={WelcomePage} hideNavBar hideTabBar hide/>
                 </Scene>
                 <Scene key="root"
                        hideNavBar>
@@ -116,6 +118,8 @@ const getRouter = () => {
                     <Scene key="OrderAddressEditPage" component={OrderAddressEditPage}/>
                     <Scene key="OrderAddressPage" component={OrderAddressPage}/>
                     <Scene key="FeedBackPage" component={FeedBackPage}/>
+                    <Scene key="PersonalBirthdayPage" component={PersonalBirthdayPage}/>
+                    <Scene key="SettingPage" component={SettingPage}/>
 
                 </Scene>
                 <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>

@@ -23,13 +23,14 @@ class MePage extends Component {
 
         this.state = {
             userInfo: {},
-            items: [{key: I18n("Personal")}
+            items: [{key: I18n("Profile")}
+                , {key: I18n("Verification_record")}
                 , {key: I18n('Integral_detail')}
                 , {key: I18n("My_prize")}
-                , {key: I18n("Verification_record")}
                 , {key: I18n("Check_in_record")}
                 , {key: I18n("Rights_and_interests")}
-                , {key: I18n("Receiving_address")}]
+                , {key: I18n("Receiving_address")}
+                , {key: I18n("Settings")}]
 
         };
     }
@@ -136,54 +137,62 @@ class MePage extends Component {
                     </View>
                 </ImageBackground>
 
+                <View style={styles.dividerLineF6}/>
                 <FlatList
-                    style={{marginVertical: 13}}
                     data={this.state.items}
                     renderItem={({item, index}) => {
                         return (
-                            <TouchableOpacity style={[{
-                                paddingHorizontal: 26,
-                                paddingVertical: 13
-                            }, styles.flexDirectionRowNotFlex, styles.centerH]} onPress={() => {
-                                switch (index) {
-                                    case 0:
-                                        Actions.PersonalPage();
-                                        break;
-                                    case 1:
-                                        Actions.PointsActivityPage();
-                                        break;
-                                    case 2:
-                                        Actions.GiftListPage();
-                                        break;
-                                    case 3:
-                                        Actions.VerifyHistoryPage();
-                                        break;
-                                    case 4:
-                                        Actions.CheckInPage();
-                                        break;
-                                    case 5:
-                                        Actions.RankInterestsPage();
-                                        break;
-                                    case 6:
-                                        Actions.AddressPage();
-                                }
-                            }}>
+                            <View style={styles.flexDirectionColumnNotFlex}>
+                                <TouchableOpacity style={[{
+                                    paddingHorizontal: 26,
+                                    paddingVertical: 20
+                                }, styles.flexDirectionRowNotFlex, styles.centerH]} onPress={() => {
+                                    switch (index) {
+                                        case 0:
+                                            Actions.PersonalPage();
+                                            break;
+                                        case 1:
+                                            Actions.VerifyHistoryPage();
+                                            break;
+                                        case 2:
+                                            Actions.PointsActivityPage();
+                                            break;
+                                        case 3:
+                                            Actions.GiftListPage();
+                                            break;
+                                        case 4:
+                                            Actions.CheckInPage();
+                                            break;
+                                        case 5:
+                                            Actions.RankInterestsPage();
+                                            break;
+                                        case 6:
+                                            Actions.AddressPage();
+                                            break;
+                                        case 7:
+                                            Actions.SettingPage();
+                                            break;
+                                    }
+                                }}>
 
-                                <Text style={styles.smallTextBlack}>{item.key}</Text>
+                                    <Text style={styles.smallTextBlack}>{item.key}</Text>
 
 
-                                <View style={[styles.absoluteFull, {
-                                    zIndex: -999,
-                                    alignItems: 'flex-end',
-                                    marginRight: 26,
-                                    marginTop: 15,
-                                }]}>
-                                    <Icon
-                                        name={"chevron-right"}
-                                        backgroundColor={Constant.transparentColor}
-                                        color={Constant.primaryBlackColor} size={15}/>
-                                </View>
-                            </TouchableOpacity>
+                                    <View style={[styles.absoluteFull, {
+                                        zIndex: -999,
+                                        alignItems: 'flex-end',
+                                        marginRight: 26,
+                                        marginTop: 15,
+                                    }]}>
+                                        <Icon
+                                            name={"chevron-right"}
+                                            backgroundColor={Constant.transparentColor}
+                                            color={Constant.primaryBlackColor} size={15}/>
+                                    </View>
+                                </TouchableOpacity>
+
+                                <View style={styles.dividerLineF6}/>
+                            </View>
                         )
                     }}/>
             </View>

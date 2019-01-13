@@ -14,6 +14,7 @@ import vUserDao from "../../dao/vUserDao";
 import ImagePicker from "react-native-image-picker";
 import ImagePickerCrop from "react-native-image-crop-picker";
 import Toast from '../common/ToastProxy'
+import {PersonalBirthdayPage} from "./PersonalBirthdayPage";
 
 const options = {
     title: i18n("Please_choose"),
@@ -69,7 +70,7 @@ class PersonalPage extends BaseTitlePage {
         })
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.subscription.remove();
     };
 
@@ -212,7 +213,7 @@ class PersonalPage extends BaseTitlePage {
                         paddingRight: 10
                     }]}
                     onPress={() => {
-
+                        Actions.PersonalBirthdayPage({birthday: this.state.userInfo.birthday});
                     }}>
                     <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Birthday")}</Text>
 

@@ -70,7 +70,7 @@ class SuccessModal extends Component {
                         <Image source={require("../../img/success.png")}
                                style={{height: 56, width: 56, marginTop: 15}}/>
 
-                        <Text style={[styles.middleTextBlackCharter]}>{I18n("Success2")}</Text>
+                        <Text style={[styles.middleTextBlackCharter]}>{I18n("Success")}</Text>
 
                         <Text
                             style={[styles.middleTextGray, {

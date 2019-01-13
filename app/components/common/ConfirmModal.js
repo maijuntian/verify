@@ -59,15 +59,13 @@ class ConfirmModal extends Component {
                         backgroundColor: Constant.white,
                         borderRadius: 5,
                     }, styles.flexDirectionColumnNotFlex, styles.centered]}>
-                        <Text
-                            style={[styles.middleTextBlackCharter, {marginVertical: 10}]}>{I18n("Reminder")}</Text>
-                        <View style={styles.dividerLineE6}/>
-                        <Text style={[styles.smallTextGray, {marginTop: 15}]}>{I18n("redeem_gift_confirm")}</Text>
-                        <View style={styles.flexDirectionRowNotFlex}>
+                        <View style={[styles.flexDirectionRowNotFlex, {marginTop: 30}]}>
+                            <Text style={[styles.smallTextGray]}>{I18n("Redeeming")}  </Text>
                             <Text style={[styles.smallTextBlack]}>{this.props.text}</Text>
-                            <Text style={[styles.smallTextGray]}>  {I18n("integral")}.</Text>
+                            <Text style={[styles.smallTextGray]}>  {I18n("integral")}</Text>
                         </View>
-                        <View style={[{marginTop: 20, marginBottom: 12}, styles.flexDirectionRowNotFlex]}>
+                        <Text style={[styles.smallTextGray]}>{I18n("redeem_gift_confirm")}</Text>
+                        <View style={[{marginTop: 30, marginBottom: 20}, styles.flexDirectionRowNotFlex]}>
                             <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                               onPress={() => {
                                                   this.onClose();
@@ -75,8 +73,8 @@ class ConfirmModal extends Component {
 
                                 <View style={[{
                                     borderWidth: 1,
-                                    borderRadius: 30,
-                                    paddingVertical: 10,
+                                    borderRadius: 20,
+                                    paddingVertical: 6,
                                     width: 100,
                                     borderColor: Constant.textGray,
                                 }, styles.flexDirectionRowNotFlex, styles.centered]}>
@@ -91,8 +89,8 @@ class ConfirmModal extends Component {
                                 <View style={[{
                                     marginLeft: 15,
                                     borderWidth: 1,
-                                    borderRadius: 30,
-                                    paddingVertical: 10,
+                                    borderRadius: 20,
+                                    paddingVertical: 6,
                                     width: 100,
                                     borderColor: Constant.textGray,
                                 }, styles.flexDirectionRowNotFlex, styles.centered]}>

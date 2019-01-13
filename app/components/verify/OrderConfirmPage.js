@@ -118,13 +118,14 @@ class OrderConfirmPage extends BaseTitlePage {
                 </TouchableOpacity>
                 <View style={styles.dividerLineE6}/>
 
-                <Text style={[styles.smallTextBlack, {
+                {/*<Text style={[styles.smallTextBlack, {
                     marginLeft: 16,
                     paddingVertical: 10
-                }]}>{i18n("List")}</Text>
+                }]}>{i18n("List")}</Text>*/}
 
                 <View style={[{
-                    paddingBottom: 27,
+                    paddingTop:25,
+                    paddingBottom: 25,
                     paddingLeft: 16,
                     paddingRight: 18
                 }, styles.flexDirectionRowNotFlex, styles.centerV]}>

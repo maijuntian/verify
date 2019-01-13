@@ -149,7 +149,7 @@ class VerifyHistoryPage extends BaseTitlePage {
                         return (
                             <View style={styles.flexDirectionColumnNotFlex}>
                                 <View style={[{
-                                    paddingVertical: 6,
+                                    paddingVertical: 16,
                                     paddingHorizontal: 30
                                 }, styles.flexDirectionRowNotFlex]}>
                                     <View style={[{width: (screenWidth - 60) / 2,},]}>
