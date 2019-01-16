@@ -14,7 +14,7 @@ import {
     TextInput,
     DeviceEventEmitter
 } from "react-native";
-import styles, {screenHeight, statusHeight} from "../../style";
+import styles, {screenHeight, screenWidth, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
 import * as Constant from "../../style/constant";
 import Icon from 'react-native-vector-icons/Feather'
@@ -64,9 +64,112 @@ class AddressEditPage extends BaseTitlePage {
         }
     }
 
+    _save() {
+        Actions.LoadingModal({text: i18n("Saving"), backExit: false});
+        vUserDao.saveAddress({
+            id: this.state.id,
+            address: this.state.address,
+            contacts: this.state.contacts,
+            default: this.state.defaultB,
+            phone: this.state.phone,
+        }).then((res) => {
+            this.exitLoading();
+            if (res.code === 200) {
+                DeviceEventEmitter.emit(Constant.CHANGE_ADDRESS);
+                Actions.pop();
+            } else {
+                Toast(res.message);
+            }
+        });
+    }
+
+    _delete() {
+        Actions.LoadingModal({text: i18n("Deleting"), backExit: false});
+        vUserDao.deleteAddress(
+            this.state.id
+        ).then((res) => {
+            this.exitLoading();
+            if (res.code === 200) {
+                DeviceEventEmitter.emit(Constant.CHANGE_ADDRESS);
+                Actions.pop();
+            } else {
+                Toast(res.message);
+            }
+        });
+    }
+
     _reader() {
 
         let switchIcon = this.state.defaultB ? require("../../img/switch_on.png") : require("../../img/switch_off.png");
+
+        let editView;
+
+        if (this.state.id === null || this.state.id === "") {
+            editView = <View style={[{paddingHorizontal: 36, paddingVertical: 14,},]}>
+
+                <TouchableOpacity activeOpacity={Constant.activeOpacity}
+                                  onPress={() => {
+                                      this._save();
+                                  }}>
+
+                    <View style={[{
+                        borderWidth: 1,
+                        borderRadius: 20,
+                        paddingVertical: 10,
+                        borderColor: Constant.textGray,
+                    }, styles.flexDirectionRowNotFlex, styles.centered]}>
+                        <Text style={[{
+                            color: Constant.grayBlue,
+                            fontSize: Constant.smallTextSize
+                        }]}>{i18n("Save")}</Text>
+                    </View>
+                </TouchableOpacity>
+
+            </View>
+        } else {
+            editView = <View style={[{paddingHorizontal: 22, paddingVertical: 14,}, styles.flexDirectionRowNotFlex]}>
+
+                <TouchableOpacity activeOpacity={Constant.activeOpacity}
+                                  onPress={() => {
+                                      this._delete();
+                                  }}>
+
+                    <View style={[{
+                        borderWidth: 1,
+                        borderRadius: 20,
+                        paddingVertical: 10,
+                        width: (screenWidth - 72) / 2,
+                        borderColor: Constant.textGray,
+                    }, styles.flexDirectionRowNotFlex, styles.centered]}>
+                        <Text style={[{
+                            color: "red",
+                            fontSize: Constant.smallTextSize
+                        }]}>{i18n("Delete")}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={Constant.activeOpacity}
+                                  onPress={() => {
+                                      this._save();
+                                  }}>
+
+                    <View style={[{
+                        borderWidth: 1,
+                        borderRadius: 20,
+                        marginLeft: 28,
+                        paddingVertical: 10,
+                        width: (screenWidth - 72) / 2,
+                        borderColor: Constant.textGray,
+                    }, styles.flexDirectionRowNotFlex, styles.centered]}>
+                        <Text style={[{
+                            color: Constant.grayBlue,
+                            fontSize: Constant.smallTextSize
+                        }]}>{i18n("Save")}</Text>
+                    </View>
+                </TouchableOpacity>
+
+            </View>
+        }
 
         return (
             <View style={[{backgroundColor: "white"}, styles.flexDirectionColumn]}>
@@ -201,42 +304,7 @@ class AddressEditPage extends BaseTitlePage {
                 <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
 
 
-                    <View style={[{paddingHorizontal: 36, paddingVertical: 14,},]}>
-
-                        <TouchableOpacity activeOpacity={Constant.activeOpacity}
-                                          onPress={() => {
-                                              Actions.LoadingModal({text: i18n("Saving"), backExit: false});
-                                              vUserDao.saveAddress({
-                                                  id: this.state.id,
-                                                  address: this.state.address,
-                                                  contacts: this.state.contacts,
-                                                  default: this.state.defaultB,
-                                                  phone: this.state.phone,
-                                              }).then((res) => {
-                                                  this.exitLoading();
-                                                  if (res.code === 200) {
-                                                      DeviceEventEmitter.emit(Constant.CHANGE_ADDRESS);
-                                                      Actions.pop();
-                                                  } else {
-                                                      Toast(res.message);
-                                                  }
-                                              })
-                                          }}>
-
-                            <View style={[{
-                                borderWidth: 1,
-                                borderRadius: 30,
-                                paddingVertical: 10,
-                                borderColor: Constant.textGray,
-                            }, styles.flexDirectionRowNotFlex, styles.centered]}>
-                                <Text style={[{
-                                    color: Constant.grayBlue,
-                                    fontSize: Constant.smallTextSize
-                                }]}>{i18n("Save")}</Text>
-                            </View>
-                        </TouchableOpacity>
-
-                    </View>
+                    {editView}
 
                 </View>
             </View>
