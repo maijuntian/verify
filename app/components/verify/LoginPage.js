@@ -4,7 +4,7 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, Image, View, Text, StatusBar, TouchableOpacity, TextInput} from "react-native";
-import styles, {screenHeight, statusHeight} from "../../style";
+import styles, {screenHeight, screenWidth, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
 import CommonIconText from "../common/CommonIconText";
 import * as constant from "../../style/constant";
@@ -17,43 +17,69 @@ class LoginPage extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            account: "",
+        }
     }
 
     render() {
 
+        let iconWidth = screenWidth * 0.417;
+        let iconHeight = iconWidth * 0.6111;
+
+        let inputIconWidth = 20;
+        let dividerWidth = screenWidth - 76;
+        let inputWidth = dividerWidth - inputIconWidth;
         return (
-            <View style={[{backdropColor: "#f5f5f5"}, styles.flexDirectionColumn, styles.centerH]}>
+            <View style={[{backgroundColor: "#f4f3f4"}, styles.flexDirectionColumn, styles.centerH]}>
                 <StatusBar hidden={true}/>
-                <Image source={require("../../img/logo2.png")}
+                <Image source={require("../../img/logo.png")}
                        resizeMode={"stretch"}
-                       style={{marginTop: 63, width: 275, height: 54}}/>
+                       style={{marginTop: 70 + statusHeight, width: iconWidth, height: iconHeight}}/>
 
                 <View style={[{
-                    marginTop: 92,
+                    marginTop: 44,
                     marginHorizontal: 25,
-                    paddingHorizontal: 13,
-                    paddingVertical: 25
-                }, styles.shadowCard_login]}>
+                    paddingLeft: 13,
+                    paddingRight: 13,
+                    paddingVertical: 25,
+                    width: screenWidth - 50,
+                    borderRadius: 8,
+                }, styles.flexDirectionColumnNotFlex, styles.mainBgColor]}>
 
-                    <TextInput style={[{padding: 5}, styles.smallTextGray, styles.flexDirectionColumn,]}
-                               placeholder={i18n("Mobile_number")}
-                               keyboardType={"numeric"}/>
-                    <View style={styles.dividerLine}/>
+                    <View style={[styles.flexDirectionRowNotFlex, styles.centerH,]}>
+                        <TextInput
+                            style={[styles.middleTexBlack, {
+                                width: inputWidth,
+                                paddingVertical:5,
+                            }]}
+                            underlineColorAndroid='transparent'
+                            placeholder={i18n("Mobile_number")}
+                            onChangeText={(text) => this.setState({account: text})}
+                            value={this.state.account}/>
+                        <Image style={[{height: inputIconWidth, width: inputIconWidth,}]}
+                               resizeMode={"center"}
+                               source={require("../../img/icon_search.png")}/>
+                    </View>
+                    <View style={[styles.dividerLineE6, {width: dividerWidth}]}/>
 
-                    <View style={[{marginTop: 15}, styles.flexDirectionColumn, styles.centerH,]}>
-                        <Text style={[{paddingLeft: 5}, styles.middleTextGray]}>{i18n("Code")}</Text>
-                        <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
-                            <TextInput style={[{paddingLeft: 10}, styles.smallTextGray, styles.flex,]}
-                                       placeholder={i18n("Verification_code")}
-                                       keyboardType={"numeric"}/>
-                            <View style={[{padding:8, borderColor: constant.textGray, borderWidth: 1, borderRadius: 20}]}>
-                                <CommonIconText
-                                    iconStyle={[{height:15, width:15}]}
-                                    icon={require("../../img/send.png")}
-                                    text={i18n("send")}
-                                    textStyle={[styles.minTextBlack]}/>
-                            </View>
-                        </View>
+                    <View style={[{marginTop: 15}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
+                        <TextInput
+                            style={[styles.middleTexBlack, {
+                                width: inputWidth,
+                                paddingVertical:5,
+                            }]}
+                            underlineColorAndroid='transparent'
+                            placeholder={i18n("Password")}
+                            onChangeText={(text) => this.setState({account: text})}
+                            value={this.state.account}/>
+                        <Image style={[{height: inputIconWidth, width: inputIconWidth}]}
+                               resizeMode={"center"}
+                               source={require("../../img/icon_search.png")}/>
+                    </View>
+                    <View style={[styles.dividerLineE6, {width: dividerWidth}]}/>
+                    <View style={[{marginTop: 15}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
+                        <Image source={require("../../img/")}/>
                     </View>
                 </View>
             </View>

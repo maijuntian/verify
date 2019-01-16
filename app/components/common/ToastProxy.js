@@ -12,7 +12,7 @@ export default function toast(text, duration = Toast.durations.SHORT, position =
         animation: true,
         hideOnPress: true,
         delay: 0,
-        backgroundColor:"#6f6e6f",
+        backgroundColor:"#555360",
         textColor:"#ffffff"
     });
 }

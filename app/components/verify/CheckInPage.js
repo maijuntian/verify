@@ -151,7 +151,7 @@ class CheckInPage extends BaseTitlePage {
                 <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
 
 
-                    <View style={[{paddingHorizontal: 36, paddingVertical: 14, opacity: hasToday ? 0.6 : 1},]}>
+                    <View style={[{paddingHorizontal: 36, paddingVertical: 14, opacity: hasToday ? Constant.activeOpacity : 1},]}>
 
                         <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                           onPress={() => {

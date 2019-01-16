@@ -28,8 +28,8 @@ class MePage extends Component {
                 , {key: I18n('Integral_detail')}
                 , {key: I18n("My_prize")}
                 , {key: I18n("Check_in_record")}
-                , {key: I18n("Rights_and_interests")}
                 , {key: I18n("Receiving_address")}
+                , {key: I18n("Rights_and_interests")}
                 , {key: I18n("Settings")}]
 
         };
@@ -137,10 +137,13 @@ class MePage extends Component {
                     </View>
                 </ImageBackground>
 
-                <View style={styles.dividerLineF6}/>
                 <FlatList
                     data={this.state.items}
                     renderItem={({item, index}) => {
+
+                        let view = index === (this.state.items.length - 1) ? <View/> :
+                            <View style={styles.dividerLineF6}/>;
+
                         return (
                             <View style={styles.flexDirectionColumnNotFlex}>
                                 <TouchableOpacity style={[{
@@ -164,10 +167,10 @@ class MePage extends Component {
                                             Actions.CheckInPage();
                                             break;
                                         case 5:
-                                            Actions.RankInterestsPage();
+                                            Actions.AddressPage();
                                             break;
                                         case 6:
-                                            Actions.AddressPage();
+                                            Actions.RankInterestsPage();
                                             break;
                                         case 7:
                                             Actions.SettingPage();
@@ -181,8 +184,8 @@ class MePage extends Component {
                                     <View style={[styles.absoluteFull, {
                                         zIndex: -999,
                                         alignItems: 'flex-end',
-                                        marginRight: 26,
-                                        marginTop: 15,
+                                        marginRight: 33,
+                                        marginTop: 24,
                                     }]}>
                                         <Icon
                                             name={"chevron-right"}
@@ -190,8 +193,7 @@ class MePage extends Component {
                                             color={Constant.primaryBlackColor} size={15}/>
                                     </View>
                                 </TouchableOpacity>
-
-                                <View style={styles.dividerLineF6}/>
+                                {view}
                             </View>
                         )
                     }}/>
