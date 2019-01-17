@@ -159,10 +159,10 @@ class OrderConfirmPage extends BaseTitlePage {
                             width: screenWidth * 2 / 3,
                             height: 55
                         }, styles.flexDirectionRowNotFlex, styles.centered]}>
-                            <Text style={[styles.minTextBlack]}>{i18n("Total")}:</Text>
+                            <Text style={[styles.middleTexBlack]}>{i18n("Total")}:</Text>
                             <Text
-                                style={[styles.smallTextBlack, {marginHorizontal: 3}]}>{this.state.product.discount}</Text>
-                            <Text style={[styles.minTextBlack]}>{i18n("integral")}</Text>
+                                style={[styles.largeTextBlack, {marginHorizontal: 6}]}>{this.state.product.discount}</Text>
+                            <Text style={[styles.middleTexBlack]}>{i18n("integral")}</Text>
                         </View>
 
                         <TouchableOpacity style={[{

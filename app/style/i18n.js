@@ -264,6 +264,8 @@ I18n.translations = {
         About_Us: "About Us",
         Version: "Version",
         Password:"Password",
+        Delete:"Delete",
+        Deleting:"Deleting",
     }
 };
 

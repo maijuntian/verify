@@ -79,7 +79,6 @@ class LoginPage extends Component {
                     </View>
                     <View style={[styles.dividerLineE6, {width: dividerWidth}]}/>
                     <View style={[{marginTop: 15}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
-                        <Image source={require("../../img/")}/>
                     </View>
                 </View>
             </View>

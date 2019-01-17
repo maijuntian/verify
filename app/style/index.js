@@ -178,6 +178,11 @@ const styles = StyleSheet.create({
     minTextBlack: {
         color: constant.primaryBlackColor,
         fontSize: constant.minTextSize,
+        fontFamily: fontFamilyCharter,
+    },
+    minTextBlack_Charter: {
+        color: constant.primaryBlackColor,
+        fontSize: constant.minTextSize,
     },
     minTextsGray: {
         color: constant.textGray,

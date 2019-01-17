@@ -151,17 +151,13 @@ class VerifyHistoryPage extends BaseTitlePage {
                                 <View style={[{
                                     paddingVertical: 16,
                                     paddingHorizontal: 30
-                                }, styles.flexDirectionRowNotFlex]}>
-                                    <View style={[{width: (screenWidth - 60) / 2,},]}>
+                                }, styles.flexDirectionRowNotFlex,styles.centerH, ]}>
+                                    <View style={[{width: (screenWidth - 60) / 2,}]}>
                                         <Text style={[{color: Constant.gray9d, fontSize: 12}]}>{item.authTime}</Text>
                                     </View>
                                     <View
-                                        style={[{width: (screenWidth - 60) / 2,}, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
-                                        <Text style={[{
-                                            color: Constant.primaryBlackColor,
-                                            fontSize: 12,
-                                            textAlign:"right",
-                                        }]}>{item.productName + "\nauthentic"}</Text>
+                                        style={[{width: (screenWidth - 60) / 2,},]}>
+                                        <Text style={[styles.minTextBlack_Charter]}>{item.productName + " authentic"}</Text>
                                     </View>
 
                                 </View>

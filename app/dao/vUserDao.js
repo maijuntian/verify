@@ -32,7 +32,7 @@ const localUserInfo = async () => {
 }
 
 const pointsHistory = async (params) => {
-    let res = await Api.getFetch(API + "/user/points/collect?" + params);
+    let res = await Api.getFetch(API + "/user/points?" + params);
     if (res.code === 200) {
         res.data.data = res.data.data.list;
     }
@@ -52,6 +52,11 @@ const saveAddress = async (params) => {
     return res.data;
 }
 
+const deleteAddress = async (id) => {
+    let res = await Api.netFetch(API + "/user/info/address/" + id, "DELETE", null, false, null, false);
+    return res.data;
+}
+
 const getDefaultAddress = async () => {
     let res = await Api.getFetch(API + "/user/info/address/default");
     return res.data;
@@ -59,7 +64,7 @@ const getDefaultAddress = async () => {
 
 
 const giftList = async (params) => {
-    let res = await Api.getFetch(API + "/user/info/redeem/records?" + params);
+    let res = await Api.getFetch(API + "/user/redeem?" + params);
     if (res.data.code === 200) {
         res.data.data = res.data.data.list;
     }
@@ -67,7 +72,7 @@ const giftList = async (params) => {
 }
 
 const authRecord = async (params) => {
-    let res = await Api.getFetch(API + "/user/auth/record?" + params);
+    let res = await Api.getFetch(API + "/user/source/authentication?" + params);
     if (res.data.code === 200) {
         res.data.data = res.data.data.list;
     }
@@ -99,7 +104,7 @@ const getCheckInRecord = async () => {
     console.log("endTime--->" + endTime);
 
     let params = "startTime=" + startTime + "&endTime=" + endTime + "&pageNum=1&pageSize=31";
-    let res = await Api.getFetch(API + "/user/check-in/record?" + params);
+    let res = await Api.getFetch(API + "/user/check-in?" + params);
     if (res.data.code === 200) {
         res.data.data = res.data.data.list;
     }
@@ -112,7 +117,7 @@ const checkIn = async () => {
 }
 
 const redeem = async (code, params) => {
-    let res = await Api.netFetch(API + "/mall/product/redeem?code=" + code, "POST", params, true, null, false);
+    let res = await Api.netFetch(API + "/mall/product/" + code + "/redeem", "POST", params, true, null, false);
     return res.data;
 }
 
@@ -126,6 +131,7 @@ export default {
     pointsHistory,
     addressList,
     saveAddress,
+    deleteAddress,
     getDefaultAddress,
     giftList,
     getCheckInRecord,
