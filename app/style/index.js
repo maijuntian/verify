@@ -14,6 +14,7 @@ export const shadowRadius = (Platform.OS === 'android') ? 5 : 2;
 export const elevation = (Platform.OS === 'android') ? 2 : 1;
 
 export const fontFamilyCharter = "Charter";
+export const fontFamilyPingFang = "PingFang";
 
 const styles = StyleSheet.create({
     routerStyle: {
@@ -168,6 +169,11 @@ const styles = StyleSheet.create({
         color: constant.primaryBlackColor,
         fontSize: constant.normalTextSize,
         fontFamily: fontFamilyCharter,
+    },
+    normalTextBlack_PingFang: {
+        color: constant.primaryBlackColor,
+        fontSize: constant.normalTextSize,
+        fontFamily: fontFamilyPingFang,
     },
     minTextBlack: {
         color: constant.primaryBlackColor,
