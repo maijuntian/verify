@@ -135,8 +135,11 @@ class ProductDetailPage extends BaseTitlePage {
                                                   this.exitLoading();
                                                   if (res.code === 200) {
                                                       let addressStr = JSON.stringify(res.data);
-                                                      if (addressStr === "{}") {
-                                                          Actions.OrderAddressEditPage({addressStr: "", productStr:this.state.productStr});
+                                                      if (addressStr === "null" || addressStr === null) {
+                                                          Actions.OrderAddressEditPage({
+                                                              addressStr: "",
+                                                              productStr: this.state.productStr
+                                                          });
                                                       } else {
                                                           Actions.OrderConfirmPage({
                                                               addressStr: addressStr,

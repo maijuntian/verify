@@ -121,6 +121,21 @@ const redeem = async (code, params) => {
     return res.data;
 }
 
+const snsCode = async (phone) => {
+    let res = await Api.netFetch(API + "/system/sns/verification/"+ phone, "POST", null, true, null, false);
+    return res.data;
+}
+
+const phoneRegister = async (name, password, verificationCode) => {
+
+    let res = await Api.netFetch(API + "/user/register/phone", "POST", {
+        name: name,
+        password: password,
+        verificationCode: verificationCode
+    }, true, null, false);
+    return res.data;
+}
+
 
 export default {
     login,
@@ -138,5 +153,7 @@ export default {
     authRecord,
     updateAvatar,
     checkIn,
-    redeem
+    redeem,
+    snsCode,
+    phoneRegister,
 }
