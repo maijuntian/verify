@@ -33,6 +33,7 @@ class AddressPage extends BaseTitlePage {
     constructor(props) {
         super(props);
         this._refresh = this._refresh.bind(this);
+        this._loadMore = this._loadMore.bind(this);
         this.state = {
             addressData: [],
         };

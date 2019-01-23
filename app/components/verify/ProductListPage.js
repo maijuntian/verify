@@ -16,6 +16,7 @@ class ProductListPage extends Component {
         super(props);
 
         this._refresh = this._refresh.bind(this);
+        this._loadMore = this._loadMore.bind(this);
 
         this.state = {
             sort: 1, //1,2,3,4

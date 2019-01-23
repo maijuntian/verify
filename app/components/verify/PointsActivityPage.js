@@ -18,6 +18,7 @@ class PointsActivityPage extends BaseTitlePage {
         super(props);
 
         this._refresh = this._refresh.bind(this);
+        this._loadMore = this._loadMore.bind(this);
 
         this.state = {
             pointData: [],
@@ -48,7 +49,7 @@ class PointsActivityPage extends BaseTitlePage {
                     this.page = 2;
                     this.setState({
                         pointData: res.data
-                    })
+                    });
                     size = res.data.length;
                 }
                 setTimeout(() => {
@@ -68,7 +69,7 @@ class PointsActivityPage extends BaseTitlePage {
             this.page++;
             let size = 0;
             if (res && res.code === 200) {
-                let localData = this.state.productData.concat(res.data);
+                let localData = this.state.pointData.concat(res.data);
                 this.setState({
                     pointData: localData
                 })
@@ -100,15 +101,15 @@ class PointsActivityPage extends BaseTitlePage {
                             <View style={styles.flexDirectionColumnNotFlex}>
                                 <View style={[{
                                     paddingVertical: 10,
-                                    paddingHorizontal: 30
+                                    paddingHorizontal: 24
                                 }, styles.flexDirectionRowNotFlex]}>
-                                    <View style={[{width: (screenWidth - 60) * 2 / 7,}, styles.centered]}>
+                                    <View style={[{width: (screenWidth - 48) / 3, paddingLeft:20},]}>
                                         <Text style={[styles.smallTextBlack]}>{i18n("Time")}</Text>
                                     </View>
-                                    <View style={[{width: (screenWidth - 60) * 2 / 7,}, styles.centered]}>
+                                    <View style={[{width: (screenWidth - 48) / 3,}, styles.centered]}>
                                         <Text style={[styles.smallTextBlack]}>{i18n("Activity")}</Text>
                                     </View>
-                                    <View style={[{width: (screenWidth - 60) * 3 / 7,}, styles.centered]}>
+                                    <View style={[{width: (screenWidth - 48) / 3,}, styles.alignItemsEnd]}>
                                         <Text style={[styles.smallTextBlack]}>{i18n("Reason")}</Text>
                                     </View>
                                 </View>
@@ -124,20 +125,20 @@ class PointsActivityPage extends BaseTitlePage {
                         return (
                             <View style={styles.flexDirectionColumnNotFlex}>
                                 <View style={[{
-                                    paddingVertical: 14,
-                                    paddingHorizontal: 30
+                                    paddingVertical: 20,
+                                    paddingHorizontal: 24
                                 }, styles.flexDirectionRowNotFlex]}>
-                                    <View style={[{width: (screenWidth - 60) * 2 / 7,},]}>
+                                    <View style={[{width: (screenWidth - 48) / 3,},]}>
                                         <Text style={[{color: Constant.gray9d, fontSize: 12}]}>{item.createTime}</Text>
                                     </View>
-                                    <View style={[{width: (screenWidth - 60) * 2 / 7,}, styles.centered]}>
+                                    <View style={[{width: (screenWidth - 48) / 3,}, styles.centered]}>
                                         <Text style={[{
                                             color: pointColor,
                                             fontSize: 12
                                         }]}>{points}</Text>
                                     </View>
                                     <View
-                                        style={[{width: (screenWidth - 60) * 3 / 7,}, styles.centered]}>
+                                        style={[{width: (screenWidth - 48) / 3,}, styles.alignItemsEnd]}>
                                         <Text style={[{color: Constant.gray9d, fontSize: 12}]}>{item.reason}</Text>
                                     </View>
 

@@ -160,8 +160,8 @@ class MallPage extends Component {
 
                 <View style={[{marginTop: 15, marginLeft: 30}, styles.flexDirectionColumnNotFlex]}>
                     <View style={[styles.flexDirectionRowNotFlex, {height: 20}]}>
-                        <Text style={[styles.b40MinText, {marginTop: -1}]}>{I18n("Rank")}:</Text>
-                        <Image style={[{marginLeft: 4, height: 15, width: 15}]}
+                        <Text style={[styles.b40MinText, {marginTop: 3}]}>{I18n("Rank")}:</Text>
+                        <Image style={[{marginLeft: 4, height: 22, width: 22}]}
                                source={rankIcon}/>
                         <View style={[
                             styles.absoluteFull, styles.flexDirectionColumnNotFlex, styles.centerV, {

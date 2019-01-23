@@ -266,6 +266,8 @@ I18n.translations = {
         Password:"Password",
         Delete:"Delete",
         Deleting:"Deleting",
+        Mobile_Number:"Mobile Number",
+        Email_address:"Email address",
     }
 };
 

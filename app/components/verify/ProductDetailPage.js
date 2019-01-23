@@ -108,7 +108,7 @@ class ProductDetailPage extends BaseTitlePage {
                     <Text style={[{}, styles.subMinText,]}>{I18n("Rank")}: </Text>
 
                     <Image source={rankIcon}
-                           style={{height: 14, width: 14,}}
+                           style={{height: 22, width: 22,}}
                            resizeMode={"cover"}/>
                 </View>
 

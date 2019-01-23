@@ -117,6 +117,18 @@ class PersonalPage extends BaseTitlePage {
 
     _reader() {
 
+        let birthView = this.state.userInfo.birthday === Constant.NULL_ ?
+            <Text style={[{color: "#C4C4C4"}, styles.middleText]}>{this.state.userInfo.birthday}</Text> :
+            <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.birthday}</Text>;
+
+        let mobileView = this.state.userInfo.phone === Constant.NULL_ ?
+            <Text style={[{color: "#C4C4C4"}, styles.middleText]}>{this.state.userInfo.phone}</Text> :
+            <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.phone}</Text>;
+
+        let emailView = this.state.userInfo.email === Constant.NULL_ ?
+            <Text style={[{color: "#C4C4C4"}, styles.middleText]}>{this.state.userInfo.email}</Text> :
+            <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.email}</Text>;
+
         return (
             <View style={styles.flexDirectionColumn}>
 
@@ -213,14 +225,71 @@ class PersonalPage extends BaseTitlePage {
                         paddingRight: 10
                     }]}
                     onPress={() => {
-                        Actions.PersonalBirthdayPage({birthday: this.state.userInfo.birthday});
+                    }}>
+                    <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Mobile_Number")}</Text>
+
+                    <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
+
+                        {mobileView}
+                        <Icon
+                            style={[{marginLeft: 12}]}
+                            name={"chevron-right"}
+                            backgroundColor={Constant.transparentColor}
+                            color={Constant.primaryBlackColor} size={15}/>
+
+                    </View>
+
+                </TouchableOpacity>
+
+                <View style={styles.dividerLineF6}/>
+
+                <TouchableOpacity
+                    activeOpacity={Constant.activeOpacity}
+                    style={[styles.flexDirectionRowNotFlex, styles.centerH, {
+                        paddingVertical: 20,
+                        paddingLeft: 16,
+                        paddingRight: 10
+                    }]}
+                    onPress={() => {
+                        if(this.state.userInfo.birthday === Constant.NULL_){
+                            Actions.PersonalBirthdayPage();
+                        } else {
+                            Actions.PersonalBirthdayPage({birthday: this.state.userInfo.birthday});
+                        }
                     }}>
                     <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Birthday")}</Text>
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
-                        <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.birthday}</Text>
+                        {birthView}
 
+                        <Icon
+                            style={[{marginLeft: 12}]}
+                            name={"chevron-right"}
+                            backgroundColor={Constant.transparentColor}
+                            color={Constant.primaryBlackColor} size={15}/>
+
+                    </View>
+
+                </TouchableOpacity>
+
+                <View style={styles.dividerLineF6}/>
+
+                <TouchableOpacity
+                    activeOpacity={Constant.activeOpacity}
+                    style={[styles.flexDirectionRowNotFlex, styles.centerH, {
+                        paddingVertical: 20,
+                        paddingLeft: 16,
+                        paddingRight: 10
+                    }]}
+                    onPress={() => {
+                    }}>
+                    <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Email_address")}</Text>
+
+
+                    <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
+
+                        {emailView}
                         <Icon
                             style={[{marginLeft: 12}]}
                             name={"chevron-right"}

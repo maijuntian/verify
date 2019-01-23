@@ -19,6 +19,7 @@ class GiftListPage extends BaseTitlePage {
         super(props);
 
         this._refresh = this._refresh.bind(this);
+        this._loadMore = this._loadMore.bind(this);
 
         this.state = {
             sort: 1, //1,2,
@@ -68,7 +69,7 @@ class GiftListPage extends BaseTitlePage {
      * 加载更多
      * */
     _loadMore() {
-        let params = "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort - 1];
+        let params = "&pageNum=" + this.page + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort - 1];
         vUserDao.giftList(params).then((res) => {
             this.page++;
             let size = 0;
@@ -153,12 +154,12 @@ class GiftListPage extends BaseTitlePage {
 
                         let centerV;
 
-                        if(this.state.sort === 1){
+                        if (this.state.sort === 1) {
                             centerV = <View
                                 style={[{
                                     width: screenWidth - 210,
                                     marginLeft: 13
-                                }, styles.flexDirectionColumnNotFlex, ]}>
+                                }, styles.flexDirectionColumnNotFlex,]}>
 
                                 <Text
                                     style={styles.normalTextBlack_Charter}>{item.item[0].productName}</Text>
@@ -177,7 +178,7 @@ class GiftListPage extends BaseTitlePage {
                                 style={[{
                                     width: screenWidth - 210,
                                     marginLeft: 13
-                                }, styles.flexDirectionColumnNotFlex, ]}>
+                                }, styles.flexDirectionColumnNotFlex,]}>
 
                                 <Text
                                     style={styles.normalTextBlack_Charter}>{item.item[0].productName}</Text>

@@ -119,3 +119,5 @@ export let DEFAULT_ADDRESS = "";
 
 /****************请求地址**************/
 export const API = "http://47.107.92.207:9000/";
+
+export const NULL_ = "N/A";

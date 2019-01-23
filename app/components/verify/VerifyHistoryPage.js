@@ -15,6 +15,7 @@ class VerifyHistoryPage extends BaseTitlePage {
         super(props);
 
         this._refresh = this._refresh.bind(this);
+        this._loadMore = this._loadMore.bind(this);
 
         this.state = {
             sort: 1, //1,2,
@@ -64,7 +65,7 @@ class VerifyHistoryPage extends BaseTitlePage {
      * 加载更多
      * */
     _loadMore() {
-        let params = "&pageNum=1" + "&pageSize=" + Config.PAGE_SIZE + "&order=" + this.order[this.state.sort - 1];
+        let params = "&pageNum=" + this.page + "&pageSize=" + Config.PAGE_SIZE + "&status=" + this.order[this.state.sort - 1];
         vUserDao.giftList(params).then((res) => {
             this.page++;
             let size = 0;
@@ -149,15 +150,16 @@ class VerifyHistoryPage extends BaseTitlePage {
                         return (
                             <View style={styles.flexDirectionColumnNotFlex}>
                                 <View style={[{
-                                    paddingVertical: 16,
-                                    paddingHorizontal: 30
-                                }, styles.flexDirectionRowNotFlex,styles.centerH, ]}>
-                                    <View style={[{width: (screenWidth - 60) / 2,}]}>
+                                    paddingVertical: 20,
+                                    paddingHorizontal: 24
+                                }, styles.flexDirectionRowNotFlex, ]}>
+                                    <View style={[{width: (screenWidth - 48) / 2,}]}>
                                         <Text style={[{color: Constant.gray9d, fontSize: 12}]}>{item.authTime}</Text>
                                     </View>
                                     <View
-                                        style={[{width: (screenWidth - 60) / 2,},]}>
-                                        <Text style={[styles.minTextBlack_Charter]}>{item.productName + " authentic"}</Text>
+                                        style={[{width: (screenWidth - 48) / 2,},]}>
+                                        <Text
+                                            style={[styles.minTextBlack_Charter]}>{item.productName + " authentic"}</Text>
                                     </View>
 
                                 </View>

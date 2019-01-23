@@ -138,7 +138,6 @@ const styles = StyleSheet.create({
         fontSize: constant.sminTextSize,
     },
     middleText: {
-        color: constant.mainTextColor,
         fontSize: constant.middleTextWhite
     },
     normalText: {
@@ -178,16 +177,22 @@ const styles = StyleSheet.create({
     minTextBlack: {
         color: constant.primaryBlackColor,
         fontSize: constant.minTextSize,
-        fontFamily: fontFamilyCharter,
     },
     minTextBlack_Charter: {
         color: constant.primaryBlackColor,
         fontSize: constant.minTextSize,
+        fontFamily: fontFamilyCharter,
     },
     minTextsGray: {
         color: constant.textGray,
         fontSize: constant.minTextSize,
     },
+    minTextsGray_PingFang: {
+        color: constant.textGray,
+        fontSize: constant.minTextSize,
+        fontFamily:fontFamilyPingFang,
+    },
+
     minTextWhite: {
         color: constant.white,
         fontSize: constant.minTextSize,
@@ -221,6 +226,11 @@ const styles = StyleSheet.create({
         color: constant.grayBlue,
         fontSize: constant.middleTextWhite,
         fontFamily: fontFamilyCharter,
+    },
+    middleTextGrayBlue_PingFang: {
+        color: constant.grayBlue,
+        fontSize: constant.middleTextWhite,
+        fontFamily: fontFamilyPingFang,
     },
     middleTextBlackCharter: {
         color: constant.primaryBlackColor,
