@@ -113,6 +113,10 @@ const styles = StyleSheet.create({
         color: constant.subLightTextColor,
         fontSize: constant.smallTextSize
     },
+    subLightSMinText: {
+        color: constant.subLightTextColor,
+        fontSize: constant.sminTextSize
+    },
     miLightSmallText: {
         color: constant.miWhite,
         fontSize: constant.smallTextSize
@@ -226,6 +230,10 @@ const styles = StyleSheet.create({
         color: constant.grayBlue,
         fontSize: constant.middleTextWhite,
         fontFamily: fontFamilyCharter,
+    },
+    smallTextGrayBlue: {
+        color: constant.grayBlue,
+        fontSize: constant.smallTextSize,
     },
     middleTextGrayBlue_PingFang: {
         color: constant.grayBlue,

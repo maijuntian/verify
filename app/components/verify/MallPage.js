@@ -51,7 +51,7 @@ class MallPage extends Component {
         })
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.initUserInfo();
         this._getProductList()
 
@@ -91,20 +91,21 @@ class MallPage extends Component {
         let tipMarginLeft = progressWidth - 10;
 
         let rankIcon = require("../../img/silver.png");
-        switch (this.state.userInfo.rank) {
-            case 1:
+        switch (this.state.userInfo.grade) {
+            case "Copper":
                 rankIcon = require("../../img/copper.png");
                 break;
-            case 2:
+            case "Silver":
                 rankIcon = require("../../img/silver.png");
                 break;
-            case 3:
+            case "Gold":
                 rankIcon = require("../../img/gold.png");
                 break;
         }
-        return (
-            <View style={styles.mainBox}>
-                <StatusBar hidden={false} backgroundColor={'transparent'} translucent barStyle={'dark-content'}/>
+
+        let userView;
+        if (vUserDao.isLogin(this.state.userInfo)) {
+            userView = <View style={styles.flexDirectionColumnNotFlex}>
                 <View style={[{
                     marginTop: 15 + statusHeight,
                     height: 86,
@@ -135,24 +136,30 @@ class MallPage extends Component {
 
                     <View style={[
                         styles.absoluteFull, styles.flexDirectionColumnNotFlex, styles.centerV, {
-                            marginRight: 30,
+                            marginTop: 30,
                             zIndex: -999,
                             alignItems: 'flex-end'
                         }]}>
+
                         <TouchableOpacity
                             activeOpacity={constant.activeOpacity}
-                            style={[{
-                                borderWidth: 1, borderColor: constant.subLightTextColor, height: 56, width: 56,
-                                borderRadius: 28
-                            }, styles.centered]}
                             onPress={() => {
-                                Actions.ScanQrCodePage();
+                                Actions.CheckInPage();
                             }}>
-
-                            <Image
-                                style={[{height: 26, width: 26,}]}
-                                source={require("../../img/icon_scan.png")}/>
-
+                            <View style={[{
+                                borderColor: constant.grayBg,
+                                borderWidth: 1,
+                                borderRadius: 5,
+                                width: 86,
+                                height: 18,
+                                marginRight: -1,
+                            }, styles.centered]}>
+                                <CommonIconText
+                                    textStyle={[styles.b40MinText]}
+                                    text={I18n("Check_in")}
+                                    icon={require("../../img/check_in1.png")}
+                                    iconStyle={[{height: 7, width: 9}]}/>
+                            </View>
                         </TouchableOpacity>
 
                     </View>
@@ -180,7 +187,7 @@ class MallPage extends Component {
                         </View>
                     </View>
 
-                    <View style={[{height: 50}, styles.absoluteFull, styles.flexDirectionColumnNotFlex]}>
+                    <View style={[{height: 50},  styles.flexDirectionColumnNotFlex]}>
 
                         <ImageBackground
                             style={[{marginLeft: tipMarginLeft, height: 19, width: 31, marginTop: 5}, styles.centerH]}
@@ -210,52 +217,57 @@ class MallPage extends Component {
                         </View>
                     </View>
 
-                    <View style={[{marginTop: 50}, styles.flexDirectionRowNotFlex, styles.centerH]}>
-                        <View
-                            style={[{
-                                paddingHorizontal: 5,
-                                borderColor: constant.grayBg,
-                                borderWidth: 1,
-                                borderRadius: 5
-                            },
-                                styles.flexDirectionRowNotFlex, styles.centered]}>
-                            <Text style={[styles.b40MinText]}>{I18n("Promotion")} ▸</Text>
-                        </View>
-
-                        <Text
-                            style={[{marginLeft: 3}, styles.subsMinText]}>{I18n("Get")} 739 {I18n("points_and_upgrade")} </Text>
-                        <View style={[styles.absoluteFull, styles.flexDirectionColumnNotFlex, {
-                            zIndex: -999,
-                            alignItems: 'flex-end',
-                        }]}>
-                            {/* <Image source={require("../../img/mall_check_in.png")}
-                                style={{
-                                    width: 86,
-                                    height: 18,}}/>*/}
-                            <TouchableOpacity
-                                activeOpacity={constant.activeOpacity}
-                                onPress={() => {
-                                    Actions.CheckInPage();
-                                }}>
-                                <View style={[{
-                                    borderColor: constant.grayBg,
-                                    borderWidth: 1,
-                                    borderRadius: 5,
-                                    width: 86,
-                                    height: 18,
-                                    marginRight: -1,
-                                }, styles.centered]}>
-                                    <CommonIconText
-                                        textStyle={[styles.b40MinText]}
-                                        text={I18n("Check_in")}
-                                        icon={require("../../img/check_in1.png")}
-                                        iconStyle={[{height: 7, width: 9}]}/>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
                 </View>
                 <View style={[{marginTop: 15, backgroundColor: constant.grayBg, height: 1, width: screenWidth}]}/>
+            </View>
+        } else {
+            userView = <View style={styles.flexDirectionColumnNotFlex}>
+                <View style={[{
+                    marginTop: 15 + statusHeight,
+                    height: 86,
+                    width: screenWidth
+                }, styles.flexDirectionRowNotFlex, styles.centerH]}>
+
+                    <ImageBackground
+                        source={require("../../img/bg_user_icon.png")}
+                        style={[{height: 86, width: 86, borderRadius: 43, marginLeft: 27,}, styles.centered]}>
+                        <Image style={[{height: 72, width: 72, borderRadius: 36,},]}
+                               source={require("../../img/icon_user_head_default.png")}
+                        />
+                    </ImageBackground>
+
+                    <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10,}]}>
+                        <TouchableOpacity
+                            activeOpacity={constant.activeOpacity}
+                            onPress={() => {
+                                Actions.LoginPage();
+                            }}>
+                            <View style={[{
+                                borderColor: "#EFEFEF",
+                                borderWidth: 1,
+                                borderRadius: 13,
+                                width: 91,
+                                height: 26,
+                            }, styles.centered]}>
+                                <Text
+                                    style={[styles.smallTextBlack]}>{I18n("Login")}</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <Text
+                            style={[{marginTop: 3}, styles.subsMinText]}> {I18n("login_tip")}</Text>
+                    </View>
+
+                </View>
+
+                <View style={[{marginTop: 10, backgroundColor: constant.grayBg, height: 1, width: screenWidth}]}/>
+            </View>
+        }
+
+        return (
+            <View style={styles.mainBox}>
+                <StatusBar hidden={false} backgroundColor={'transparent'} translucent barStyle={'dark-content'}/>
+
+                {userView}
 
                 <View style={[styles.centered, {width: screenWidth, padding: 10}]}>
                     <Image style={[{height: 26, width: 188,}]}

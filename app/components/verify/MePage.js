@@ -48,6 +48,11 @@ class MePage extends Component {
         this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
             //接收到详情页发送的通知，刷新数据
             this.initUserInfo();
+            vUserDao.isLoginAsync().then((res)=>{
+                if(!res){
+                    Actions.HomePage();
+                }
+            })
         });
     }
 

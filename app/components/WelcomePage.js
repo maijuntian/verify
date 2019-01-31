@@ -36,20 +36,17 @@ class WelcomePage extends Component {
 
     toNext(res) {
         setTimeout(() => {
-            vUserDao.login("android", "test").then((res) => {
-                if (res.code === 200) {
+
+            vUserDao.isLoginAsync().then((res)=>{
+                if(res){
                     return vUserDao.userinfo();
                 } else {
-                    toast("Login fail");
+                    Actions.reset("root");
                     return null;
                 }
-            }).then((res) => {
-                if (res.code === 200) {
-                    Actions.reset("root");
-                } else {
-                    toast("Login fail");
-                }
-            })
+            }).then((res)=>{
+                Actions.reset("root");
+            });
 
         }, 2000);
     }

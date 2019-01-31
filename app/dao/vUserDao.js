@@ -12,6 +12,7 @@ const login = async (username, password) => {
     return res.data;
 }
 
+
 const userinfo = async () => {
     let res = await Api.getFetch(API + "/user/info");
     if (res.data.code === 200) {
@@ -19,6 +20,11 @@ const userinfo = async () => {
     }
     return res.data;
 }
+const clearInfo = () => {
+    Api.clearAuthorization();
+    AsyncStorage.removeItem(Constant.USER_INFOV);
+}
+
 const saveLocalUserInfo = async (data) => {
     return AsyncStorage.setItem(Constant.USER_INFOV, JSON.stringify(data));
 }
@@ -29,6 +35,19 @@ const localUserInfo = async () => {
         return JSON.parse(userInfo);
     }
     return {};
+}
+
+const isLogin = (userInfo) => {
+    if (!userInfo || JSON.stringify(userInfo) === "{}") {
+        return false;
+    }
+    return true;
+}
+
+const isLoginAsync = async () => {
+    let userInfo = await AsyncStorage.getItem(Constant.USER_INFOV);
+    return !!userInfo;
+
 }
 
 const pointsHistory = async (params) => {
@@ -122,13 +141,28 @@ const redeem = async (code, params) => {
 }
 
 const snsCode = async (phone) => {
-    let res = await Api.netFetch(API + "/system/sns/verification/"+ phone, "POST", null, true, null, false);
+    let res = await Api.netFetch(API + "/system/sns/verification/" + phone, "POST", null, true, null, false);
+    return res.data;
+}
+
+const emailCode = async (email) => {
+    let res = await Api.netFetch(API + "/system/email/verification/" + email, "POST", null, true, null, false);
     return res.data;
 }
 
 const phoneRegister = async (name, password, verificationCode) => {
 
-    let res = await Api.netFetch(API + "/user/register/phone", "POST", {
+    let res = await Api.netFetch(API + "/system/register/phone", "POST", {
+        name: name,
+        password: password,
+        verificationCode: verificationCode
+    }, true, null, false);
+    return res.data;
+}
+
+const emailRegister = async (name, password, verificationCode) => {
+
+    let res = await Api.netFetch(API + "/system/register/email", "POST", {
         name: name,
         password: password,
         verificationCode: verificationCode
@@ -138,6 +172,8 @@ const phoneRegister = async (name, password, verificationCode) => {
 
 
 export default {
+    isLogin,
+    isLoginAsync,
     login,
     userinfo,
     localUserInfo,
@@ -156,4 +192,7 @@ export default {
     redeem,
     snsCode,
     phoneRegister,
+    emailCode,
+    emailRegister,
+    clearInfo,
 }

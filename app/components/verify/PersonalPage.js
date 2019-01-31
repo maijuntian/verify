@@ -151,7 +151,7 @@ class PersonalPage extends BaseTitlePage {
                                source={{uri: this.state.userInfo.icon}}/>
 
                         <Icon
-                            style={[{marginLeft: 12}]}
+                            style={[{marginLeft: 5}]}
                             name={"chevron-right"}
                             backgroundColor={Constant.transparentColor}
                             color={Constant.primaryBlackColor} size={15}/>
@@ -179,7 +179,7 @@ class PersonalPage extends BaseTitlePage {
                         <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.nickname}</Text>
 
                         <Icon
-                            style={[{marginLeft: 12}]}
+                            style={[{marginLeft: 5}]}
                             name={"chevron-right"}
                             backgroundColor={Constant.transparentColor}
                             color={Constant.primaryBlackColor} size={15}/>
@@ -206,7 +206,7 @@ class PersonalPage extends BaseTitlePage {
                         <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.gender}</Text>
 
                         <Icon
-                            style={[{marginLeft: 12}]}
+                            style={[{marginLeft: 5}]}
                             name={"chevron-right"}
                             backgroundColor={Constant.transparentColor}
                             color={Constant.primaryBlackColor} size={15}/>
@@ -232,7 +232,7 @@ class PersonalPage extends BaseTitlePage {
 
                         {mobileView}
                         <Icon
-                            style={[{marginLeft: 12}]}
+                            style={[{marginLeft: 5}]}
                             name={"chevron-right"}
                             backgroundColor={Constant.transparentColor}
                             color={Constant.primaryBlackColor} size={15}/>
@@ -240,39 +240,6 @@ class PersonalPage extends BaseTitlePage {
                     </View>
 
                 </TouchableOpacity>
-
-                <View style={styles.dividerLineF6}/>
-
-                <TouchableOpacity
-                    activeOpacity={Constant.activeOpacity}
-                    style={[styles.flexDirectionRowNotFlex, styles.centerH, {
-                        paddingVertical: 20,
-                        paddingLeft: 16,
-                        paddingRight: 10
-                    }]}
-                    onPress={() => {
-                        if(this.state.userInfo.birthday === Constant.NULL_){
-                            Actions.PersonalBirthdayPage();
-                        } else {
-                            Actions.PersonalBirthdayPage({birthday: this.state.userInfo.birthday});
-                        }
-                    }}>
-                    <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Birthday")}</Text>
-
-                    <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
-
-                        {birthView}
-
-                        <Icon
-                            style={[{marginLeft: 12}]}
-                            name={"chevron-right"}
-                            backgroundColor={Constant.transparentColor}
-                            color={Constant.primaryBlackColor} size={15}/>
-
-                    </View>
-
-                </TouchableOpacity>
-
                 <View style={styles.dividerLineF6}/>
 
                 <TouchableOpacity
@@ -291,7 +258,7 @@ class PersonalPage extends BaseTitlePage {
 
                         {emailView}
                         <Icon
-                            style={[{marginLeft: 12}]}
+                            style={[{marginLeft: 5}]}
                             name={"chevron-right"}
                             backgroundColor={Constant.transparentColor}
                             color={Constant.primaryBlackColor} size={15}/>
@@ -299,6 +266,39 @@ class PersonalPage extends BaseTitlePage {
                     </View>
 
                 </TouchableOpacity>
+
+                <View style={styles.dividerLineF6}/>
+
+                <TouchableOpacity
+                    activeOpacity={Constant.activeOpacity}
+                    style={[styles.flexDirectionRowNotFlex, styles.centerH, {
+                        paddingVertical: 20,
+                        paddingLeft: 16,
+                        paddingRight: 10
+                    }]}
+                    onPress={() => {
+                        if (this.state.userInfo.birthday === Constant.NULL_) {
+                            Actions.PersonalBirthdayPage();
+                        } else {
+                            Actions.PersonalBirthdayPage({birthday: this.state.userInfo.birthday});
+                        }
+                    }}>
+                    <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Birthday")}</Text>
+
+                    <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
+
+                        {birthView}
+
+                        <Icon
+                            style={[{marginLeft: 5}]}
+                            name={"chevron-right"}
+                            backgroundColor={Constant.transparentColor}
+                            color={Constant.primaryBlackColor} size={15}/>
+
+                    </View>
+
+                </TouchableOpacity>
+
 
                 <View style={styles.dividerLineF6}/>
 
@@ -314,7 +314,9 @@ class PersonalPage extends BaseTitlePage {
                             borderRadius: 20,
                             paddingVertical: 10,
                         }, styles.centered]} onPress={() => {
-
+                        vUserDao.clearInfo();
+                        DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                        Actions.pop();
                     }}>
                         <Text style={[{color: "#F26262", fontSize: 14,}]}>{i18n("Sign_out")}</Text>
                     </TouchableOpacity>

@@ -17,9 +17,13 @@ class CommonIconTextButton extends Component {
 
     render() {
 
+        let activeOpacity = this.props.activeOpacity ? this.props.activeOpacity : Constant.activeOpacity;
+        let width = this.props.width ? this.props.width : 150;
         return (
 
-            <TouchableOpacity  style={[{width: 150}]} onPress={() => {
+            <TouchableOpacity
+                activeOpacity={activeOpacity}
+                style={[{width: width}]} onPress={() => {
                 this.props.onPress && this.props.onPress();
             }}>
                 <View
@@ -43,6 +47,8 @@ CommonIconTextButton.propTypes = {
     text: PropTypes.string,
     textStyle: PropTypes.any,
     onPress: PropTypes.func,
+    width: PropTypes.number,
+    activeOpacity: PropTypes.number,
 };
 
 export default CommonIconTextButton;

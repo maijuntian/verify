@@ -9,6 +9,7 @@ import * as Constant from "../../style/constant";
 import CommonIconNameItem from "../common/CommonIconNameItem";
 import {Actions} from 'react-native-router-flux';
 import I18n from "../../style/i18n";
+import vUserDao from "../../dao/vUserDao";
 
 /**
  * 主页
@@ -37,7 +38,13 @@ class HomePage extends Component {
                         iconIndex={"1"}
                         itemTitle={I18n("Code_Authentication")}
                         onItemPress={() => {
-                            Actions.jump("ScanQrCodePage");
+                            vUserDao.isLoginAsync().then(res => {
+                                if (res) {
+                                    Actions.jump("ScanQrCodePage");
+                                } else {
+                                    Actions.LoginPage();
+                                }
+                            });
                         }
                         }
                     />

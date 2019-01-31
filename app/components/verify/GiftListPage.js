@@ -157,7 +157,7 @@ class GiftListPage extends BaseTitlePage {
                         if (this.state.sort === 1) {
                             centerV = <View
                                 style={[{
-                                    width: screenWidth - 210,
+                                    width: screenWidth - 165,
                                     marginLeft: 13
                                 }, styles.flexDirectionColumnNotFlex,]}>
 
@@ -176,7 +176,7 @@ class GiftListPage extends BaseTitlePage {
                         } else {
                             centerV = <View
                                 style={[{
-                                    width: screenWidth - 210,
+                                    width: screenWidth - 165,
                                     marginLeft: 13
                                 }, styles.flexDirectionColumnNotFlex,]}>
 
@@ -213,7 +213,7 @@ class GiftListPage extends BaseTitlePage {
                                         {centerV}
 
                                         <View style={[{
-                                            width: 90,
+                                            width: 45,
                                             paddingRight: 13
                                         }, styles.flexDirectionRowNotFlex, styles.justifyEnd, styles.centerH]}>
                                             <Text

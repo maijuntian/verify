@@ -45,7 +45,10 @@ import HorizontalCalendarList from "./components/verify/horizontalCalendarList";
 import FeedBackPage from "./components/verify/FeedBackPage";
 import PersonalBirthdayPage from "./components/verify/PersonalBirthdayPage";
 import SettingPage from "./components/verify/SettingPage";
-
+import RegisterPage from "./components/verify/RegisterPage";
+import Register2Page from "./components/verify/Register2Page";
+import vUserDao from "./dao/vUserDao";
+import {Actions} from "react-native-router-flux";
 
 /**
  * 全局路由
@@ -96,6 +99,16 @@ const getRouter = () => {
                             icon={TabIcon}
                             title={I18n('me')}
                             tabIconName={'tabMe'}
+                            tabBarOnPress={(scene,jumpToIndex)=>{
+                                // console.log(route);
+                                // 只有调用jumpToIndex方法之后才会真正的跳转页面。
+                                vUserDao.isLoginAsync().then((res) =>{
+                                    if(res)
+                                        Actions.MePage();
+                                    else
+                                        Actions.LoginPage();
+                                });
+                            }}
                         />
                     </Scene>
                     <Scene key="ProductHistoryPage" component={ProductHistoryPage}/>
@@ -120,12 +133,15 @@ const getRouter = () => {
                     <Scene key="FeedBackPage" component={FeedBackPage}/>
                     <Scene key="PersonalBirthdayPage" component={PersonalBirthdayPage}/>
                     <Scene key="SettingPage" component={SettingPage}/>
-
+                    <Scene key="LoginPage" component={LoginPage}/>
+                    <Scene key="RegisterPage" component={RegisterPage}/>
+                    <Scene key="Register2Page" component={Register2Page}/>
                 </Scene>
                 <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>
                 <Scene key="LoadingModal" component={LoadingModal}/>
                 <Scene key="ConfirmModal" component={ConfirmModal}/>
                 <Scene key="SuccessModal" component={SuccessModal}/>
+
             </Lightbox>
         </Router>
     )

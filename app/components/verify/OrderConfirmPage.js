@@ -95,14 +95,15 @@ class OrderConfirmPage extends BaseTitlePage {
                     <View style={[{
                         marginLeft: 16,
                         marginVertical: 16,
-                        width: screenWidth - 86
+                        width: screenWidth - 66
                     }, styles.flexDirectionColumnNotFlex]}>
 
                         <Text
                             style={[styles.middleTexBlackCharter]}>{this.state.address.address}</Text>
                         <View style={[styles.flexDirectionRowNotFlex, styles.centerH]}>
                             <Text style={[{}, styles.middleTextGrayBlue_PingFang]}>{this.state.address.contacts}</Text>
-                            <Text style={[{marginLeft: 17}, styles.minTextsGray_PingFang]}>{this.state.address.phone}</Text>
+                            <Text
+                                style={[{marginLeft: 17}, styles.minTextsGray_PingFang]}>{this.state.address.phone}</Text>
                         </View>
 
                     </View>
@@ -124,7 +125,7 @@ class OrderConfirmPage extends BaseTitlePage {
                 }]}>{i18n("List")}</Text>*/}
 
                 <View style={[{
-                    paddingTop:25,
+                    paddingTop: 25,
                     paddingBottom: 25,
                     paddingLeft: 16,
                     paddingRight: 18
@@ -134,7 +135,7 @@ class OrderConfirmPage extends BaseTitlePage {
                            resizeMode={"center"}/>
                     <View
                         style={[{
-                            width: screenWidth - 210,
+                            width: screenWidth - 165,
                             marginLeft: 13
                         }, styles.flexDirectionRowNotFlex, styles.centerH]}>
 
@@ -144,8 +145,8 @@ class OrderConfirmPage extends BaseTitlePage {
                     </View>
 
                     <View style={[{
-                        width: 90,
-                        paddingRight: 13
+                        width: 45,
+                        paddingRight: 5
                     }, styles.flexDirectionRowNotFlex, styles.justifyEnd, styles.centerH]}>
                         <Text
                             style={[{}, styles.normalTextBlack]}>x1</Text>

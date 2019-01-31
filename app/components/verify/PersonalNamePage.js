@@ -104,8 +104,6 @@ class PersonalNamePage extends BaseTitlePage {
                     </TextInput>
                 </View>
 
-                <View style={styles.dividerLine}/>
-
             </View>
         )
     }
