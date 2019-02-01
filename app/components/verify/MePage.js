@@ -48,8 +48,8 @@ class MePage extends Component {
         this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
             //接收到详情页发送的通知，刷新数据
             this.initUserInfo();
-            vUserDao.isLoginAsync().then((res)=>{
-                if(!res){
+            vUserDao.isLoginAsync().then((res) => {
+                if (!res) {
                     Actions.HomePage();
                 }
             })
@@ -77,8 +77,9 @@ class MePage extends Component {
                         />
 
                         <Text
-                            style={[{marginLeft: 10}, styles.largeTextWhite_Charter]}>{this.state.userInfo.nickname}</Text>
-                        <View style={[styles.flexDirectionRow, {
+                            style={[{marginLeft: 10, width: screenWidth-122}, styles.largeTextWhite_Charter]}
+                            numberOfLines={1}>{this.state.userInfo.nickname}</Text>
+                        {/* <View style={[styles.flexDirectionRow, {
                             justifyContent: 'flex-end',
                         },]}>
 
@@ -103,7 +104,7 @@ class MePage extends Component {
                                         iconStyle={[{height: 7, width: 9}]}/>
                                 </View>
                             </TouchableOpacity>
-                        </View>
+                        </View>*/}
                     </View>
 
                     <View style={[{marginTop: 15, marginLeft: 30,}, styles.flexDirectionRowNotFlex,]}>

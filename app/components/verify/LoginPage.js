@@ -20,6 +20,7 @@ import * as constant from "../../style/constant";
 import {Actions} from "react-native-router-flux";
 import vUserDao from "../../dao/vUserDao";
 import Toast from '../../components/common/ToastProxy';
+import Icon from "react-native-vector-icons/Feather";
 
 
 /**
@@ -54,11 +55,27 @@ class LoginPage extends Component {
         let pwdIcon = this.state.isPwd ? require("../../img/icon_eye_n.png") : require("../../img/icon_eye_s.png");
 
         return (
+
             <View style={[{backgroundColor: "#f4f3f4"}, styles.flexDirectionColumn, styles.centerH]}>
                 <StatusBar hidden={true}/>
+
+                <View style={{width: screenWidth}}>
+                    <TouchableOpacity
+                        style={{marginTop: statusHeight, height: 25, width: 25, marginLeft: 8}}
+                        onPress={() => {
+                            Actions.pop();
+                        }}>
+                        <Icon
+                            name={"chevron-left"}
+                            backgroundColor={constant.transparentColor}
+                            color={constant.primaryBlackColor} size={25}
+                            style={[styles.centered,]}/>
+                    </TouchableOpacity>
+
+                </View>
                 <Image source={require("../../img/logo.png")}
                        resizeMode={"stretch"}
-                       style={{marginTop: 70 + statusHeight, width: iconWidth, height: iconHeight}}/>
+                       style={{marginTop: 45, width: iconWidth, height: iconHeight}}/>
 
                 <View style={[{
                     marginTop: 44,

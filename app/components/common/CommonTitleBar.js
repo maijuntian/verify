@@ -59,7 +59,7 @@ class CommonTitleBar extends Component {
                     zIndex: -999,
                     paddingTop: statusHeight
                 }, styles.centered]}>
-                    <Text style={styles.normalTextBlack_PingFang}>{this.props.title}</Text>
+                    <Text style={styles.normalTextBlack}>{this.props.title}</Text>
                 </View>
             </View>
 

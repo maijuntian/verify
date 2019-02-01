@@ -100,7 +100,7 @@ class Register2Page extends BaseTitlePage {
         if (this.state.time > 0) {
             text = this.state.time + "s";
         } else {
-            text = i18n("Send");
+            text = i18n("Resend");
         }
 
         return (

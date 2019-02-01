@@ -7,7 +7,7 @@ import {
     Easing,
     Image,
     ImageBackground,
-    InteractionManager, TouchableOpacity, Alert
+    InteractionManager, TouchableOpacity, Alert, DeviceEventEmitter
 } from 'react-native';
 
 import {RNCamera} from 'react-native-camera'
@@ -21,6 +21,9 @@ import * as Constant from "../../style/constant";
 import styles, {screenWidth, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
 import {readerQR} from "react-native-lewin-qrcode";
+import * as Config from "../../config";
+import productDao from "../../dao/productDao";
+import vUserDao from "../../dao/vUserDao";
 
 var ImagePicker = require('react-native-image-picker');
 
@@ -35,10 +38,22 @@ class ScanQrCodePage extends Component {
         this._openPhoto = this._openPhoto.bind(this);
     }
 
+    componentWillMount() {
+        this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
+            //接收到详情页发送的通知，刷新数据
+            this.parseCode(this.lastCodeStr);
+        });
+    }
+
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
             this.startAnimation();
         })
+    }
+
+    componentWillUnmount() {
+        this.state.show = false;
+        this.subscription.remove();
     }
 
     // 动画开始
@@ -88,9 +103,6 @@ class ScanQrCodePage extends Component {
         });
     }
 
-    componentWillUnmount() {
-        this.state.show = false;
-    }
 
     exitLoading() {
         if (Actions.currentScene === 'LoadingModal') {
@@ -111,10 +123,29 @@ class ScanQrCodePage extends Component {
     }
 
     parseCode(codeStr) {
+
+        this.lastCodeStr = codeStr;
+
         this.setState({
             show: false
         });
 
+
+        if (codeStr.indexOf("authentication") !== -1) {
+            vUserDao.isLoginAsync().then((res) => {
+                if (res) {
+                    this.recognizeCode(codeStr);
+                } else {
+                    Actions.LoginPage();
+                }
+            })
+        } else {
+            this.recognizeCode(codeStr);
+        }
+
+    }
+
+    recognizeCode(codeStr) {
         Actions.LoadingModal({backExit: false});
         product.authentication(codeStr).then((res) => {
             this.exitLoading();
@@ -140,7 +171,7 @@ class ScanQrCodePage extends Component {
         let showF = this.props.show || null;
         console.log("--->" + showF);
 
-        let sWidth = screenWidth*2/3;
+        let sWidth = screenWidth * 2 / 3;
         return (
             <View style={[styles.flex,]}>
                 <RNCamera

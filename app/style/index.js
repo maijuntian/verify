@@ -235,6 +235,10 @@ const styles = StyleSheet.create({
         color: constant.grayBlue,
         fontSize: constant.smallTextSize,
     },
+    middleTextGrayBlue: {
+        color: constant.grayBlue,
+        fontSize: constant.middleTextWhite,
+    },
     middleTextGrayBlue_PingFang: {
         color: constant.grayBlue,
         fontSize: constant.middleTextWhite,

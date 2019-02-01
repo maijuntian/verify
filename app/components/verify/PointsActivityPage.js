@@ -127,7 +127,7 @@ class PointsActivityPage extends BaseTitlePage {
                                 <View style={[{
                                     paddingVertical: 20,
                                     paddingHorizontal: 24
-                                }, styles.flexDirectionRowNotFlex]}>
+                                }, styles.flexDirectionRowNotFlex, styles.centered]}>
                                     <View style={[{width: (screenWidth - 48) / 3,},]}>
                                         <Text style={[{color: Constant.gray9d, fontSize: 12}]}>{item.createTime}</Text>
                                     </View>

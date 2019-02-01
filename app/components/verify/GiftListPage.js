@@ -162,7 +162,7 @@ class GiftListPage extends BaseTitlePage {
                                 }, styles.flexDirectionColumnNotFlex,]}>
 
                                 <Text
-                                    style={styles.normalTextBlack_Charter}>{item.item[0].productName}</Text>
+                                    style={styles.middleTextBlackCharter}>{item.item[0].productName}</Text>
 
                                 <View style={[styles.flexDirectionRowNotFlex,]}>
                                     <Text style={styles.sminText9Dgray}>{i18n("Order_number")}：</Text>
@@ -181,7 +181,7 @@ class GiftListPage extends BaseTitlePage {
                                 }, styles.flexDirectionColumnNotFlex,]}>
 
                                 <Text
-                                    style={styles.normalTextBlack_Charter}>{item.item[0].productName}</Text>
+                                    style={styles.middleTextBlackCharter}>{item.item[0].productName}</Text>
 
                                 <View style={[styles.flexDirectionRowNotFlex,]}>
                                     <Text style={styles.sminText9Dgray}>{i18n("Tracking_Number")}：</Text>

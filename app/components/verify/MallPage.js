@@ -51,7 +51,7 @@ class MallPage extends Component {
         })
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.initUserInfo();
         this._getProductList()
 
@@ -187,7 +187,7 @@ class MallPage extends Component {
                         </View>
                     </View>
 
-                    <View style={[{height: 50},  styles.flexDirectionColumnNotFlex]}>
+                    <View style={[{height: 50, marginTop: -20},  styles.flexDirectionColumnNotFlex]}>
 
                         <ImageBackground
                             style={[{marginLeft: tipMarginLeft, height: 19, width: 31, marginTop: 5}, styles.centerH]}
@@ -250,7 +250,7 @@ class MallPage extends Component {
                                 height: 26,
                             }, styles.centered]}>
                                 <Text
-                                    style={[styles.smallTextBlack]}>{I18n("Login")}</Text>
+                                    style={[styles.smallTextBlack]}>{I18n("Sign_in")}</Text>
                             </View>
                         </TouchableOpacity>
                         <Text

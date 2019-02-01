@@ -42,7 +42,7 @@ class SettingPage extends BaseTitlePage {
         return (
             <View style={styles.flexDirectionColumn}>
 
-                <TouchableOpacity
+                {/*<TouchableOpacity
                     activeOpacity={Constant.activeOpacity}
                     style={[styles.flexDirectionRowNotFlex, styles.centerH, {
                         paddingVertical: 25,
@@ -66,7 +66,7 @@ class SettingPage extends BaseTitlePage {
 
                 </TouchableOpacity>
 
-                <View style={styles.dividerLineF6}/>
+                <View style={styles.dividerLineF6}/>*/}
 
                 <TouchableOpacity
                     activeOpacity={Constant.activeOpacity}
