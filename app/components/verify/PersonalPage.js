@@ -302,26 +302,7 @@ class PersonalPage extends BaseTitlePage {
 
                 <View style={styles.dividerLineF6}/>
 
-                <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
 
-                    <TouchableOpacity
-                        activeOpacity={Constant.activeOpacity}
-                        style={[{
-                            marginHorizontal: 36,
-                            marginBottom: 16,
-                            borderColor: "#D7D7D7",
-                            borderWidth: 1,
-                            borderRadius: 20,
-                            paddingVertical: 10,
-                        }, styles.centered]} onPress={() => {
-                        vUserDao.clearInfo();
-                        DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
-                        Actions.pop();
-                    }}>
-                        <Text style={[{color: "#F26262", fontSize: 14,}]}>{i18n("Sign_out")}</Text>
-                    </TouchableOpacity>
-
-                </View>
             </View>
         )
     }

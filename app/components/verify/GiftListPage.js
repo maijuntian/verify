@@ -188,7 +188,7 @@ class GiftListPage extends BaseTitlePage {
                                     <Text style={styles.sminTextBlack}>{item.trackingNumber}</Text>
                                 </View>
                                 <View style={[styles.flexDirectionRowNotFlex,]}>
-                                    <Text style={styles.sminText9Dgray}>{i18n("Logistics")}：</Text>
+                                    <Text style={styles.sminText9Dgray}>{i18n("Courier")}：</Text>
                                     <Text style={styles.sminTextBlack}>{item.logistics}</Text>
                                 </View>
                                 <View style={[styles.flexDirectionRowNotFlex,]}>

@@ -76,6 +76,7 @@ class SettingPage extends BaseTitlePage {
                         paddingRight: 10
                     }]}
                     onPress={() => {
+                        Actions.WebviewPage({url: Constant.API_USER_AGREEMENT, title: i18n("User_Agreement")});
                     }}>
                     <Text style={[{color: Constant.primaryBlackColor, fontSize: 14}]}>{i18n("User_Agreement")}</Text>
 
@@ -143,6 +144,34 @@ class SettingPage extends BaseTitlePage {
 
                 </TouchableOpacity>
 
+
+                <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
+
+                    <TouchableOpacity
+                        activeOpacity={Constant.activeOpacity}
+                        style={[{
+                            marginHorizontal: 36,
+                            marginBottom: 16,
+                            borderColor: "#D7D7D7",
+                            borderWidth: 1,
+                            borderRadius: 20,
+                            paddingVertical: 10,
+                        }, styles.centered]} onPress={() => {
+                        Actions.CommonConfirmModal2({
+                            text: i18n("logout_tip"),
+                            backExit: true,
+                            confirmFun: () => {
+                                vUserDao.clearInfo();
+                                DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                                Actions.pop();
+                            }
+                        });
+
+                    }}>
+                        <Text style={[{color: "#F26262", fontSize: 14,}]}>{i18n("Sign_out")}</Text>
+                    </TouchableOpacity>
+
+                </View>
             </View>
         )
     }

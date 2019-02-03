@@ -10,6 +10,7 @@ import {
 import TabIcon from './components/widget/TabIcon'
 import LoadingModal from './components/common/LoadingModal'
 import ConfirmModal from './components/common/ConfirmModal'
+import CommonConfirmModal2 from './components/common/CommonConfirmModal2'
 import SuccessModal from './components/common/SuccessModal'
 import styles from './style'
 import I18n, {changeLocale} from './style/i18n'
@@ -47,8 +48,12 @@ import PersonalBirthdayPage from "./components/verify/PersonalBirthdayPage";
 import SettingPage from "./components/verify/SettingPage";
 import RegisterPage from "./components/verify/RegisterPage";
 import Register2Page from "./components/verify/Register2Page";
+import ResetPwdPage from "./components/verify/ResetPwdPage";
+import ResetPwd2Page from "./components/verify/ResetPwd2Page";
 import vUserDao from "./dao/vUserDao";
 import {Actions} from "react-native-router-flux";
+import WebviewPage from "./components/verify/WebviewPage";
+import NFCScanPage from "./components/verify/NFCScanPage";
 
 /**
  * 全局路由
@@ -136,10 +141,16 @@ const getRouter = () => {
                     <Scene key="LoginPage" component={LoginPage}/>
                     <Scene key="RegisterPage" component={RegisterPage}/>
                     <Scene key="Register2Page" component={Register2Page}/>
+                    <Scene key="ResetPwdPage" component={ResetPwdPage}/>
+                    <Scene key="ResetPwd2Page" component={ResetPwd2Page}/>
+                    <Scene key="WebviewPage" component={WebviewPage}/>
+                    <Scene key="NFCScanPage" component={NFCScanPage}/>
+
                 </Scene>
                 <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>
                 <Scene key="LoadingModal" component={LoadingModal}/>
                 <Scene key="ConfirmModal" component={ConfirmModal}/>
+                <Scene key="CommonConfirmModal2" component={CommonConfirmModal2}/>
                 <Scene key="SuccessModal" component={SuccessModal}/>
 
             </Lightbox>

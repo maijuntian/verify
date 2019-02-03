@@ -129,18 +129,23 @@ class LoginPage extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.dividerLineE6, {width: dividerWidth}]}/>
-                    <View style={[{marginTop: 17}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
-                        <Image style={[{height: 12, width: 12, marginRight: 2}]}
-                               resizeMode={"center"}
-                               source={require("../../img/icon_info.png")}/>
+                    <TouchableOpacity activeOpacity={constant.activeOpacity}
+                                      onPress={() => {
+                                          Actions.WebviewPage({url: constant.API_USER_AGREEMENT, title: i18n("User_Agreement")});
+                                      }}>
+                        <View style={[{marginTop: 17}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
+                            <Image style={[{height: 12, width: 12, marginRight: 2}]}
+                                   resizeMode={"center"}
+                                   source={require("../../img/icon_info.png")}/>
 
-                        <Text style={styles.subLightSMinText}>{i18n("sign_tip")}</Text>
-                        <Text style={[{
-                            color: "#1C1C1C",
-                            textDecorationLine: "underline",
-                            fontSize: constant.sminTextSize,
-                        },]}>{i18n("User_Agreement2")}</Text>
-                    </View>
+                            <Text style={styles.subLightSMinText}>{i18n("sign_tip")}</Text>
+                            <Text style={[{
+                                color: "#1C1C1C",
+                                textDecorationLine: "underline",
+                                fontSize: constant.sminTextSize,
+                            },]}>{i18n("User_Agreement2")}</Text>
+                        </View>
+                    </TouchableOpacity>
                     <TouchableOpacity activeOpacity={constant.activeOpacity}
                                       onPress={() => {
                                           Keyboard.dismiss();
@@ -181,11 +186,17 @@ class LoginPage extends Component {
                         paddingLeft: 38,
                         paddingRight: 38
                     }]}>
-                    <Text style={[{
-                        color: "#1C1C1C",
-                        textDecorationLine: "underline",
-                        fontSize: constant.minTextSize,
-                    },]}>{i18n("Forgot_password")}</Text>
+                    <TouchableOpacity activeOpacity={constant.activeOpacity}
+                                      onPress={() => {
+                                          Actions.ResetPwdPage();
+                                      }}>
+                        <Text style={[{
+                            color: "#1C1C1C",
+                            textDecorationLine: "underline",
+                            fontSize: constant.minTextSize,
+                        },]}>{i18n("Forgot_password")}</Text>
+
+                    </TouchableOpacity>
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
                         <TouchableOpacity activeOpacity={constant.activeOpacity}

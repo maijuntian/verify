@@ -38,13 +38,7 @@ class HomePage extends Component {
                         iconIndex={"1"}
                         itemTitle={I18n("Code_Authentication")}
                         onItemPress={() => {
-                            vUserDao.isLoginAsync().then(res => {
-                                if (res) {
-                                    Actions.jump("ScanQrCodePage");
-                                } else {
-                                    Actions.LoginPage();
-                                }
-                            });
+                            Actions.jump("ScanQrCodePage");
                         }
                         }
                     />
@@ -53,7 +47,7 @@ class HomePage extends Component {
                         iconIndex={"2"}
                         itemTitle={I18n("nfc_anti_fake")}
                         onItemPress={() => {
-                            console.log("test3")
+                            Actions.jump("NFCScanPage");
                         }}/>
                 </View>
 

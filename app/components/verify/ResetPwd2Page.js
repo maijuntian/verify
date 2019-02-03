@@ -27,16 +27,18 @@ import CommonIconTextButton from "../common/CommonIconTextButton";
 /**
  * 登录
  */
-class Register2Page extends BaseTitlePage {
+class ResetPwd2Page extends BaseTitlePage {
 
     constructor(props) {
         super(props);
         this.state = {
             account: this.props.account,
-            password: this.props.password,
+            newPwd1: "",
+            newPwd2: "",
             type: this.props.type,
             code: "",
             time: 60,
+            isPwd: true,
         }
     }
 
@@ -46,7 +48,7 @@ class Register2Page extends BaseTitlePage {
 
 
     _title() {
-        return i18n("Safety_Checking");
+        return i18n("Reset_Password");
     }
 
     toNext() {
@@ -102,6 +104,7 @@ class Register2Page extends BaseTitlePage {
         } else {
             text = i18n("Resend");
         }
+        let pwdIcon = this.state.isPwd ? require("../../img/icon_eye_n.png") : require("../../img/icon_eye_s.png");
 
         return (
             <View style={[{
@@ -121,7 +124,6 @@ class Register2Page extends BaseTitlePage {
                         }]}
                         underlineColorAndroid='transparent'
                         placeholder={i18n("Verification_code")}
-                        secureTextEntry={this.state.isPwd}
                         onChangeText={(text) => this.setState({code: text})}
                         value={this.state.code}/>
                     <CommonIconTextButton textStyle={[{color: "#586575", fontSize: Constant.smallTextSize}]}
@@ -141,7 +143,7 @@ class Register2Page extends BaseTitlePage {
                                                           }
                                                       });
                                                   } else {
-                                                      vUserDao.emailCode(this.state.account).then((res) => {
+                                                      vUserDao.emailCode2(this.state.account).then((res) => {
                                                           if (res.code === 200) {
                                                               this.toNext();
                                                           } else {
@@ -152,9 +154,55 @@ class Register2Page extends BaseTitlePage {
                                               }
                                           }}/>
                 </View>
-                <View style={[styles.dividerLineE6, {width: dividerWidth, marginTop: 5, marginBottom: 80}]}/>
+                <View style={[styles.dividerLineE6, {width: dividerWidth, marginTop: 5}]}/>
+                <Text
+                    style={[styles.minTextsGray, {marginTop: 30, marginBottom: 25}]}>{i18n("reset_pwd_tip2")}</Text>
+
+                <TextInput
+                    style={[styles.middleTexBlack, {
+                        width: dividerWidth,
+                        paddingVertical: 5,
+                    }]}
+                    secureTextEntry={this.state.isPwd}
+                    underlineColorAndroid='transparent'
+                    placeholder={i18n("input_new_password")}
+                    onChangeText={(text) => this.setState({newPwd1: text})}
+                    value={this.state.newPwd1}/>
+                <View style={[styles.dividerLineE6, {width: dividerWidth,}]}/>
+                <TextInput
+                    style={[styles.middleTexBlack, {
+                        width: dividerWidth,
+                        marginTop: 25,
+                        paddingVertical: 5,
+                    }]}
+                    secureTextEntry={this.state.isPwd}
+                    underlineColorAndroid='transparent'
+                    placeholder={i18n("Confirm_New_Password")}
+                    onChangeText={(text) => this.setState({newPwd2: text})}
+                    value={this.state.newPwd2}/>
+                <View style={[styles.dividerLineE6, {width: dividerWidth,}]}/>
+
+                <View style={[{marginTop: 15}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
+                    <Image style={[{height: 12, width: 12, marginRight: 2}]}
+                           resizeMode={"center"}
+                           source={require("../../img/icon_info.png")}/>
+
+                    <Text style={styles.subLightSMinText}>{i18n("pwd_tip")}</Text>
+                </View>
+
+                <TouchableOpacity activeOpacity={Constant.activeOpacity}
+                                  onPress={() => {
+                                      this.setState({isPwd: !this.state.isPwd})
+                                  }}>
+                    <View style={[{marginTop: 15, marginBottom: 80}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
+                        <Image style={[{height: 12, width: 12, marginRight: 2}]}
+                               resizeMode={"center"}
+                               source={pwdIcon}/>
 
 
+                        <Text style={styles.subLightSMinText}>{i18n("Show_password")}</Text>
+                    </View>
+                </TouchableOpacity>
                 <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                   onPress={() => {
                                       Keyboard.dismiss();
@@ -164,28 +212,37 @@ class Register2Page extends BaseTitlePage {
                                           return;
                                       }
 
-                                      Actions.LoadingModal({text: i18n("Registering"), backExit: false});
-                                      if (this.state.type === "phone") {
-                                          vUserDao.phoneRegister(this.state.account, this.state.password, this.state.code).then((res) => {
-                                              this.exitLoading();
-                                              if (res.code === 200) {
-                                                  Toast(i18n("Registration_completed"));
-                                                  Actions.pop();
-                                              } else {
-                                                  Toast(res.message);
-                                              }
-                                          })
-                                      } else {
-                                          vUserDao.emailRegister(this.state.account, this.state.password, this.state.code).then((res) => {
-                                              this.exitLoading();
-                                              if (res.code === 200) {
-                                                  Toast(i18n("Registration_completed"));
-                                                  Actions.pop();
-                                              } else {
-                                                  Toast(res.message);
-                                              }
-                                          })
+                                      if (this.state.newPwd1 === "") {
+                                          Toast(i18n("input_pwd_tip1"));
+                                          return;
                                       }
+
+                                      if (this.state.newPwd2 === "") {
+                                          Toast(i18n("input_pwd_tip2"));
+                                          return;
+                                      }
+
+                                      if (this.state.newPwd1.length < 6 || this.state.newPwd2.length < 6) {
+                                          Toast(i18n("pwd_tip"));
+                                          return;
+                                      }
+
+                                      if (this.state.newPwd1 !== this.state.newPwd2) {
+                                          Toast(i18n("input_pwd_tip3"));
+                                          return;
+                                      }
+
+                                      Actions.LoadingModal({text: i18n("Resetting"), backExit: false});
+                                      vUserDao.resetPwd(this.state.account, this.state.newPwd1, this.state.code).then((res) => {
+                                          this.exitLoading();
+                                          if (res.code === 200) {
+                                              Toast(i18n("reset_completed"));
+                                              Actions.pop();
+                                          } else {
+                                              Toast(res.message);
+                                          }
+                                      })
+
                                   }}>
                     <View style={[{
                         width: screenWidth - 80,
@@ -203,4 +260,4 @@ class Register2Page extends BaseTitlePage {
     }
 }
 
-export default Register2Page
+export default ResetPwd2Page

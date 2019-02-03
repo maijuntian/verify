@@ -107,7 +107,7 @@ class MePage extends Component {
                         </View>*/}
                     </View>
 
-                    <View style={[{marginTop: 15, marginLeft: 30,}, styles.flexDirectionRowNotFlex,]}>
+                    <View style={[{marginTop: 15, marginLeft: 50,}, styles.flexDirectionRowNotFlex,]}>
                         <View style={[styles.flexDirectionRowNotFlex, styles.centered]}>
 
                             <Image style={[{height: 18, width: 18},]}
@@ -124,7 +124,7 @@ class MePage extends Component {
 
                         <View style={[styles.flexDirectionRow, {
                             justifyContent: 'flex-end',
-                            marginEnd: 30,
+                            marginEnd: 50,
                         }]}>
                             <View style={[styles.flexDirectionRowNotFlex, styles.centered]}>
 

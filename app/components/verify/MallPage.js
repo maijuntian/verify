@@ -81,7 +81,7 @@ class MallPage extends Component {
 
 
     _renderHeader() {
-        let progress = 1261;
+        let progress = 0;
 
         let maxWidth = (screenWidth - 60 - 10);
         let progressWidth = (maxWidth * progress / this.state.maxProgress);

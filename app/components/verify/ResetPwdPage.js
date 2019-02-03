@@ -22,45 +22,25 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
+import CommonIconTextButton from "../common/CommonIconTextButton";
 
 /**
  * 登录
  */
-class RegisterPage extends BaseTitlePage {
+class ResetPwdPage extends BaseTitlePage {
 
     constructor(props) {
         super(props);
         this.state = {
             account: "",
-            password: "",
-            isPwd: true,
         }
-    }
-
-    componentDidMount() {
     }
 
 
     _title() {
-        return i18n("Register");
+        return i18n("Reset_Password");
     }
 
-    _rightPress() {
-        Actions.LoadingModal({text: i18n("Saving"), backExit: false});
-        Keyboard.dismiss();
-        vUserDao.updateInfo({"nickname": this.state.nickname}).then((res) => {
-            this.exitLoading();
-            if (res.code === 200) {
-                this.state.userInfo.nickname = this.state.nickname;
-                vUserDao.saveLocalUserInfo(this.state.userInfo).then((res) => {
-                    DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
-                    Actions.pop();
-                })
-            } else {
-                Toast.show(res.message);
-            }
-        })
-    }
 
     exitLoading() {
         if (Actions.currentScene === 'LoadingModal') {
@@ -71,19 +51,22 @@ class RegisterPage extends BaseTitlePage {
     _reader() {
 
         let inputIconWidth = 20;
-        let dividerWidth = screenWidth - 76;
+        let dividerWidth = screenWidth - 80;
         let inputWidth = dividerWidth - inputIconWidth;
-
-        let pwdIcon = this.state.isPwd ? require("../../img/icon_eye_n.png") : require("../../img/icon_eye_s.png");
 
         return (
             <View style={[{
-                marginTop: 44,
+                marginTop: 30,
                 marginHorizontal: 40,
                 width: screenWidth - 80,
             }, styles.flexDirectionColumnNotFlex]}>
 
                 <View style={[styles.flexDirectionRowNotFlex, styles.centerH,]}>
+                    <Text
+                        style={styles.minTextsGray}>{i18n("reset_pwd_tip")}</Text>
+                </View>
+
+                <View style={[{marginTop: 15}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
                     <TextInput
                         style={[styles.middleTexBlack, {
                             width: inputWidth,
@@ -102,40 +85,11 @@ class RegisterPage extends BaseTitlePage {
                                source={require("../../img/icon_clear.png")}/>
                     </TouchableOpacity>
                 </View>
-                <View style={[styles.dividerLineE6, {width: dividerWidth}]}/>
+                <View style={[styles.dividerLineE6, {width: dividerWidth, marginTop: 5, marginBottom: 80}]}/>
 
-                <View style={[{marginTop: 15}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
-                    <TextInput
-                        style={[styles.middleTexBlack, {
-                            width: inputWidth,
-                            paddingVertical: 5,
-                        }]}
-                        underlineColorAndroid='transparent'
-                        placeholder={i18n("Password")}
-                        secureTextEntry={this.state.isPwd}
-                        onChangeText={(text) => this.setState({password: text})}
-                        value={this.state.password}/>
-                    <TouchableOpacity activeOpacity={Constant.activeOpacity}
-                                      onPress={() => {
-                                          this.setState({isPwd: !this.state.isPwd})
-                                      }}>
-                        <Image style={[{height: inputIconWidth, width: inputIconWidth, marginRight: 10}]}
-                               resizeMode={"center"}
-                               source={pwdIcon}/>
-                    </TouchableOpacity>
-                </View>
-                <View style={[styles.dividerLineE6, {width: dividerWidth}]}/>
-                <View style={[{marginTop: 17, marginBottom: 80}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
-                    <Image style={[{height: 12, width: 12, marginRight: 2}]}
-                           resizeMode={"center"}
-                           source={require("../../img/icon_info.png")}/>
-
-                    <Text style={styles.subLightSMinText}>{i18n("pwd_tip")}</Text>
-                </View>
 
                 <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                   onPress={() => {
-
                                       Keyboard.dismiss();
                                       let type;
 
@@ -143,23 +97,12 @@ class RegisterPage extends BaseTitlePage {
                                           Toast(i18n("Please_input_account"));
                                           return;
                                       }
-
-                                      if (this.state.password === "") {
-                                          Toast(i18n("Please_input_password"));
-                                          return;
-                                      }
-
-                                      console.log("@-->" + this.state.account.indexOf("@"))
                                       if (this.state.account.indexOf("@") > 0) {
                                           type = "email";
                                       } else {
                                           type = "phone";
                                       }
 
-                                      if (this.state.password.length < 6) {
-                                          Toast(i18n("pwd_tip"));
-                                          return;
-                                      }
 
                                       Actions.LoadingModal({text: i18n("Sending"), backExit: false});
                                       if (type === "phone") {
@@ -167,9 +110,8 @@ class RegisterPage extends BaseTitlePage {
                                               this.exitLoading();
                                               console.log("res--->" + JSON.stringify(res));
                                               if (res.code === 200) {
-                                                  Actions.replace("Register2Page", {
+                                                  Actions.replace("ResetPwd2Page", {
                                                       "account": this.state.account,
-                                                      "password": this.state.password,
                                                       "type": type,
                                                   });
                                               } else {
@@ -177,13 +119,12 @@ class RegisterPage extends BaseTitlePage {
                                               }
                                           });
                                       } else {
-                                          vUserDao.emailCode(this.state.account).then((res) => {
+                                          vUserDao.emailCode2(this.state.account).then((res) => {
                                               this.exitLoading();
                                               console.log("res--->" + JSON.stringify(res));
                                               if (res.code === 200) {
-                                                  Actions.replace("Register2Page", {
+                                                  Actions.replace("ResetPwd2Page", {
                                                       "account": this.state.account,
-                                                      "password": this.state.password,
                                                       "type": type,
                                                   });
                                               } else {
@@ -191,7 +132,6 @@ class RegisterPage extends BaseTitlePage {
                                               }
                                           });
                                       }
-
                                   }}>
                     <View style={[{
                         width: screenWidth - 80,
@@ -204,26 +144,9 @@ class RegisterPage extends BaseTitlePage {
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={Constant.activeOpacity}
-                                  onPress={() => {
-                                      Actions.WebviewPage({url: Constant.API_USER_AGREEMENT, title: i18n("User_Agreement")});
-                                  }}>
-                    <View style={[{
-                        marginTop: 17,
-                        width: screenWidth - 80
-                    }, styles.flexDirectionRowNotFlex, styles.centered,]}>
-
-                        <Text style={styles.subLightSMinText}>{i18n("sign_tip")}</Text>
-                        <Text style={[{
-                            color: "#1C1C1C",
-                            textDecorationLine: "underline",
-                            fontSize: Constant.sminTextSize,
-                        },]}>{i18n("User_Agreement2")}</Text>
-                    </View>
-                </TouchableOpacity>
             </View>
         )
     }
 }
 
-export default RegisterPage
+export default ResetPwdPage

@@ -101,9 +101,9 @@ class OrderConfirmPage extends BaseTitlePage {
                         <Text
                             style={[styles.middleTexBlackCharter]}>{this.state.address.address}</Text>
                         <View style={[styles.flexDirectionRowNotFlex, styles.centerH]}>
-                            <Text style={[{}, styles.middleTextGrayBlue]}>{this.state.address.contacts}</Text>
+                            <Text style={[{color: "#6A6A6A", fontSize: 14}]}>{this.state.address.contacts}</Text>
                             <Text
-                                style={[{marginLeft: 17}, styles.minTextsGray_PingFang]}>{this.state.address.phone}</Text>
+                                style={[{marginLeft: 17}, styles.smallTextGray]}>{this.state.address.phone}</Text>
                         </View>
 
                     </View>

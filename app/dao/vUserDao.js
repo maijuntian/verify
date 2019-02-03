@@ -108,7 +108,7 @@ const updateAvatar = async (uri) => {
     let file = {uri: uri, type: 'multipart/form-data', name: "image.png"};
     let formData = new FormData();
     formData.append("file", file);
-    let res = await Api.netFetch(API + "/user/info/base/avatar", "PUT", formData, false, {"Content-Type": "multipart/form-data"}, false, true);
+    let res = await Api.netFetch(API + "/user/info/base/avatar", "POST", formData, false, {"Content-Type": "multipart/form-data"}, false, true);
     return res.data;
 }
 
@@ -150,12 +150,27 @@ const emailCode = async (email) => {
     return res.data;
 }
 
+const emailCode2 = async (email) => {
+    let res = await Api.netFetch(API + "/system/email/reset/password/" + email, "POST", null, true, null, false);
+    return res.data;
+}
+
 const phoneRegister = async (name, password, verificationCode) => {
 
     let res = await Api.netFetch(API + "/system/register/phone", "POST", {
         name: name,
         password: password,
         verificationCode: verificationCode
+    }, true, null, false);
+    return res.data;
+}
+
+const resetPwd = async (name, password, verificationCode) => {
+
+    let res = await Api.netFetch(API + "/system/reset/password", "POST", {
+        account: name,
+        password: password,
+        code: verificationCode
     }, true, null, false);
     return res.data;
 }
@@ -193,6 +208,8 @@ export default {
     snsCode,
     phoneRegister,
     emailCode,
+    emailCode2,
     emailRegister,
     clearInfo,
+    resetPwd,
 }

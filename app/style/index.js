@@ -255,6 +255,11 @@ const styles = StyleSheet.create({
         fontFamily: fontFamilyCharter,
     },
 
+    smallTextGray: {
+        color: constant.text_gray,
+        fontSize: constant.middleTextWhite,
+    },
+
     largeText: {
         color: constant.mainTextColor,
         fontSize: constant.bigTextSize

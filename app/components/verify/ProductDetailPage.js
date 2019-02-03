@@ -105,7 +105,7 @@ class ProductDetailPage extends BaseTitlePage {
                         }, styles.smallTextGray,]}>{this.state.product.points}</Text>
                     </View>
 
-                    <Text style={[{}, styles.subMinText,]}>{I18n("Rank")}: </Text>
+                    <Text style={[{paddingBottom:3}, styles.subMinText,]}>{I18n("Rank")}: </Text>
 
                     <Image source={rankIcon}
                            style={{height: 22, width: 22,}}
@@ -128,29 +128,34 @@ class ProductDetailPage extends BaseTitlePage {
 
                         <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                           onPress={() => {
+                                              vUserDao.isLoginAsync().then((res) => {
+                                                  if (res) {
+                                                      Actions.LoadingModal({text: I18n("Order_confirming"), backExit: false});
 
-                                              Actions.LoadingModal({text: I18n("Order_confirming"), backExit: false});
+                                                      vUserDao.getDefaultAddress().then((res) => {
+                                                          this.exitLoading();
+                                                          if (res.code === 200) {
+                                                              let addressStr = JSON.stringify(res.data);
+                                                              if (addressStr === "null" || addressStr === null) {
+                                                                  Actions.OrderAddressEditPage({
+                                                                      addressStr: "",
+                                                                      productStr: this.state.productStr
+                                                                  });
+                                                              } else {
+                                                                  Actions.OrderConfirmPage({
+                                                                      addressStr: addressStr,
+                                                                      productStr: this.state.productStr
+                                                                  });
+                                                              }
+                                                          } else {
+                                                              Toast(res.message);
+                                                          }
 
-                                              vUserDao.getDefaultAddress().then((res) => {
-                                                  this.exitLoading();
-                                                  if (res.code === 200) {
-                                                      let addressStr = JSON.stringify(res.data);
-                                                      if (addressStr === "null" || addressStr === null) {
-                                                          Actions.OrderAddressEditPage({
-                                                              addressStr: "",
-                                                              productStr: this.state.productStr
-                                                          });
-                                                      } else {
-                                                          Actions.OrderConfirmPage({
-                                                              addressStr: addressStr,
-                                                              productStr: this.state.productStr
-                                                          });
-                                                      }
+                                                      });
                                                   } else {
-                                                      Toast(res.message);
+                                                      Actions.LoginPage();
                                                   }
-
-                                              });
+                                              })
 
                                           }}>
 

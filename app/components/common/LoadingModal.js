@@ -53,7 +53,7 @@ class LoadingModal extends Component {
                    backdrop={true}
                    backdropOpacity={0.8}>
                 <View style={[styles.centered, {flex: 1}]}>
-                    <View>
+                    <View style={[styles.centered]}>
                         <Spinner style={[styles.centered]}
                                  isVisible={true}
                                  size={50} type="9CubeGrid"
