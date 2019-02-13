@@ -347,6 +347,8 @@ I18n.translations = {
         scan_tip2: " tag to verify",
         scan_tip3: "the authenticity of the product.",
         Courier:"Courier",
+        Cell:"Cell",
+
     }
 };
 

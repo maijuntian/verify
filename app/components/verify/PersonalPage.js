@@ -225,6 +225,7 @@ class PersonalPage extends BaseTitlePage {
                         paddingRight: 10
                     }]}
                     onPress={() => {
+                        Actions.PersonalMobilePage();
                     }}>
                     <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Mobile_Number")}</Text>
 
@@ -250,6 +251,7 @@ class PersonalPage extends BaseTitlePage {
                         paddingRight: 10
                     }]}
                     onPress={() => {
+                        Actions.PersonalEmailPage();
                     }}>
                     <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Email_address")}</Text>
 

@@ -54,6 +54,8 @@ import vUserDao from "./dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import WebviewPage from "./components/verify/WebviewPage";
 import NFCScanPage from "./components/verify/NFCScanPage";
+import PersonalEmailPage from "./components/verify/PersonalEmailPage";
+import PersonalMobilePage from "./components/verify/PersonalMobilePage";
 
 /**
  * 全局路由
@@ -145,6 +147,8 @@ const getRouter = () => {
                     <Scene key="ResetPwd2Page" component={ResetPwd2Page}/>
                     <Scene key="WebviewPage" component={WebviewPage}/>
                     <Scene key="NFCScanPage" component={NFCScanPage}/>
+                    <Scene key="PersonalEmailPage" component={PersonalEmailPage}/>
+                    <Scene key="PersonalMobilePage" component={PersonalMobilePage}/>
 
                 </Scene>
                 <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>
