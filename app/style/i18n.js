@@ -179,7 +179,7 @@ I18n.translations = {
         scan_tip1: "Hold your phone close to the  ",
         scan_tip2: " tag to verify",
         scan_tip3: "the authenticity of the product.",
-        Courier:"Courier",
+        Courier: "Courier",
     },
     'zh-CN': {
         appName: 'VerifyAPP',
@@ -346,8 +346,10 @@ I18n.translations = {
         scan_tip1: "Hold your phone close to the  ",
         scan_tip2: " tag to verify",
         scan_tip3: "the authenticity of the product.",
-        Courier:"Courier",
-        Cell:"Cell",
+        Courier: "Courier",
+        Cell: "Cell",
+        Please_input_name: "Please input name.",
+        Please_input_email: "Please input email.",
 
     }
 };

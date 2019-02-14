@@ -6,6 +6,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.facebook.react.ReactActivity;
+import com.umeng.analytics.MobclickAgent;
 import com.verify.module.splash.SplashScreen;
 
 public class MainActivity extends ReactActivity {
@@ -16,10 +17,19 @@ public class MainActivity extends ReactActivity {
 //        SplashScreen.show(this,true);
         super.onCreate(savedInstanceState);
 
+        MobclickAgent.setSessionContinueMillis(1000*60);
+        MobclickAgent.onResume(this);
         if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
 		   finish();
 		   return;
 		}
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        MobclickAgent.onPause(this);
     }
 
     /**

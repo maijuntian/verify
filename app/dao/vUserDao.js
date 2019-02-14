@@ -104,6 +104,11 @@ const updateInfo = async (params) => {
     return res.data;
 }
 
+const updateInfoPhone = async (params) => {
+    let res = await Api.netFetch(API + "/user/info/base/phone", "PUT", params, true, null, false);
+    return res.data;
+}
+
 const updateAvatar = async (uri) => {
     let file = {uri: uri, type: 'multipart/form-data', name: "image.png"};
     let formData = new FormData();
@@ -194,6 +199,7 @@ export default {
     localUserInfo,
     saveLocalUserInfo,
     updateInfo,
+    updateInfoPhone,
     pointsHistory,
     addressList,
     saveAddress,

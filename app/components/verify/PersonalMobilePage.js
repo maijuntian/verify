@@ -51,13 +51,24 @@ class PersonalNamePage extends BaseTitlePage {
     }
 
     _rightPress() {
+        if(this.state.mobile === ""){
+            Toast(i18n("Please_input_account"));
+            return;
+        }
+
+        if(this.state.code === ""){
+            Toast(i18n("Please_input_code"));
+            return;
+        }
         Actions.LoadingModal({text: i18n("Saving"), backExit: false});
         Keyboard.dismiss();
-        vUserDao.updateInfo({"nickname": this.state.nickname}).then((res) => {
-            this.exitLoading();
+        vUserDao.updateInfo({"phone": this.state.mobile, "code":this.state.code}).then((res) => {
             if (res.code === 200) {
-                this.state.userInfo.nickname = this.state.nickname;
-                vUserDao.saveLocalUserInfo(this.state.userInfo).then((res) => {
+                vUserDao.localUserInfo().then((data) => {
+                    data.phone = this.state.mobile;
+                    return vUserDao.saveLocalUserInfo(data)
+                }).then((result) => {
+                    this.exitLoading();
                     DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
                     Actions.pop();
                 })
@@ -142,7 +153,7 @@ class PersonalNamePage extends BaseTitlePage {
                                           width={78}
                                           onPress={() => {
                                               if (this.state.time <= 0) {
-                                                  vUserDao.snsCode(this.state.account).then((res) => {
+                                                  vUserDao.snsCode(this.state.mobile).then((res) => {
                                                       if (res.code === 200) {
                                                           this.toNext();
                                                       } else {

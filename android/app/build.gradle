@@ -181,6 +181,7 @@ dependencies {
     compile project(':react-native-gesture-handler')
     compile project(':react-native-camera')
     compile project(':lottie-react-native')
+    compile project(':react-native-facebook-login')
     api project(':react-native-camera')
     api project(':react-native-version-number')
     api project(':react-native-vector-icons')

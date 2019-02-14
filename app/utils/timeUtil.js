@@ -75,7 +75,9 @@ export default function formatDate(date) {
 }
 
 export const isBehind = (before, next) => {
-    let beforeDay = moment(before, Constant.EN_DATE_FORMAT).get("day");
-    let nextDay = moment(next, Constant.EN_DATE_FORMAT).get("day");
-    return beforeDay === nextDay - 1;
+    let beforeDay = moment(before, Constant.EN_DATE_FORMAT).get("dayOfYear");
+    let nextDay = moment(next, Constant.EN_DATE_FORMAT).get("dayOfYear");
+    let beforeDay2 = moment(before, Constant.EN_DATE_FORMAT).get("day");
+    let nextDay2 = moment(next, Constant.EN_DATE_FORMAT).get("day");
+    return beforeDay === nextDay - 1 && beforeDay2 === nextDay2 - 1;
 }

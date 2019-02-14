@@ -81,17 +81,22 @@ class MallPage extends Component {
 
 
     _renderHeader() {
-        let progress = 0;
 
         let maxWidth = (screenWidth - 60 - 10);
-        let progressWidth = (maxWidth * progress / this.state.maxProgress);
+        let progressWidth = 0;
+        if(this.state.userInfo.grade.endScore ===  this.state.userInfo.grade.startScore){
+            progressWidth = maxWidth;
+        } else{
+            let progress = this.state.userInfo.scores - this.state.userInfo.grade.startScore;
+            progressWidth = (maxWidth * progress / (this.state.userInfo.grade.endScore - this.state.userInfo.grade.startScore));
+        }
 
         let bg_max = "M5 8 l" + maxWidth + " 0";
         let bg_progress = "M5 8 l" + progressWidth + " 0";
         let tipMarginLeft = progressWidth - 10;
 
         let rankIcon = require("../../img/silver.png");
-        switch (this.state.userInfo.grade) {
+        switch (this.state.userInfo.grade.gradeName) {
             case "Copper":
                 rankIcon = require("../../img/copper.png");
                 break;

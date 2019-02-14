@@ -58,6 +58,10 @@ class PersonalNamePage extends BaseTitlePage {
     }
 
     _rightPress() {
+        if(this.state.nickname === ""){
+            Toast(i18n("Please_input_name"));
+            return;
+        }
         Actions.LoadingModal({text: i18n("Saving"), backExit: false});
         Keyboard.dismiss();
         vUserDao.updateInfo({"nickname": this.state.nickname}).then((res) => {
