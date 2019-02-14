@@ -40,6 +40,7 @@ class MallPage extends Component {
             userInfo: {},
             maxProgress: 2000,
             productData: [],
+            isShow: false,
         }
     }
 
@@ -84,9 +85,9 @@ class MallPage extends Component {
 
         let maxWidth = (screenWidth - 60 - 10);
         let progressWidth = 0;
-        if(this.state.userInfo.grade.endScore ===  this.state.userInfo.grade.startScore){
+        if (this.state.userInfo.grade.endScore === this.state.userInfo.grade.startScore) {
             progressWidth = maxWidth;
-        } else{
+        } else {
             let progress = this.state.userInfo.scores - this.state.userInfo.grade.startScore;
             progressWidth = (maxWidth * progress / (this.state.userInfo.grade.endScore - this.state.userInfo.grade.startScore));
         }
@@ -107,6 +108,16 @@ class MallPage extends Component {
                 rankIcon = require("../../img/gold.png");
                 break;
         }
+
+        let scoresView = this.state.isShow ? <View style={[styles.absoluteFull, styles.flexDirectionColumnNotFlex, {
+            marginRight: 30,
+            zIndex: -999,
+            alignItems: 'flex-end',
+            marginTop: 35,
+        }]}>
+
+            <Text style={[styles.subMinText,]}>{this.state.maxProgress}</Text>
+        </View> : <View/>;
 
         let userView;
         if (vUserDao.isLogin(this.state.userInfo)) {
@@ -192,7 +203,7 @@ class MallPage extends Component {
                         </View>
                     </View>
 
-                    <View style={[{height: 50, marginTop: -20},  styles.flexDirectionColumnNotFlex]}>
+                    <View style={[{height: 50, marginTop: -20}, styles.flexDirectionColumnNotFlex]}>
 
                         <ImageBackground
                             style={[{marginLeft: tipMarginLeft, height: 19, width: 31, marginTop: 5}, styles.centerH]}
@@ -201,25 +212,22 @@ class MallPage extends Component {
                             <Text style={styles.subMinText}>{progress}</Text>
 
                         </ImageBackground>
+                        <TouchableOpacity
+                            activeOpacity={constant.activeOpacity}
+                            onPress={() => {
+                                this.setState({isShow: !this.state.isShow});
+                            }}>
+                            <Svg height="24" width={bg_max}>
+                                <G fill="none" stroke={constant.grayBg}>
+                                    <Path strokeLinecap="round" strokeWidth="8" d={bg_max}/>
+                                </G>
+                                <G fill="none" stroke={constant.grayBlack}>
+                                    <Path strokeLinecap="round" strokeWidth="8" d={bg_progress}/>
+                                </G>
+                            </Svg>
+                        </TouchableOpacity>
 
-                        <Svg height="24" width={bg_max}>
-                            <G fill="none" stroke={constant.grayBg}>
-                                <Path strokeLinecap="round" strokeWidth="8" d={bg_max}/>
-                            </G>
-                            <G fill="none" stroke={constant.grayBlack}>
-                                <Path strokeLinecap="round" strokeWidth="8" d={bg_progress}/>
-                            </G>
-                        </Svg>
-
-                        <View style={[styles.absoluteFull, styles.flexDirectionColumnNotFlex, {
-                            marginRight: 30,
-                            zIndex: -999,
-                            alignItems: 'flex-end',
-                            marginTop: 35,
-                        }]}>
-
-                            <Text style={[styles.subMinText,]}>{this.state.maxProgress}</Text>
-                        </View>
+                        {scoresView}
                     </View>
 
                 </View>
