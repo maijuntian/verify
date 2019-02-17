@@ -2,6 +2,7 @@ package com.verify;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 
@@ -17,12 +18,12 @@ public class MainActivity extends ReactActivity {
 //        SplashScreen.show(this,true);
         super.onCreate(savedInstanceState);
 
-        MobclickAgent.setSessionContinueMillis(1000*60);
+        MobclickAgent.setSessionContinueMillis(1000 * 60);
         MobclickAgent.onResume(this);
-        if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
-		   finish();
-		   return;
-		}
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            return;
+        }
     }
 
     @Override

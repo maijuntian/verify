@@ -153,6 +153,12 @@ class PersonalNamePage extends BaseTitlePage {
                                           width={78}
                                           onPress={() => {
                                               if (this.state.time <= 0) {
+
+                                                  if(this.state.mobile === ""){
+                                                      Toast(i18n("Invalid_phone_number"));
+                                                      return;
+                                                  }
+
                                                   vUserDao.snsCode(this.state.mobile).then((res) => {
                                                       if (res.code === 200) {
                                                           this.toNext();

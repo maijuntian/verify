@@ -60,88 +60,116 @@ class MePage extends Component {
         this.subscription.remove();
     };
 
+    checkUserLogin(){
+        if(vUserDao.isLogin(this.state.userInfo)){
+            return true;
+        }
+        Actions.LoginPage();
+        return false;
+    }
 
     render() {
-        return (
-            <View style={styles.mainBox}>
-                <ImageBackground source={require("../../img/me_bg.png")}
-                                 style={[{height: 180, width: screenWidth}, styles.flexDirectionColumnNotFlex]}
-                                 resizeMode={"stretch"}>
-                    <View style={[{
-                        marginTop: 10 + statusHeight,
-                        width: screenWidth,
-                        height: 72,
-                    }, styles.flexDirectionRowNotFlex, styles.centerH]}>
-                        <Image style={[{height: 72, width: 72, borderRadius: 36, marginLeft: 30},]}
-                               source={{uri: this.state.userInfo.icon}}
-                        />
 
-                        <Text
-                            style={[{marginLeft: 10, width: screenWidth-122}, styles.largeTextWhite_Charter]}
-                            numberOfLines={1}>{this.state.userInfo.nickname}</Text>
-                        {/* <View style={[styles.flexDirectionRow, {
-                            justifyContent: 'flex-end',
-                        },]}>
+        let userView;
+        if (vUserDao.isLogin(this.state.userInfo)) {
+            userView = <ImageBackground source={require("../../img/me_bg.png")}
+                                        style={[{height: 180, width: screenWidth}, styles.flexDirectionColumnNotFlex]}
+                                        resizeMode={"stretch"}>
+                <View style={[{
+                    marginTop: 10 + statusHeight,
+                    width: screenWidth,
+                    height: 72,
+                }, styles.flexDirectionRowNotFlex, styles.centerH]}>
+                    <Image style={[{height: 72, width: 72, borderRadius: 36, marginLeft: 30},]}
+                           source={{uri: this.state.userInfo.icon}}
+                    />
 
-                            <TouchableOpacity
-                                activeOpacity={Constant.activeOpacity}
-                                onPress={() => {
-                                    Actions.CheckInPage();
-                                }}>
-                                <View style={[{
-                                    borderColor: Constant.white,
-                                    borderWidth: 1,
-                                    marginRight: -1,
-                                    borderTopLeftRadius: 5,
-                                    borderBottomLeftRadius: 5,
-                                    width: 86,
-                                    height: 18,
-                                }, styles.centered]}>
-                                    <CommonIconText
-                                        textStyle={[styles.minTextWhite]}
-                                        text={I18n("Check_in")}
-                                        icon={require("../../img/check_in2.png")}
-                                        iconStyle={[{height: 7, width: 9}]}/>
-                                </View>
-                            </TouchableOpacity>
-                        </View>*/}
+                    <Text
+                        style={[{marginLeft: 10, width: screenWidth - 122}, styles.largeTextWhite_Charter]}
+                        numberOfLines={1}>{this.state.userInfo.nickname}</Text>
+                </View>
+
+                <View style={[{marginTop: 15, marginLeft: 50,}, styles.flexDirectionRowNotFlex,]}>
+                    <View style={[styles.flexDirectionRowNotFlex, styles.centered]}>
+
+                        <Image style={[{height: 18, width: 18},]}
+                               source={require("../../img/integral_2.png")}/>
+
+                        <Text style={[{
+                            marginLeft: 5,
+                            color: Constant.transWhite,
+                            fontSize: Constant.minTextSize
+                        },]}>{I18n("Integral")}: </Text>
+
+                        <Text style={[styles.smallTextWhite]}>{this.state.userInfo.points}</Text>
                     </View>
 
-                    <View style={[{marginTop: 15, marginLeft: 50,}, styles.flexDirectionRowNotFlex,]}>
+                    <View style={[styles.flexDirectionRow, {
+                        justifyContent: 'flex-end',
+                        marginEnd: 50,
+                    }]}>
                         <View style={[styles.flexDirectionRowNotFlex, styles.centered]}>
 
                             <Image style={[{height: 18, width: 18},]}
-                                   source={require("../../img/integral_2.png")}/>
+                                   source={require("../../img/grow_up_2.png")}/>
 
                             <Text style={[{
                                 marginLeft: 5,
                                 color: Constant.transWhite,
                                 fontSize: Constant.minTextSize
-                            },]}>{I18n("Integral")}: </Text>
+                            },]}>{I18n("Grow_up")}: </Text>
 
-                            <Text style={[styles.smallTextWhite]}>{this.state.userInfo.points}</Text>
-                        </View>
-
-                        <View style={[styles.flexDirectionRow, {
-                            justifyContent: 'flex-end',
-                            marginEnd: 50,
-                        }]}>
-                            <View style={[styles.flexDirectionRowNotFlex, styles.centered]}>
-
-                                <Image style={[{height: 18, width: 18},]}
-                                       source={require("../../img/grow_up_2.png")}/>
-
-                                <Text style={[{
-                                    marginLeft: 5,
-                                    color: Constant.transWhite,
-                                    fontSize: Constant.minTextSize
-                                },]}>{I18n("Grow_up")}: </Text>
-
-                                <Text style={[styles.smallTextWhite]}>{this.state.userInfo.scores}</Text>
-                            </View>
+                            <Text style={[styles.smallTextWhite]}>{this.state.userInfo.scores}</Text>
                         </View>
                     </View>
-                </ImageBackground>
+                </View>
+            </ImageBackground>
+        } else {
+            userView = <ImageBackground source={require("../../img/me_bg.png")}
+                                        style={[{height: 180, width: screenWidth}, styles.flexDirectionColumnNotFlex]}
+                                        resizeMode={"stretch"}>
+                <View style={styles.flexDirectionColumnNotFlex}>
+                    <View style={[{
+                        marginTop: 24 + statusHeight,
+                        height: 72,
+                        width: screenWidth
+                    }, styles.flexDirectionRowNotFlex, styles.centerH]}>
+
+                        <Image style={[{height: 72, width: 72, borderRadius: 36, marginLeft: 30},]}
+                               source={require("../../img/icon_user_head_default.png")}
+                        />
+
+                        <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 20,}]}>
+                            <TouchableOpacity
+                                activeOpacity={Constant.activeOpacity}
+                                onPress={() => {
+                                    Actions.LoginPage();
+                                }}>
+                                <View style={[{
+                                    borderColor: "#EFEFEF",
+                                    borderWidth: 1,
+                                    borderRadius: 13,
+                                    width: 91,
+                                    height: 26,
+                                }, styles.centered]}>
+                                    <Text
+                                        style={[styles.smallTextWhite]}>{I18n("Sign_in")}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <Text
+                                style={[{
+                                    marginTop: 3,
+                                    opacity: 0.33
+                                }, styles.sminTextWhite]}> {I18n("login_tip")}</Text>
+                        </View>
+
+                    </View>
+                </View>
+            </ImageBackground>
+        }
+        return (
+            <View style={styles.mainBox}>
+                {userView}
 
                 <FlatList
                     data={this.state.items}
@@ -158,22 +186,34 @@ class MePage extends Component {
                                 }, styles.flexDirectionRowNotFlex, styles.centerH]} onPress={() => {
                                     switch (index) {
                                         case 0:
-                                            Actions.PersonalPage();
+                                            if(this.checkUserLogin()){
+                                                Actions.PersonalPage();
+                                            }
                                             break;
                                         case 1:
-                                            Actions.VerifyHistoryPage();
+                                            if(this.checkUserLogin()) {
+                                                Actions.VerifyHistoryPage();
+                                            }
                                             break;
                                         case 2:
-                                            Actions.PointsActivityPage();
+                                            if(this.checkUserLogin()) {
+                                                Actions.PointsActivityPage();
+                                            }
                                             break;
                                         case 3:
-                                            Actions.GiftListPage();
+                                            if(this.checkUserLogin()) {
+                                                Actions.GiftListPage();
+                                            }
                                             break;
                                         case 4:
-                                            Actions.CheckInPage();
+                                            if(this.checkUserLogin()) {
+                                                Actions.CheckInPage();
+                                            }
                                             break;
                                         case 5:
-                                            Actions.AddressPage();
+                                            if(this.checkUserLogin()) {
+                                                Actions.AddressPage();
+                                            }
                                             break;
                                         case 6:
                                             Actions.RankInterestsPage();

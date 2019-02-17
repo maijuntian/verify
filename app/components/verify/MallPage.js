@@ -25,6 +25,7 @@ import productDao from "../../dao/productDao";
 import {Actions} from "react-native-router-flux";
 import vUserDao from "../../dao/vUserDao";
 import PersonalPage from "./PersonalPage";
+import {white} from "../../style/constant";
 
 /**
  * 商城
@@ -83,44 +84,34 @@ class MallPage extends Component {
 
     _renderHeader() {
 
-        let maxWidth = (screenWidth - 60 - 10);
-        let progressWidth = 0;
-        if (this.state.userInfo.grade.endScore === this.state.userInfo.grade.startScore) {
-            progressWidth = maxWidth;
-        } else {
-            let progress = this.state.userInfo.scores - this.state.userInfo.grade.startScore;
-            progressWidth = (maxWidth * progress / (this.state.userInfo.grade.endScore - this.state.userInfo.grade.startScore));
-        }
-
-        let bg_max = "M5 8 l" + maxWidth + " 0";
-        let bg_progress = "M5 8 l" + progressWidth + " 0";
-        let tipMarginLeft = progressWidth - 10;
-
-        let rankIcon = require("../../img/silver.png");
-        switch (this.state.userInfo.grade.gradeName) {
-            case "Copper":
-                rankIcon = require("../../img/copper.png");
-                break;
-            case "Silver":
-                rankIcon = require("../../img/silver.png");
-                break;
-            case "Gold":
-                rankIcon = require("../../img/gold.png");
-                break;
-        }
-
-        let scoresView = this.state.isShow ? <View style={[styles.absoluteFull, styles.flexDirectionColumnNotFlex, {
-            marginRight: 30,
-            zIndex: -999,
-            alignItems: 'flex-end',
-            marginTop: 35,
-        }]}>
-
-            <Text style={[styles.subMinText,]}>{this.state.maxProgress}</Text>
-        </View> : <View/>;
-
         let userView;
         if (vUserDao.isLogin(this.state.userInfo)) {
+            let maxWidth = (screenWidth - 60 - 10);
+            let progressWidth = 0;
+            if (this.state.userInfo.grade.endScore === this.state.userInfo.grade.startScore) {
+                progressWidth = maxWidth;
+            } else {
+                let progress = this.state.userInfo.scores - this.state.userInfo.grade.startScore;
+                progressWidth = (maxWidth * progress / (this.state.userInfo.grade.endScore - this.state.userInfo.grade.startScore));
+            }
+
+            let bg_max = "M5 8 l" + maxWidth + " 0";
+            let bg_progress = "M5 8 l" + progressWidth + " 0";
+            let tipMarginLeft = progressWidth - 10;
+
+            let rankIcon = require("../../img/silver.png");
+            switch (this.state.userInfo.grade.gradeName) {
+                case "Copper":
+                    rankIcon = require("../../img/copper.png");
+                    break;
+                case "Silver":
+                    rankIcon = require("../../img/silver.png");
+                    break;
+                case "Gold":
+                    rankIcon = require("../../img/gold.png");
+                    break;
+            }
+
             userView = <View style={styles.flexDirectionColumnNotFlex}>
                 <View style={[{
                     marginTop: 15 + statusHeight,
@@ -181,8 +172,8 @@ class MallPage extends Component {
                     </View>
                 </View>
 
-                <View style={[{marginTop: 15, marginLeft: 30}, styles.flexDirectionColumnNotFlex]}>
-                    <View style={[styles.flexDirectionRowNotFlex, {height: 20}]}>
+                <View style={[{marginTop: 15}, styles.flexDirectionColumnNotFlex]}>
+                    <View style={[styles.flexDirectionRowNotFlex, {marginLeft: 30, height: 20}]}>
                         <Text style={[styles.b40MinText, {marginTop: 3}]}>{I18n("Rank")}:</Text>
                         <Image style={[{marginLeft: 4, height: 22, width: 22}]}
                                source={rankIcon}/>
@@ -206,16 +197,27 @@ class MallPage extends Component {
                     <View style={[{height: 50, marginTop: -20}, styles.flexDirectionColumnNotFlex]}>
 
                         <ImageBackground
-                            style={[{marginLeft: tipMarginLeft, height: 19, width: 31, marginTop: 5}, styles.centerH]}
+                            style={[{
+                                marginLeft: tipMarginLeft+30,
+                                height: 19,
+                                width: 31,
+                                marginTop: 5,
+                                opacity: this.state.isShow ? 1 : 0,
+                                backgroundColor: white,
+                            }, styles.centerH]}
                             source={require("../../img/integral_score.png")}>
 
-                            <Text style={styles.subMinText}>{progress}</Text>
+                            <Text style={styles.subMinText}>{this.state.userInfo.scores}</Text>
 
                         </ImageBackground>
                         <TouchableOpacity
+                            style={[{marginLeft: 30,}]}
                             activeOpacity={constant.activeOpacity}
                             onPress={() => {
-                                this.setState({isShow: !this.state.isShow});
+                                this.setState({isShow: true});
+                                setTimeout(() => {
+                                    this.setState({isShow: false});
+                                }, 3000);
                             }}>
                             <Svg height="24" width={bg_max}>
                                 <G fill="none" stroke={constant.grayBg}>
@@ -227,7 +229,15 @@ class MallPage extends Component {
                             </Svg>
                         </TouchableOpacity>
 
-                        {scoresView}
+                        <View style={[styles.absoluteFull, styles.flexDirectionColumnNotFlex, {
+                            marginRight: 30,
+                            zIndex: -999,
+                            alignItems: 'flex-end',
+                            marginTop: 35,
+                        }]}>
+
+                            <Text style={[styles.subMinText,]}>{this.state.userInfo.grade.endScore}</Text>
+                        </View>
                     </View>
 
                 </View>

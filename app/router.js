@@ -106,7 +106,7 @@ const getRouter = () => {
                             icon={TabIcon}
                             title={I18n('me')}
                             tabIconName={'tabMe'}
-                            tabBarOnPress={(scene,jumpToIndex)=>{
+                           /* tabBarOnPress={(scene,jumpToIndex)=>{
                                 // console.log(route);
                                 // 只有调用jumpToIndex方法之后才会真正的跳转页面。
                                 vUserDao.isLoginAsync().then((res) =>{
@@ -115,7 +115,7 @@ const getRouter = () => {
                                     else
                                         Actions.LoginPage();
                                 });
-                            }}
+                            }}*/
                         />
                     </Scene>
                     <Scene key="ProductHistoryPage" component={ProductHistoryPage}/>
