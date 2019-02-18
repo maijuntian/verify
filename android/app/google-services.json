@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "784601142106",
+    "firebase_url": "https://viverify.firebaseio.com",
+    "project_id": "viverify",
+    "storage_bucket": "viverify.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784601142106:android:a9444d782877bfce",
+        "android_client_info": {
+          "package_name": "com.verify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784601142106-oics6l2v158ao4piqm67jpqnmh6vd6er.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.verify",
+            "certificate_hash": "51f3a603117f6c2b46b92c642917551b74ce75b5"
+          }
+        },
+        {
+          "client_id": "784601142106-b6qjrfosbd995osc212iothpsgdep4mb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApHFXjj-C2TtTRPQ57tvoXYapVp5nojwE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784601142106-b6qjrfosbd995osc212iothpsgdep4mb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

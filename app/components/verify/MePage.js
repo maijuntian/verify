@@ -48,11 +48,11 @@ class MePage extends Component {
         this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
             //接收到详情页发送的通知，刷新数据
             this.initUserInfo();
-            vUserDao.isLoginAsync().then((res) => {
+            /*vUserDao.isLoginAsync().then((res) => {
                 if (!res) {
                     Actions.HomePage();
                 }
-            })
+            })*/
         });
     }
 
@@ -60,8 +60,8 @@ class MePage extends Component {
         this.subscription.remove();
     };
 
-    checkUserLogin(){
-        if(vUserDao.isLogin(this.state.userInfo)){
+    checkUserLogin() {
+        if (vUserDao.isLogin(this.state.userInfo)) {
             return true;
         }
         Actions.LoginPage();
@@ -186,32 +186,32 @@ class MePage extends Component {
                                 }, styles.flexDirectionRowNotFlex, styles.centerH]} onPress={() => {
                                     switch (index) {
                                         case 0:
-                                            if(this.checkUserLogin()){
+                                            if (this.checkUserLogin()) {
                                                 Actions.PersonalPage();
                                             }
                                             break;
                                         case 1:
-                                            if(this.checkUserLogin()) {
+                                            if (this.checkUserLogin()) {
                                                 Actions.VerifyHistoryPage();
                                             }
                                             break;
                                         case 2:
-                                            if(this.checkUserLogin()) {
+                                            if (this.checkUserLogin()) {
                                                 Actions.PointsActivityPage();
                                             }
                                             break;
                                         case 3:
-                                            if(this.checkUserLogin()) {
+                                            if (this.checkUserLogin()) {
                                                 Actions.GiftListPage();
                                             }
                                             break;
                                         case 4:
-                                            if(this.checkUserLogin()) {
+                                            if (this.checkUserLogin()) {
                                                 Actions.CheckInPage();
                                             }
                                             break;
                                         case 5:
-                                            if(this.checkUserLogin()) {
+                                            if (this.checkUserLogin()) {
                                                 Actions.AddressPage();
                                             }
                                             break;
@@ -219,7 +219,7 @@ class MePage extends Component {
                                             Actions.RankInterestsPage();
                                             break;
                                         case 7:
-                                            Actions.SettingPage();
+                                            Actions.SettingPage({isLogin: vUserDao.isLogin(this.state.userInfo)});
                                             break;
                                     }
                                 }}>

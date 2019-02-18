@@ -198,16 +198,17 @@ class MallPage extends Component {
 
                         <ImageBackground
                             style={[{
-                                marginLeft: tipMarginLeft+30,
-                                height: 19,
-                                width: 31,
+                                marginLeft: tipMarginLeft + 30 - ((this.state.userInfo.scores + "").length === 5 ? 5 : 0),
+                                height: (this.state.userInfo.scores + "").length === 5 ? 24 : 19,
+                                width: (this.state.userInfo.scores + "").length === 5 ? 41 : 31,
                                 marginTop: 5,
                                 opacity: this.state.isShow ? 1 : 0,
                                 backgroundColor: white,
                             }, styles.centerH]}
                             source={require("../../img/integral_score.png")}>
 
-                            <Text style={styles.subMinText}>{this.state.userInfo.scores}</Text>
+                            <Text
+                                style={[{marginTop: (this.state.userInfo.scores + "").length === 5 ? 2 : 0}, styles.subMinText]}>{this.state.userInfo.scores}</Text>
 
                         </ImageBackground>
                         <TouchableOpacity
@@ -215,7 +216,10 @@ class MallPage extends Component {
                             activeOpacity={constant.activeOpacity}
                             onPress={() => {
                                 this.setState({isShow: true});
-                                setTimeout(() => {
+
+                                this.timer && clearTimeout(this.timer);
+
+                                this.timer = setTimeout(() => {
                                     this.setState({isShow: false});
                                 }, 3000);
                             }}>

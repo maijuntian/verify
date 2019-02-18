@@ -21,6 +21,7 @@
     "react-native-camera": "^1.4.3",
     "react-native-facebook-login": "^1.6.1",
     "react-native-gesture-handler": "^1.0.0-alpha.33",
+    "react-native-google-signin": "^1.1.0",
     "react-native-htmlview": "^0.12.1",
     "react-native-i18n": "^2.0.9",
     "react-native-image-crop-picker": "^0.19.1",

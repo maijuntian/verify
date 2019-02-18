@@ -8,6 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.google.gms:google-services:4.2.0' // Add this
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -31,13 +32,17 @@ allprojects {
 subprojects {
     project.configurations.all {
         resolutionStrategy.eachDependency { details ->
-            if (details.requested.group == 'com.google.android.gms'
+        /*    if (details.requested.group == 'com.google.android.gms'
                     && details.requested.name.contains('play-services')) {
                 details.useVersion '11.0.1'
-            }
+            }*/
             if (details.requested.group == 'com.android.support'
                     && details.requested.name.contains('support-v4')) {
                 details.useVersion '26.1.0'
+            }
+            if (details.requested.group == 'com.android.support'
+                    && details.requested.name.contains('appcompat-v7')) {
+                details.useVersion '27.1.1'
             }
         }
     }

@@ -12,7 +12,7 @@ import {PagerPan, TabBar, TabView} from "react-native-tab-view";
 import CommonProductHeader from "../common/CommonProductHeader";
 import CommonIconText from "../common/CommonIconText";
 import {Actions} from "react-native-router-flux";
-import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from "react-native-maps";
+// import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from "react-native-maps";
 
 const config = {
     ["MANUFACTURER"]: "Registered By",
