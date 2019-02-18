@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 
+import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
+
 import {CalendarList} from 'react-native-calendars';
 import {View, WebView} from 'react-native';
 import * as constant from "../../style/constant";
-
+import FBLoginView from "./FBLoginView";
 
 
 export default class HorizontalCalendarList extends Component {
@@ -13,13 +15,33 @@ export default class HorizontalCalendarList extends Component {
 
     render() {
         return (
-            <View style={[{
-                backgroundColor: constant.white,
-                flex: 1
-            }]}>
-                <WebView source={{uri: 'http://47.107.92.207:9000/source/tracing/10000001/map'}}
-                         style={{marginTop: 20}}/>
-            </View>
+            <View>
+                <FBLogin
+                    buttonView={<FBLoginView/>}
+                    ref={(fbLogin) => {
+                        this.fbLogin = fbLogin
+                    }}
+                    loginBehavior={FBLoginManager.LoginBehaviors.Native}
+                    permissions={["email", "user_friends"]}
+                    onLogin={function (e) {
+                        console.log(e)
+                    }}
+                    onLoginFound={function (e) {
+                        console.log(e)
+                    }}
+                    onLoginNotFound={function (e) {
+                        console.log(e)
+                    }}
+                    onLogout={function (e) {
+                        console.log(e)
+                    }}
+                    onCancel={function (e) {
+                        console.log(e)
+                    }}
+                    onPermissionsMissing={function (e) {
+                        console.log(e)
+                    }}
+                /></View>
         );
     }
 }
