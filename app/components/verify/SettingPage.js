@@ -30,7 +30,9 @@ class SettingPage extends BaseTitlePage {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            isLogin: props.isLogin
+        }
     }
 
     _title() {
@@ -38,6 +40,34 @@ class SettingPage extends BaseTitlePage {
     }
 
     _reader() {
+
+        let logoutView = this.state.isLogin ? <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
+
+            <TouchableOpacity
+                activeOpacity={Constant.activeOpacity}
+                style={[{
+                    marginHorizontal: 36,
+                    marginBottom: 16,
+                    borderColor: "#D7D7D7",
+                    borderWidth: 1,
+                    borderRadius: 20,
+                    paddingVertical: 10,
+                }, styles.centered]} onPress={() => {
+                Actions.CommonConfirmModal2({
+                    text: i18n("logout_tip"),
+                    backExit: true,
+                    confirmFun: () => {
+                        vUserDao.clearInfo();
+                        DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                        Actions.pop();
+                    }
+                });
+
+            }}>
+                <Text style={[{color: "#F26262", fontSize: 14,}]}>{i18n("Sign_out")}</Text>
+            </TouchableOpacity>
+
+        </View> : <View/>;
 
         return (
             <View style={styles.flexDirectionColumn}>
@@ -144,34 +174,7 @@ class SettingPage extends BaseTitlePage {
 
                 </TouchableOpacity>
 
-
-                <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
-
-                    <TouchableOpacity
-                        activeOpacity={Constant.activeOpacity}
-                        style={[{
-                            marginHorizontal: 36,
-                            marginBottom: 16,
-                            borderColor: "#D7D7D7",
-                            borderWidth: 1,
-                            borderRadius: 20,
-                            paddingVertical: 10,
-                        }, styles.centered]} onPress={() => {
-                        Actions.CommonConfirmModal2({
-                            text: i18n("logout_tip"),
-                            backExit: true,
-                            confirmFun: () => {
-                                vUserDao.clearInfo();
-                                DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
-                                Actions.pop();
-                            }
-                        });
-
-                    }}>
-                        <Text style={[{color: "#F26262", fontSize: 14,}]}>{i18n("Sign_out")}</Text>
-                    </TouchableOpacity>
-
-                </View>
+                {logoutView}
             </View>
         )
     }

@@ -316,7 +316,7 @@ I18n.translations = {
         Sign_in: "Sign In",
         Forgot_password: "Forgot Password",
         Create_new_account: "Create New Account",
-        pwd_tip: "Passwords must be at least 6 characters.",
+        pwd_tip: "Password must be at least 6 characters.",
         Register: "Register",
         Continue: "Continue",
         login_tip: "Sign in to view your points and more！",
@@ -350,7 +350,8 @@ I18n.translations = {
         Cell: "Cell",
         Please_input_name: "Please input name.",
         Please_input_email: "Please input email.",
-
+        Invalid_phone_number:"Invalid phone number.",
+        Please_input_Mobile_number_or_email: "Please input mobile number or email address",
     }
 };
 

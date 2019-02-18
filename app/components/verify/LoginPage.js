@@ -131,7 +131,10 @@ class LoginPage extends Component {
                     <View style={[styles.dividerLineE6, {width: dividerWidth}]}/>
                     <TouchableOpacity activeOpacity={constant.activeOpacity}
                                       onPress={() => {
-                                          Actions.WebviewPage({url: constant.API_USER_AGREEMENT, title: i18n("User_Agreement")});
+                                          Actions.WebviewPage({
+                                              url: constant.API_USER_AGREEMENT,
+                                              title: i18n("User_Agreement")
+                                          });
                                       }}>
                         <View style={[{marginTop: 17}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
                             <Image style={[{height: 12, width: 12, marginRight: 2}]}
@@ -150,6 +153,17 @@ class LoginPage extends Component {
                                       onPress={() => {
                                           Keyboard.dismiss();
                                           Actions.LoadingModal({text: i18n("Logining"), backExit: false});
+
+                                          if (this.state.account === "") {
+                                              Toast(i18n("Please_input_Mobile_number_or_email"));
+                                              return;
+                                          }
+                                          if (this.state.password === "") {
+                                              Toast(i18n("Please_input_password"));
+                                              return;
+                                          }
+
+
                                           vUserDao.login(this.state.account, this.state.password).then((res) => {
                                               if (res.code === 200) {
                                                   return vUserDao.userinfo();

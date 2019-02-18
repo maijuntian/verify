@@ -36,9 +36,10 @@ class WelcomePage extends Component {
 
     toNext(res) {
         setTimeout(() => {
-
+            let i = 1/0;
             vUserDao.isLoginAsync().then((res)=>{
                 if(res){
+                    console.log("开始获取用户信息---》");
                     return vUserDao.userinfo();
                 } else {
                     Actions.reset("root");
@@ -47,7 +48,6 @@ class WelcomePage extends Component {
             }).then((res)=>{
                 Actions.reset("root");
             });
-
         }, 2000);
     }
 
