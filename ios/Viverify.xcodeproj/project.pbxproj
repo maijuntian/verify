@@ -29,6 +29,8 @@
 		23B90E1CEB6A48E9B83A8FBA /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C5F31F56D44409BF69DD66 /* libRNImagePicker.a */; };
 		28D58C864E6D4B4DA8412C85 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D2904B2F174C568254B671 /* libRNVectorIcons.a */; };
 		2A20747C490E471ABD68BB91 /* libRNVersionNumber-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D581BE36229C4E28942E5FAF /* libRNVersionNumber-tvOS.a */; };
+		2C37AC6D221BFB8E006FA9F5 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C37AC3F22166ECF006FA9F5 /* Lottie.framework */; };
+		2C37AC6E221BFB8E006FA9F5 /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C37AC3F22166ECF006FA9F5 /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2C8064F021942034001737D3 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064E521942034001737D3 /* Octicons.ttf */; };
 		2C8064F121942034001737D3 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064E521942034001737D3 /* Octicons.ttf */; };
 		2C8064F221942034001737D3 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064E621942034001737D3 /* Feather.ttf */; };
@@ -219,6 +221,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 84FE12EF1E4C1485009B157C;
 			remoteInfo = LottieLibraryIOS;
+		};
+		2C37AC6F221BFB8E006FA9F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07E3112D9A764B90BCDC59E3 /* Lottie.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 62CA59B71E3C173B002D7188;
+			remoteInfo = Lottie_iOS;
 		};
 		2C80644821941593001737D3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -516,6 +525,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2C37AC71221BFB8E006FA9F5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2C37AC6E221BFB8E006FA9F5 /* Lottie.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -625,6 +648,7 @@
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
+				2C37AC6D221BFB8E006FA9F5 /* Lottie.framework in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				D0CDA4B9883340E69E7AD971 /* libRealmReact.a in Frameworks */,
@@ -1109,10 +1133,12 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				2C37AC71221BFB8E006FA9F5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2C37AC70221BFB8E006FA9F5 /* PBXTargetDependency */,
 			);
 			name = Viverify;
 			productName = "Hello World";
@@ -1855,6 +1881,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* Viverify */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		2C37AC70221BFB8E006FA9F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Lottie_iOS;
+			targetProxy = 2C37AC6F221BFB8E006FA9F5 /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
