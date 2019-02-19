@@ -180,6 +180,12 @@ I18n.translations = {
         scan_tip2: " tag to verify",
         scan_tip3: "the authenticity of the product.",
         Courier: "Courier",
+        Cell: "Cell",
+        Please_input_name: "Please input name.",
+        Please_input_email: "Please input email.",
+        Invalid_phone_number: "Invalid phone number.",
+        Please_input_Mobile_number_or_email: "Please input mobile number or email address",
+        exchange_gift_tip: "Sorry, you do not have enough points.",
     },
     'zh-CN': {
         appName: 'VerifyAPP',
@@ -350,8 +356,9 @@ I18n.translations = {
         Cell: "Cell",
         Please_input_name: "Please input name.",
         Please_input_email: "Please input email.",
-        Invalid_phone_number:"Invalid phone number.",
+        Invalid_phone_number: "Invalid phone number.",
         Please_input_Mobile_number_or_email: "Please input mobile number or email address",
+        exchange_gift_tip: "Sorry, you do not have enough points.",
     }
 };
 

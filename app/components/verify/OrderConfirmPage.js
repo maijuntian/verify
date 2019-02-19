@@ -183,7 +183,7 @@ class OrderConfirmPage extends BaseTitlePage {
                                                       vUserDao.redeem(this.state.product.code, this.state.address).then((res) => {
                                                           if (res.code === 200) {
                                                               vUserDao.localUserInfo().then((data) => {
-                                                                  data.points = data.points - this.state.product.discount;
+                                                                  data.points = parseInt(data.points) - parseInt(this.state.product.discount);
                                                                   return vUserDao.saveLocalUserInfo(data)
                                                               }).then((result) => {
                                                                   DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);

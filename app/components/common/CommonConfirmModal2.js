@@ -79,6 +79,7 @@ class ConfirmModal extends Component {
 
                             <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                               onPress={() => {
+                                                  this.onClose();
                                                   this.props.confirmFun && this.props.confirmFun();
                                               }}>
                                 <View style={[{

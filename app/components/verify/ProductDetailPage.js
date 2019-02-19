@@ -85,7 +85,7 @@ class ProductDetailPage extends BaseTitlePage {
                         marginBottom: 8,
                         backgroundColor: "#404040"
                     }, styles.flexDirectionRowNotFlex, styles.centered]}>
-                        <Text style={[styles.smallTextWhite]}>5%</Text>
+                        <Text style={[styles.smallTextWhite]}>{100 - Constant.REBATE}%</Text>
                         <Text style={[{marginTop: 3}, styles.minTextWhite]}> off</Text>
                     </View>
                 </View>
@@ -105,7 +105,7 @@ class ProductDetailPage extends BaseTitlePage {
                         }, styles.smallTextGray,]}>{this.state.product.points}</Text>
                     </View>
 
-                    <Text style={[{paddingBottom:3}, styles.subMinText,]}>{I18n("Rank")}: </Text>
+                    <Text style={[{paddingBottom: 3}, styles.subMinText,]}>{I18n("Rank")}: </Text>
 
                     <Image source={rankIcon}
                            style={{height: 22, width: 22,}}
@@ -128,9 +128,17 @@ class ProductDetailPage extends BaseTitlePage {
 
                         <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                           onPress={() => {
-                                              vUserDao.isLoginAsync().then((res) => {
-                                                  if (res) {
-                                                      Actions.LoadingModal({text: I18n("Order_confirming"), backExit: false});
+                                              vUserDao.localUserInfo().then((userInfo) => {
+                                                  if (vUserDao.isLogin(userInfo)) {
+                                                      if (parseInt(userInfo.points) < parseInt(this.state.product.discount)) {
+                                                          Toast(I18n("exchange_gift_tip"));
+                                                          return;
+                                                      }
+
+                                                      Actions.LoadingModal({
+                                                          text: I18n("Order_confirming"),
+                                                          backExit: false
+                                                      });
 
                                                       vUserDao.getDefaultAddress().then((res) => {
                                                           this.exitLoading();

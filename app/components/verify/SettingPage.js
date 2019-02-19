@@ -58,8 +58,8 @@ class SettingPage extends BaseTitlePage {
                     backExit: true,
                     confirmFun: () => {
                         vUserDao.clearInfo();
-                        DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
                         Actions.pop();
+                        DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
                     }
                 });
 

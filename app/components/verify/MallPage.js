@@ -50,6 +50,11 @@ class MallPage extends Component {
             this.setState({
                 userInfo: res
             });
+            if(vUserDao.isLogin(res)){
+                constant.REBATE = res.grade.rebate;
+            }else {
+                constant.REBATE = 100;
+            }
         })
     }
 
@@ -60,6 +65,7 @@ class MallPage extends Component {
         this.subscription = DeviceEventEmitter.addListener(constant.CHANGE_PERSONAL, () => {
             //接收到详情页发送的通知，刷新数据
             this.initUserInfo();
+            this._getProductList();
         });
     }
 
@@ -188,7 +194,7 @@ class MallPage extends Component {
                                 width: 56,
                                 backgroundColor: "#404040"
                             }, styles.flexDirectionRowNotFlex, styles.centered]}>
-                                <Text style={[styles.smallTextWhite]}>5%</Text>
+                                <Text style={[styles.smallTextWhite]}>{(100 - this.state.userInfo.grade.rebate)}%</Text>
                                 <Text style={[{marginTop: 3}, styles.minTextWhite]}> off</Text>
                             </View>
                         </View>
@@ -201,7 +207,7 @@ class MallPage extends Component {
                                 marginLeft: tipMarginLeft + 30 - ((this.state.userInfo.scores + "").length === 5 ? 5 : 0),
                                 height: (this.state.userInfo.scores + "").length === 5 ? 24 : 19,
                                 width: (this.state.userInfo.scores + "").length === 5 ? 41 : 31,
-                                marginTop: 5,
+                                marginTop: (this.state.userInfo.scores + "").length === 5 ? 0 : 5,
                                 opacity: this.state.isShow ? 1 : 0,
                                 backgroundColor: white,
                             }, styles.centerH]}

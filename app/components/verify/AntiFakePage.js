@@ -65,7 +65,8 @@ class AntiFakePage extends BaseTitlePage {
                         iconStyle={[{height: 15, width: 15}]}
                         icon={require("../../img/icon_gifts.png")}
                         onPress={() => {
-
+                            Actions.pop();
+                            Actions.MallPage();
                         }}/>
                 </View>
 

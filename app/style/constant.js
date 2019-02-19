@@ -117,7 +117,9 @@ export const EN_DATE_FORMAT = "MMM DD YYYY";
 
 export let DEFAULT_ADDRESS = "";
 
+export let REBATE = 100;
+
 /****************请求地址**************/
-export const API = "http://47.74.70.27/";
+export const API = "https://api.viverify.com/";
 export const API_USER_AGREEMENT = API + "system/user/agreement?lang=EN";
 export const NULL_ = "N/A";

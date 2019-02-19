@@ -47,7 +47,6 @@ const isLogin = (userInfo) => {
 const isLoginAsync = async () => {
     let userInfo = await AsyncStorage.getItem(Constant.USER_INFOV);
     return !!userInfo;
-
 }
 
 const pointsHistory = async (params) => {

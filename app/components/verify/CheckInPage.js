@@ -128,7 +128,7 @@ class CheckInPage extends BaseTitlePage {
                                                this.exitLoading();
                                                if (res.code === 200) {
                                                    vUserDao.localUserInfo().then((data) => {
-                                                       data.points = data.points + res.data.points;
+                                                       data.points = parseInt(data.points) + parseInt(res.data.points);
                                                        return vUserDao.saveLocalUserInfo(data)
                                                    }).then((result) => {
                                                        DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);

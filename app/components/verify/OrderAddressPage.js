@@ -133,7 +133,7 @@ class AddressPage extends BaseTitlePage {
                                         <Text
                                             style={[styles.middleTexBlackCharter]}>{item.address}</Text>
                                         <View style={[styles.flexDirectionRowNotFlex, styles.centerH]}>
-                                            <Text style={[{}, styles.middleTextGrayBlueCharter]}>{item.contacts}</Text>
+                                            <Text style={[{}, styles.middleTextGrayBlue]}>{item.contacts}</Text>
                                             <Text style={[{marginLeft: 17}, styles.minTextsGray]}>{item.phone}</Text>
                                         </View>
 
