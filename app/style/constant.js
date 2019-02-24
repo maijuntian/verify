@@ -123,3 +123,6 @@ export let REBATE = 100;
 export const API = "https://api.viverify.com/";
 export const API_USER_AGREEMENT = API + "system/user/agreement?lang=EN";
 export const NULL_ = "N/A";
+
+//0 欧洲版本  1国际版
+export let APP_TYPE = 1;

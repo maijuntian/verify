@@ -40,6 +40,7 @@ class TabIcon extends Component {
     }
 
     render() {
+
         let iconPath = config[this.props.tabIconName][this.props.focused ? "sel" : "nor"];
         console.log("iconPath==" + iconPath)
 

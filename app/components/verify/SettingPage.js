@@ -21,7 +21,7 @@ import Icon from 'react-native-vector-icons/Feather'
 import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
-import Toast from '../../components/common/ToastProxy';
+import DeviceInfo from 'react-native-device-info';
 
 /**
  * 登录
@@ -162,7 +162,7 @@ class SettingPage extends BaseTitlePage {
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
-                        <Text style={[{}, styles.middleTexBlack]}>1.10</Text>
+                        <Text style={[{}, styles.middleTexBlack]}>{DeviceInfo.getVersion()}</Text>
 
                         <Icon
                             style={[{marginLeft: 12}]}

@@ -72,7 +72,7 @@ const getRouter = () => {
                 <Scene key="main">
                     <Scene key="WelcomePage" component={WelcomePage} hideNavBar hideTabBar hide/>
                 </Scene>
-                <Scene key="root"
+                <Scene key="root_inter"
                        hideNavBar>
                     <Scene key="mainTabPage"
                            tabs
@@ -94,29 +94,11 @@ const getRouter = () => {
                             tabIconName={'tabHome'}/>
 
                         <Scene
-                            key="MallPage"
-                            component={MallPage}
-                            icon={TabIcon}
-                            title={I18n('mall')}
-                            tabIconName={'tabMall'}
-                        />
-                        <Scene
                             key="MePage"
                             component={MePage}
                             icon={TabIcon}
                             title={I18n('me')}
-                            tabIconName={'tabMe'}
-                           /* tabBarOnPress={(scene,jumpToIndex)=>{
-                                // console.log(route);
-                                // 只有调用jumpToIndex方法之后才会真正的跳转页面。
-                                vUserDao.isLoginAsync().then((res) =>{
-                                    if(res)
-                                        Actions.MePage();
-                                    else
-                                        Actions.LoginPage();
-                                });
-                            }}*/
-                        />
+                            tabIconName={'tabMe'}/>
                     </Scene>
                     <Scene key="ProductHistoryPage" component={ProductHistoryPage}/>
                     <Scene key="AntiFakePage" component={AntiFakePage}/>
@@ -149,9 +131,74 @@ const getRouter = () => {
                     <Scene key="NFCScanPage" component={NFCScanPage}/>
                     <Scene key="PersonalEmailPage" component={PersonalEmailPage}/>
                     <Scene key="PersonalMobilePage" component={PersonalMobilePage}/>
-
                 </Scene>
-                <Scene key="LoginPage" component={LoginPage} hideNavBar hideTabBar hide/>
+                <Scene key="root"
+                       hideNavBar>
+                    <Scene key="mainTabPage"
+                           tabs
+                           lazy
+                           wrap={false}
+                           showLabel={false}
+                           tabBarPosition={"bottom"}
+                           tabBarStyle={{
+                               height: Constant.tabBarHeight,
+                               alignItems: 'center',
+                               justifyContent: 'center',
+                               backgroundColor: Constant.tabBackgroundColor
+                           }}>
+                        <Scene
+                            key="HomePage"
+                            component={HomePage}
+                            icon={TabIcon}
+                            title={I18n('home')}
+                            tabIconName={'tabHome'}/>
+
+                        <Scene
+                            key="MallPage"
+                            component={MallPage}
+                            icon={TabIcon}
+                            title={I18n('mall')}
+                            tabIconName={'tabMall'}/>
+                        <Scene
+                            key="MePage"
+                            component={MePage}
+                            icon={TabIcon}
+                            title={I18n('me')}
+                            tabIconName={'tabMe'}/>
+                    </Scene>
+                    <Scene key="ProductHistoryPage" component={ProductHistoryPage}/>
+                    <Scene key="AntiFakePage" component={AntiFakePage}/>
+                    <Scene key="ScanQrCodePage" component={ScanQrCodePage}/>
+                    <Scene key="AboutHistoryPage" component={AboutHistoryPage}/>
+                    <Scene key="PersonalPage" component={PersonalPage}/>
+                    <Scene key="PersonalSexPage" component={PersonalSexPage}/>
+                    <Scene key="PersonalNamePage" component={PersonalNamePage}/>
+                    <Scene key="ProductListPage" component={ProductListPage}/>
+                    <Scene key="ProductDetailPage" component={ProductDetailPage}/>
+                    <Scene key="PointsActivityPage" component={PointsActivityPage}/>
+                    <Scene key="AddressPage" component={AddressPage}/>
+                    <Scene key="GiftListPage" component={GiftListPage}/>
+                    <Scene key="RankInterestsPage" component={RankInterestsPage}/>
+                    <Scene key="CheckInPage" component={CheckInPage}/>
+                    <Scene key="VerifyHistoryPage" component={VerifyHistoryPage}/>
+                    <Scene key="AddressEditPage" component={AddressEditPage}/>
+                    <Scene key="OrderConfirmPage" component={OrderConfirmPage}/>
+                    <Scene key="OrderAddressEditPage" component={OrderAddressEditPage}/>
+                    <Scene key="OrderAddressPage" component={OrderAddressPage}/>
+                    <Scene key="FeedBackPage" component={FeedBackPage}/>
+                    <Scene key="PersonalBirthdayPage" component={PersonalBirthdayPage}/>
+                    <Scene key="SettingPage" component={SettingPage}/>
+                    <Scene key="LoginPage" component={LoginPage}/>
+                    <Scene key="RegisterPage" component={RegisterPage}/>
+                    <Scene key="Register2Page" component={Register2Page}/>
+                    <Scene key="ResetPwdPage" component={ResetPwdPage}/>
+                    <Scene key="ResetPwd2Page" component={ResetPwd2Page}/>
+                    <Scene key="WebviewPage" component={WebviewPage}/>
+                    <Scene key="NFCScanPage" component={NFCScanPage}/>
+                    <Scene key="PersonalEmailPage" component={PersonalEmailPage}/>
+                    <Scene key="PersonalMobilePage" component={PersonalMobilePage}/>
+                </Scene>
+
                 <Scene key="LoadingModal" component={LoadingModal}/>
                 <Scene key="ConfirmModal" component={ConfirmModal}/>
                 <Scene key="CommonConfirmModal2" component={CommonConfirmModal2}/>

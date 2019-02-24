@@ -23,14 +23,18 @@ class MePage extends Component {
 
         this.state = {
             userInfo: {},
-            items: [{key: I18n("Profile")}
-                , {key: I18n("Verification_record")}
-                , {key: I18n('Integral_detail')}
-                , {key: I18n("My_prize")}
-                , {key: I18n("Check_in_record")}
-                , {key: I18n("Receiving_address")}
-                , {key: I18n("Rights_and_interests")}
-                , {key: I18n("Settings")}]
+            items: Constant.APP_TYPE === 1 ? [{key: I18n("Profile")}
+                    , {key: I18n("Verification_record")}
+                    , {key: I18n("Rights_and_interests")}
+                    , {key: I18n("Settings")}] :
+                [{key: I18n("Profile")}
+                    , {key: I18n("Verification_record")}
+                    , {key: I18n('Integral_detail')}
+                    , {key: I18n("My_prize")}
+                    , {key: I18n("Check_in_record")}
+                    , {key: I18n("Receiving_address")}
+                    , {key: I18n("Rights_and_interests")}
+                    , {key: I18n("Settings")}]
 
         };
     }
@@ -44,6 +48,7 @@ class MePage extends Component {
     }
 
     componentDidMount() {
+
         this.initUserInfo();
         this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
             //接收到详情页发送的通知，刷新数据
@@ -184,41 +189,41 @@ class MePage extends Component {
                                     paddingHorizontal: 26,
                                     paddingVertical: 20
                                 }, styles.flexDirectionRowNotFlex, styles.centerH]} onPress={() => {
-                                    switch (index) {
-                                        case 0:
+                                    switch (item.key) {
+                                        case I18n("Profile"):
                                             if (this.checkUserLogin()) {
                                                 Actions.PersonalPage();
                                             }
                                             break;
-                                        case 1:
+                                        case I18n("Verification_record"):
                                             if (this.checkUserLogin()) {
                                                 Actions.VerifyHistoryPage();
                                             }
                                             break;
-                                        case 2:
+                                        case I18n("Integral_detail"):
                                             if (this.checkUserLogin()) {
                                                 Actions.PointsActivityPage();
                                             }
                                             break;
-                                        case 3:
+                                        case  I18n("My_prize"):
                                             if (this.checkUserLogin()) {
                                                 Actions.GiftListPage();
                                             }
                                             break;
-                                        case 4:
+                                        case I18n("Check_in_record"):
                                             if (this.checkUserLogin()) {
                                                 Actions.CheckInPage();
                                             }
                                             break;
-                                        case 5:
+                                        case I18n("Receiving_address"):
                                             if (this.checkUserLogin()) {
                                                 Actions.AddressPage();
                                             }
                                             break;
-                                        case 6:
+                                        case I18n("Rights_and_interests"):
                                             Actions.RankInterestsPage();
                                             break;
-                                        case 7:
+                                        case I18n("Settings"):
                                             Actions.SettingPage({isLogin: vUserDao.isLogin(this.state.userInfo)});
                                             break;
                                     }
