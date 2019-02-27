@@ -58,7 +58,7 @@ class LoadingModal extends Component {
                                  isVisible={true}
                                  size={50} type="9CubeGrid"
                                  color="#FFFFFF"/>
-                        <Text style={styles.normalTextWhite}>{this.props.text}</Text>
+                        <Text style={styles.normalTextWhite}>{I18n('loading')}</Text>
                     </View>
                 </View>
             </Modal>

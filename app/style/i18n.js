@@ -21,7 +21,7 @@ I18n.translations = {
         cancel: 'cancel',
 
         doublePressExit: 'Click BACK again to exit.',
-        loading: 'loading...',
+        loading: 'Loading...',
 
         //========================
         home: "Home",
@@ -180,7 +180,7 @@ I18n.translations = {
         scan_tip2: " tag to verify",
         scan_tip3: "the authenticity of the product.",
         Courier: "Courier",
-        Cell: "Cell",
+        Cell: "Mobile Number",
         Please_input_name: "Please input name.",
         Please_input_email: "Please input email.",
         Invalid_phone_number: "Invalid phone number.",
@@ -195,7 +195,7 @@ I18n.translations = {
         cancel: 'cancel',
 
         doublePressExit: 'Click BACK again to exit.',
-        loading: 'loading...',
+        loading: 'Loading...',
         //========================
         home: "Home",
         mall: "Mall",
@@ -353,7 +353,7 @@ I18n.translations = {
         scan_tip2: " tag to verify",
         scan_tip3: "the authenticity of the product.",
         Courier: "Courier",
-        Cell: "Cell",
+        Cell: "Mobile Number",
         Please_input_name: "Please input name.",
         Please_input_email: "Please input email.",
         Invalid_phone_number: "Invalid phone number.",

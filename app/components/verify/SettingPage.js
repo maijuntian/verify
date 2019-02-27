@@ -132,6 +132,7 @@ class SettingPage extends BaseTitlePage {
                         paddingRight: 10
                     }]}
                     onPress={() => {
+                        Actions.WebviewPage({url: Constant.API_ABOUT_US, title: i18n("About_Us")});
                     }}>
                     <Text style={[{color: Constant.primaryBlackColor, fontSize: 14}]}>{i18n("About_Us")}</Text>
 

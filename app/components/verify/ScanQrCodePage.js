@@ -49,6 +49,7 @@ class ScanQrCodePage extends Component {
         InteractionManager.runAfterInteractions(() => {
             this.startAnimation();
         })
+
     }
 
     componentWillUnmount() {
@@ -117,7 +118,7 @@ class ScanQrCodePage extends Component {
         }
         console.log(e);
 
-        if (e.type === "QR_CODE") { //二维码
+        if (e.type === "QR_CODE" || e.type === "org.iso.QRCode") { //二维码
             this.parseCode(e.data);
         }
     }
@@ -153,7 +154,7 @@ class ScanQrCodePage extends Component {
             if (res.code && (res.code === 200 || res.code === 410 || res.code === 208)) {
                 if (codeStr.indexOf("tracing") !== -1) {
                     // Actions.ProductHistoryPage({"responseStr": JSON.stringify(res.data)});
-                    Actions.replace("ProductHistoryPage", {"responseStr": JSON.stringify(res.data)});
+                    Actions.replace("ProductHistoryPage", {"responseStr": JSON.stringify(res.data), code: res.code});
                 } else {
                     // Actions.popAndPush("AntiFakePage", {"responseStr": JSON.stringify(res.data)});
                     Actions.replace("AntiFakePage", {"responseStr": JSON.stringify(res.data), code: res.code});

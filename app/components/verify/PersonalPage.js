@@ -218,14 +218,16 @@ class PersonalPage extends BaseTitlePage {
                 <View style={styles.dividerLineF6}/>
 
                 <TouchableOpacity
-                    activeOpacity={Constant.activeOpacity}
+                    activeOpacity={this.state.userInfo.phone === Constant.NULL_ ? Constant.activeOpacity : 1}
                     style={[styles.flexDirectionRowNotFlex, styles.centerH, {
                         paddingVertical: 20,
                         paddingLeft: 16,
                         paddingRight: 10
                     }]}
                     onPress={() => {
-                        Actions.PersonalMobilePage();
+                        if (this.state.userInfo.phone === Constant.NULL_) {
+                            Actions.PersonalMobilePage();
+                        }
                     }}>
                     <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Mobile_Number")}</Text>
 
@@ -233,7 +235,7 @@ class PersonalPage extends BaseTitlePage {
 
                         {mobileView}
                         <Icon
-                            style={[{marginLeft: 5}]}
+                            style={[{marginLeft: 5, opacity: this.state.userInfo.email === Constant.NULL_ ? 1 : 0}]}
                             name={"chevron-right"}
                             backgroundColor={Constant.transparentColor}
                             color={Constant.primaryBlackColor} size={15}/>
@@ -244,23 +246,24 @@ class PersonalPage extends BaseTitlePage {
                 <View style={styles.dividerLineF6}/>
 
                 <TouchableOpacity
-                    activeOpacity={Constant.activeOpacity}
+                    activeOpacity={this.state.userInfo.email === Constant.NULL_ ? Constant.activeOpacity : 1}
                     style={[styles.flexDirectionRowNotFlex, styles.centerH, {
                         paddingVertical: 20,
                         paddingLeft: 16,
                         paddingRight: 10
                     }]}
                     onPress={() => {
-                        Actions.PersonalEmailPage();
+                        if (this.state.userInfo.email === Constant.NULL_) {
+                            Actions.PersonalEmailPage();
+                        }
                     }}>
                     <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Email_address")}</Text>
-
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
                         {emailView}
                         <Icon
-                            style={[{marginLeft: 5}]}
+                            style={[{marginLeft: 5, opacity: this.state.userInfo.email === Constant.NULL_ ? 1 : 0}]}
                             name={"chevron-right"}
                             backgroundColor={Constant.transparentColor}
                             color={Constant.primaryBlackColor} size={15}/>

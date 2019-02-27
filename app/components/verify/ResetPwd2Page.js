@@ -92,6 +92,29 @@ class ResetPwd2Page extends BaseTitlePage {
         }
     }
 
+    login(){
+        vUserDao.login(this.state.account, this.state.password).then((res) => {
+            if (res.code === 200) {
+                return vUserDao.userinfo();
+            } else {
+                Toast(res.message);
+                return null;
+            }
+        }).then((res) => {
+            this.exitLoading();
+            if(res === null)
+                return;
+            Toast(i18n("reset_completed"));
+            if (res.code === 200) {
+                DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                Actions.pop();
+                Actions.pop();
+            } else {
+                Toast(res.message);
+            }
+        });
+    }
+
     _reader() {
 
         let inputIconWidth = 78;
@@ -236,8 +259,7 @@ class ResetPwd2Page extends BaseTitlePage {
                                       vUserDao.resetPwd(this.state.account, this.state.newPwd1, this.state.code).then((res) => {
                                           this.exitLoading();
                                           if (res.code === 200) {
-                                              Toast(i18n("reset_completed"));
-                                              Actions.pop();
+                                              this.login();
                                           } else {
                                               Toast(res.message);
                                           }

@@ -21,7 +21,7 @@ class CommonIconNameItem extends Component {
 
         switch (this.props.iconIndex) {
             case "0":
-                icon = require("../../img/icon_traceability.png");
+                icon = require("../../img/icon_traceability2.png");
                 break;
             case "1":
                 icon = require("../../img/anti_fake1.png");

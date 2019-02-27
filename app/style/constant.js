@@ -122,7 +122,9 @@ export let REBATE = 100;
 /****************请求地址**************/
 export const API = "https://api.viverify.com/";
 export const API_USER_AGREEMENT = API + "system/user/agreement?lang=EN";
+export const API_ABOUT_US = API + "system/about/us?lang=EN";
+export const API_MAP = API + "source/tracing/";
 export const NULL_ = "N/A";
 
-//0 欧洲版本  1国际版
+//0 欧洲版本  1ios国际版
 export let APP_TYPE = 1;

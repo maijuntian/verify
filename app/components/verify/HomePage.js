@@ -23,6 +23,46 @@ class HomePage extends Component {
     render() {
         let iconWidth = screenWidth * 0.417;
         let iconHeight = iconWidth * 0.6111;
+
+        let secondBtn = Constant.APP_TYPE === 1 ?
+            <View style={[{marginTop: 70, marginLeft: 16, marginRight: 16}, styles.flexDirectionRowNotFlex]}>
+
+                <CommonIconNameItem
+                    itemStyle={[styles.flex, styles.centered,]}
+                    iconIndex={"0"}
+                    itemTitle={I18n("anti_fake")}
+                    onItemPress={() => {
+                        Actions.jump("ScanQrCodePage");
+                    }}/>
+                <CommonIconNameItem
+                    itemStyle={[styles.flex, styles.centered,]}
+                    iconIndex={"1"}
+                    itemTitle={I18n("Code_Authentication")}
+                    onItemPress={() => {
+                        Actions.jump("ScanQrCodePage");
+                    }
+                    }
+                />
+            </View> : <View style={[{marginTop: 70, marginLeft: 16, marginRight: 16}, styles.flexDirectionRowNotFlex]}>
+
+                <CommonIconNameItem
+                    itemStyle={[styles.flex, styles.centered,]}
+                    iconIndex={"1"}
+                    itemTitle={I18n("Code_Authentication")}
+                    onItemPress={() => {
+                        Actions.jump("ScanQrCodePage");
+                    }
+                    }
+                />
+                <CommonIconNameItem
+                    itemStyle={[styles.flex, styles.centered,]}
+                    iconIndex={"2"}
+                    itemTitle={I18n("nfc_anti_fake")}
+                    onItemPress={() => {
+                        Actions.jump("NFCScanPage");
+                    }}/>
+            </View>;
+
         return (
             <View style={[styles.mainBox, styles.centerH]}>
                 <StatusBar hidden={false} backgroundColor={'transparent'} translucent barStyle={'dark-content'}/>
@@ -30,26 +70,7 @@ class HomePage extends Component {
                        resizeMode={"stretch"}
                        style={[{height: iconHeight, width: screenWidth * 0.417, marginTop: 100 + statusHeight}]}/>
 
-
-                <View style={[{marginTop: 70, marginLeft: 16, marginRight: 16}, styles.flexDirectionRowNotFlex]}>
-
-                    <CommonIconNameItem
-                        itemStyle={[styles.flex, styles.centered,]}
-                        iconIndex={"1"}
-                        itemTitle={I18n("Code_Authentication")}
-                        onItemPress={() => {
-                            Actions.jump("ScanQrCodePage");
-                        }
-                        }
-                    />
-                    <CommonIconNameItem
-                        itemStyle={[styles.flex, styles.centered,]}
-                        iconIndex={"2"}
-                        itemTitle={I18n("nfc_anti_fake")}
-                        onItemPress={() => {
-                            Actions.jump("NFCScanPage");
-                        }}/>
-                </View>
+                {secondBtn}
 
                 <View
                     style={[styles.absoluteFull, styles.centered, {

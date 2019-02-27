@@ -152,7 +152,6 @@ class LoginPage extends Component {
                     <TouchableOpacity activeOpacity={constant.activeOpacity}
                                       onPress={() => {
                                           Keyboard.dismiss();
-                                          Actions.LoadingModal({text: i18n("Logining"), backExit: false});
 
                                           if (this.state.account === "") {
                                               Toast(i18n("Please_input_Mobile_number_or_email"));
@@ -163,6 +162,7 @@ class LoginPage extends Component {
                                               return;
                                           }
 
+                                          Actions.LoadingModal({text: i18n("Logining"), backExit: false});
 
                                           vUserDao.login(this.state.account, this.state.password).then((res) => {
                                               if (res.code === 200) {

@@ -3,7 +3,17 @@
  */
 
 import React, {Component} from 'react';
-import {Dimensions, Image, FlatList, ScrollView, Text, ImageBackground, View, TouchableOpacity} from "react-native";
+import {
+    Dimensions,
+    Image,
+    FlatList,
+    ScrollView,
+    Text,
+    ImageBackground,
+    View,
+    TouchableOpacity,
+    WebView
+} from "react-native";
 import styles, {screenHeight, screenWidth, shadowRadius} from "../../style";
 import * as Constant from "../../style/constant";
 import BaseTitlePage from "../widget/BaseTitlePage";
@@ -38,6 +48,7 @@ class ProductHistoryPage extends BaseTitlePage {
         this._renderItem = this._renderItem.bind(this);
         this._renderPager = this._renderPager.bind(this);
         this.state = {
+            code: this.props.code,
             dataStr: this.props.responseStr,
             data: {
                 product: {},
@@ -232,7 +243,7 @@ class ProductHistoryPage extends BaseTitlePage {
 
         let imageView = <Image style={[{height: 75, width: 75,}]}
                                source={{uri: data.imgUrl}}
-                               resizeMode={"center"}/>;
+                               resizeMode={"contain"}/>;
 
         let touchImage = data.identity === "MANUFACTURER" ? <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                                                               onPress={() => {
@@ -294,11 +305,11 @@ class ProductHistoryPage extends BaseTitlePage {
         }
 
         return (
-            <View
+            <View key={index}
                 style={[{paddingHorizontal: Constant.normalMarginEdge}, styles.flexDirectionRowNotFlex]}>
                 <Image source={{uri: data.identityIcon}}
                        style={{height: 20, width: 20, marginTop: 40}}
-                       resizeMode={"center"}/>
+                       resizeMode={"contain"}/>
 
                 <View
                     style={[{marginLeft: 2}, styles.flexDirectionColumnNotFlex, styles.centerH]}>
@@ -354,12 +365,11 @@ class ProductHistoryPage extends BaseTitlePage {
                 );
             case 2:
                 return (
-                    <View style={{backgroundColor: Constant.grayBg, height: screenWidth * 1.3}}>
-                        <Image style={[{height: screenWidth * 1.3, width: screenWidth}]}
-                               source={require("../../img/map.png")}
-                               resizeMode={"cover"}/>
 
-                    </View>
+                    <WebView
+                        style={[{height: screenHeight-320, width: screenWidth}]}
+                        source={{uri: Constant.API_MAP + this.state.code + "/map"}}
+                        startInLoadingState={true}/>
                     /*{/!*<View style={{backgroundColor: Constant.grayBg, height: screenWidth * 1.3}}>
                         <MapView
                             provider={PROVIDER_GOOGLE} // remove if not using Google Maps

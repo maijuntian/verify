@@ -159,7 +159,7 @@ class VerifyHistoryPage extends BaseTitlePage {
                                     <View
                                         style={[{width: (screenWidth - 48) / 2,},]}>
                                         <Text
-                                            style={[styles.minTextBlack]}>{item.productName + " authentic"}</Text>
+                                            style={[styles.minTextBlack]}>{item.productName}</Text>
                                     </View>
 
                                 </View>

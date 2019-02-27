@@ -90,6 +90,29 @@ class Register2Page extends BaseTitlePage {
         }
     }
 
+    login(){
+        vUserDao.login(this.state.account, this.state.password).then((res) => {
+            if (res.code === 200) {
+                return vUserDao.userinfo();
+            } else {
+                Toast(res.message);
+                return null;
+            }
+        }).then((res) => {
+            this.exitLoading();
+            if(res === null)
+                return;
+            Toast(i18n("Registration_completed"));
+            if (res.code === 200) {
+                DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                Actions.pop();
+                Actions.pop();
+            } else {
+                Toast(res.message);
+            }
+        });
+    }
+
     _reader() {
 
         let inputIconWidth = 78;
@@ -167,21 +190,19 @@ class Register2Page extends BaseTitlePage {
                                       Actions.LoadingModal({text: i18n("Registering"), backExit: false});
                                       if (this.state.type === "phone") {
                                           vUserDao.phoneRegister(this.state.account, this.state.password, this.state.code).then((res) => {
-                                              this.exitLoading();
                                               if (res.code === 200) {
-                                                  Toast(i18n("Registration_completed"));
-                                                  Actions.pop();
+                                                  this.login();
                                               } else {
+                                                  this.exitLoading();
                                                   Toast(res.message);
                                               }
                                           })
                                       } else {
                                           vUserDao.emailRegister(this.state.account, this.state.password, this.state.code).then((res) => {
-                                              this.exitLoading();
                                               if (res.code === 200) {
-                                                  Toast(i18n("Registration_completed"));
-                                                  Actions.pop();
+                                                  this.login();
                                               } else {
+                                                  this.exitLoading();
                                                   Toast(res.message);
                                               }
                                           })

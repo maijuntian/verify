@@ -3,7 +3,16 @@
  */
 
 import React, {Component} from 'react';
-import {Text, View, Image, ImageBackground, FlatList, TouchableOpacity, DeviceEventEmitter} from "react-native";
+import {
+    Text,
+    View,
+    Image,
+    ImageBackground,
+    FlatList,
+    TouchableOpacity,
+    DeviceEventEmitter,
+    Platform
+} from "react-native";
 import styles, {screenWidth, statusHeight} from "../../style";
 import * as Constant from "../../style/constant";
 import CommonIconText from "../common/CommonIconText";
@@ -25,7 +34,6 @@ class MePage extends Component {
             userInfo: {},
             items: Constant.APP_TYPE === 1 ? [{key: I18n("Profile")}
                     , {key: I18n("Verification_record")}
-                    , {key: I18n("Rights_and_interests")}
                     , {key: I18n("Settings")}] :
                 [{key: I18n("Profile")}
                     , {key: I18n("Verification_record")}
@@ -94,7 +102,10 @@ class MePage extends Component {
                         numberOfLines={1}>{this.state.userInfo.nickname}</Text>
                 </View>
 
-                <View style={[{marginTop: 15, marginLeft: 50,}, styles.flexDirectionRowNotFlex,]}>
+                <View style={[{
+                    marginTop: 15, marginLeft: 50,
+                    opacity: Constant.APP_TYPE === 1 ? 0 : 1
+                }, styles.flexDirectionRowNotFlex,]}>
                     <View style={[styles.flexDirectionRowNotFlex, styles.centered]}>
 
                         <Image style={[{height: 18, width: 18},]}
@@ -164,7 +175,7 @@ class MePage extends Component {
                             <Text
                                 style={[{
                                     marginTop: 3,
-                                    opacity: 0.33
+                                    opacity: Platform.OS === "ios" ? 0.7 : 0.33
                                 }, styles.sminTextWhite]}> {I18n("login_tip")}</Text>
                         </View>
 
