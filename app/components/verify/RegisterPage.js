@@ -98,7 +98,7 @@ class RegisterPage extends BaseTitlePage {
                                           this.setState({account: ""})
                                       }}>
                         <Image style={[{height: inputIconWidth, width: inputIconWidth, marginRight: 10}]}
-                               resizeMode={"center"}
+                               resizeMode={"contain"}
                                source={require("../../img/icon_clear.png")}/>
                     </TouchableOpacity>
                 </View>
@@ -120,14 +120,14 @@ class RegisterPage extends BaseTitlePage {
                                           this.setState({isPwd: !this.state.isPwd})
                                       }}>
                         <Image style={[{height: inputIconWidth, width: inputIconWidth, marginRight: 10}]}
-                               resizeMode={"center"}
+                               resizeMode={"contain"}
                                source={pwdIcon}/>
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.dividerLineE6, {width: dividerWidth}]}/>
                 <View style={[{marginTop: 17, marginBottom: 80}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
                     <Image style={[{height: 12, width: 12, marginRight: 2}]}
-                           resizeMode={"center"}
+                           resizeMode={"contain"}
                            source={require("../../img/icon_info.png")}/>
 
                     <Text style={styles.subLightSMinText}>{i18n("pwd_tip")}</Text>
@@ -140,7 +140,7 @@ class RegisterPage extends BaseTitlePage {
                                       let type;
 
                                       if (this.state.account === "") {
-                                          Toast(i18n("Please_input_account"));
+                                          Toast(i18n("Please_input_Mobile_number_or_email"));
                                           return;
                                       }
 

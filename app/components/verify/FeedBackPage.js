@@ -95,7 +95,7 @@ class FeedBackPage extends BaseTitlePage {
                                 productDao.feedback(this.state.code, this.state.content).then((res) => {
                                     this.exitLoading();
                                     if (res.code === 200) {
-                                        Toast(i18n("Feedback_success"))
+                                        Toast(res.message)
                                         Actions.pop();
                                     } else {
                                         Toast(res.message);

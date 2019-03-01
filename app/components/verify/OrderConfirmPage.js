@@ -132,7 +132,7 @@ class OrderConfirmPage extends BaseTitlePage {
                 }, styles.flexDirectionRowNotFlex, styles.centerV]}>
                     <Image style={[{height: 85, width: 85}]}
                            source={{uri: this.state.product.icon}}
-                           resizeMode={"center"}/>
+                           resizeMode={"contain"}/>
                     <View
                         style={[{
                             width: screenWidth - 165,

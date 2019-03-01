@@ -129,6 +129,35 @@ class PersonalPage extends BaseTitlePage {
             <Text style={[{color: "#C4C4C4"}, styles.middleText]}>{this.state.userInfo.email}</Text> :
             <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.email}</Text>;
 
+        let dividerView = Constant.APP_TYPE === 1 ? <View/> :
+            <View style={styles.dividerLineF6}/>
+        let mobView = Constant.APP_TYPE === 1 ? <View/> : <TouchableOpacity
+            activeOpacity={this.state.userInfo.phone === Constant.NULL_ ? Constant.activeOpacity : 1}
+            style={[styles.flexDirectionRowNotFlex, styles.centerH, {
+                paddingVertical: 20,
+                paddingLeft: 16,
+                paddingRight: 10
+            }]}
+            onPress={() => {
+                if (this.state.userInfo.phone === Constant.NULL_) {
+                    Actions.PersonalMobilePage();
+                }
+            }}>
+            <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Mobile_Number")}</Text>
+
+            <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
+
+                {mobileView}
+                <Icon
+                    style={[{marginLeft: 5, opacity: this.state.userInfo.email === Constant.NULL_ ? 1 : 0}]}
+                    name={"chevron-right"}
+                    backgroundColor={Constant.transparentColor}
+                    color={Constant.primaryBlackColor} size={15}/>
+
+            </View>
+
+        </TouchableOpacity>;
+
         return (
             <View style={styles.flexDirectionColumn}>
 
@@ -214,35 +243,8 @@ class PersonalPage extends BaseTitlePage {
                     </View>
 
                 </TouchableOpacity>
-
-                <View style={styles.dividerLineF6}/>
-
-                <TouchableOpacity
-                    activeOpacity={this.state.userInfo.phone === Constant.NULL_ ? Constant.activeOpacity : 1}
-                    style={[styles.flexDirectionRowNotFlex, styles.centerH, {
-                        paddingVertical: 20,
-                        paddingLeft: 16,
-                        paddingRight: 10
-                    }]}
-                    onPress={() => {
-                        if (this.state.userInfo.phone === Constant.NULL_) {
-                            Actions.PersonalMobilePage();
-                        }
-                    }}>
-                    <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Mobile_Number")}</Text>
-
-                    <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
-
-                        {mobileView}
-                        <Icon
-                            style={[{marginLeft: 5, opacity: this.state.userInfo.email === Constant.NULL_ ? 1 : 0}]}
-                            name={"chevron-right"}
-                            backgroundColor={Constant.transparentColor}
-                            color={Constant.primaryBlackColor} size={15}/>
-
-                    </View>
-
-                </TouchableOpacity>
+                {dividerView}
+                {mobView}
                 <View style={styles.dividerLineF6}/>
 
                 <TouchableOpacity

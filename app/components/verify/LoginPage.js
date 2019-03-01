@@ -102,7 +102,7 @@ class LoginPage extends Component {
                                               this.setState({account: ""})
                                           }}>
                             <Image style={[{height: inputIconWidth, width: inputIconWidth, marginRight: 10}]}
-                                   resizeMode={"center"}
+                                   resizeMode={"contain"}
                                    source={require("../../img/icon_clear.png")}/>
                         </TouchableOpacity>
                     </View>
@@ -124,7 +124,7 @@ class LoginPage extends Component {
                                               this.setState({isPwd: !this.state.isPwd})
                                           }}>
                             <Image style={[{height: inputIconWidth, width: inputIconWidth, marginRight: 10}]}
-                                   resizeMode={"center"}
+                                   resizeMode={"contain"}
                                    source={pwdIcon}/>
                         </TouchableOpacity>
                     </View>
@@ -138,7 +138,7 @@ class LoginPage extends Component {
                                       }}>
                         <View style={[{marginTop: 17}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
                             <Image style={[{height: 12, width: 12, marginRight: 2}]}
-                                   resizeMode={"center"}
+                                   resizeMode={"contain"}
                                    source={require("../../img/icon_info.png")}/>
 
                             <Text style={styles.subLightSMinText}>{i18n("sign_tip")}</Text>

@@ -109,7 +109,7 @@ class ProductDetailPage extends BaseTitlePage {
 
                     <Image source={rankIcon}
                            style={{height: 22, width: 22,}}
-                           resizeMode={"cover"}/>
+                           resizeMode={"contain"}/>
                 </View>
 
                 <View style={[{marginTop: 14}, styles.dividerLineF6]}/>

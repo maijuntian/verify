@@ -209,7 +209,7 @@ class GiftListPage extends BaseTitlePage {
                                     }, styles.flexDirectionRowNotFlex, styles.centerV]}>
                                         <Image style={[{height: 85, width: 85}]}
                                                source={{uri: item.item[0].productIcon}}
-                                               resizeMode={"center"}/>
+                                               resizeMode={"contain"}/>
                                         {centerV}
 
                                         <View style={[{

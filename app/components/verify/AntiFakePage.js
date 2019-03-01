@@ -165,7 +165,7 @@ class AntiFakePage extends BaseTitlePage {
 
                                                 <Image source={{uri: item.platformIcon}}
                                                        style={[{height: 20, width: 50, marginLeft: 30}]}
-                                                       resizeMode={"center"}/>
+                                                       resizeMode={"contain"}/>
                                             </View>
 
                                             <View style={[styles.absoluteFull, styles.centerV,

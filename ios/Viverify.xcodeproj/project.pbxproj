@@ -53,11 +53,11 @@
 		2C80650321942034001737D3 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064EE21942034001737D3 /* SimpleLineIcons.ttf */; };
 		2C80650421942034001737D3 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064EF21942034001737D3 /* MaterialIcons.ttf */; };
 		2C80650521942034001737D3 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064EF21942034001737D3 /* MaterialIcons.ttf */; };
+		2C9FBF932228C596004C5A5A /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FBF922228C596004C5A5A /* bundle */; };
 		2CD33DAB222397F1004E44B1 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD33DAA222397F1004E44B1 /* QBImagePicker.framework */; };
 		2CD33DAC222397F1004E44B1 /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD33DAA222397F1004E44B1 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2CD33DE922239801004E44B1 /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD33DE822239801004E44B1 /* RSKImageCropper.framework */; };
 		2CD33DEA22239801004E44B1 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD33DE822239801004E44B1 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2CD33E4722244199004E44B1 /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CD33E4622244199004E44B1 /* bundle */; };
 		2CD33F1922263434004E44B1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CD33F1822263434004E44B1 /* Images.xcassets */; };
 		2CD33F1B22263461004E44B1 /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CD33F1A22263461004E44B1 /* Images-2.xcassets */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -605,9 +605,9 @@
 		2C8064ED21942034001737D3 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		2C8064EE21942034001737D3 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		2C8064EF21942034001737D3 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		2C9FBF922228C596004C5A5A /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundle; sourceTree = "<group>"; };
 		2CD33DAA222397F1004E44B1 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD33DE822239801004E44B1 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2CD33E4622244199004E44B1 /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundle; sourceTree = "<group>"; };
 		2CD33F1822263434004E44B1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Viverify/Images.xcassets; sourceTree = "<group>"; };
 		2CD33F1A22263461004E44B1 /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images-2.xcassets"; path = "Viverify/Images-2.xcassets"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Viverify-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Viverify-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -819,7 +819,7 @@
 		13B07FAE1A68108700A75B9A /* GSYGithubAPP */ = {
 			isa = PBXGroup;
 			children = (
-				2CD33E4622244199004E44B1 /* bundle */,
+				2C9FBF922228C596004C5A5A /* bundle */,
 				2C8064E421942034001737D3 /* Fonts */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1829,8 +1829,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CD33E4722244199004E44B1 /* bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				2C9FBF932228C596004C5A5A /* bundle in Resources */,
 				2C80650021942034001737D3 /* EvilIcons.ttf in Resources */,
 				2CD33F1922263434004E44B1 /* Images.xcassets in Resources */,
 				2C8064F821942034001737D3 /* Foundation.ttf in Resources */,

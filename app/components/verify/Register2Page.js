@@ -102,7 +102,6 @@ class Register2Page extends BaseTitlePage {
             this.exitLoading();
             if(res === null)
                 return;
-            Toast(i18n("Registration_completed"));
             if (res.code === 200) {
                 DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
                 Actions.pop();
@@ -200,6 +199,7 @@ class Register2Page extends BaseTitlePage {
                                       } else {
                                           vUserDao.emailRegister(this.state.account, this.state.password, this.state.code).then((res) => {
                                               if (res.code === 200) {
+                                                  Toast(res.message);
                                                   this.login();
                                               } else {
                                                   this.exitLoading();

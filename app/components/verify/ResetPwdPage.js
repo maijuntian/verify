@@ -81,7 +81,7 @@ class ResetPwdPage extends BaseTitlePage {
                                           this.setState({account: ""})
                                       }}>
                         <Image style={[{height: inputIconWidth, width: inputIconWidth, marginRight: 10}]}
-                               resizeMode={"center"}
+                               resizeMode={"contain"}
                                source={require("../../img/icon_clear.png")}/>
                     </TouchableOpacity>
                 </View>
@@ -94,7 +94,7 @@ class ResetPwdPage extends BaseTitlePage {
                                       let type;
 
                                       if (this.state.account === "") {
-                                          Toast(i18n("Please_input_account"));
+                                          Toast(i18n("Please_input_Mobile_number_or_email"));
                                           return;
                                       }
                                       if (this.state.account.indexOf("@") > 0) {

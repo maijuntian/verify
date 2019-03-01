@@ -104,7 +104,6 @@ class ResetPwd2Page extends BaseTitlePage {
             this.exitLoading();
             if(res === null)
                 return;
-            Toast(i18n("reset_completed"));
             if (res.code === 200) {
                 DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
                 Actions.pop();
@@ -207,7 +206,7 @@ class ResetPwd2Page extends BaseTitlePage {
 
                 <View style={[{marginTop: 15}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
                     <Image style={[{height: 12, width: 12, marginRight: 2}]}
-                           resizeMode={"center"}
+                           resizeMode={"contain"}
                            source={require("../../img/icon_info.png")}/>
 
                     <Text style={styles.subLightSMinText}>{i18n("pwd_tip")}</Text>
@@ -219,7 +218,7 @@ class ResetPwd2Page extends BaseTitlePage {
                                   }}>
                     <View style={[{marginTop: 15, marginBottom: 80}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
                         <Image style={[{height: 12, width: 12, marginRight: 2}]}
-                               resizeMode={"center"}
+                               resizeMode={"contain"}
                                source={pwdIcon}/>
 
 
@@ -259,6 +258,7 @@ class ResetPwd2Page extends BaseTitlePage {
                                       vUserDao.resetPwd(this.state.account, this.state.newPwd1, this.state.code).then((res) => {
                                           this.exitLoading();
                                           if (res.code === 200) {
+                                              Toast(res.message);
                                               this.login();
                                           } else {
                                               Toast(res.message);
