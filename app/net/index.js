@@ -58,11 +58,10 @@ class HttpManager {
             }
         }
 
-        let headers = {};
+        let headers = {"user-agent": "viverify"};
         if (header) {
             headers = Object.assign({}, headers, header)
         }
-
         //授权码
         if (!this.optionParams.authorizationCode) {
             let authorizationCode = await this.getAuthorization();
@@ -71,12 +70,11 @@ class HttpManager {
         }
 
         let requestParams;
-
         headers.Authorization = this.optionParams.authorizationCode;
 
-        if(isFile){
+        if (isFile) {
             requestParams = this.formParamsFile(method, params, headers)
-        }else if (method !== 'GET') {
+        } else if (method !== 'GET') {
             if (json) {
                 requestParams = this.formParamsJson(method, params, headers)
             } else {
@@ -211,10 +209,11 @@ class HttpManager {
                     ...(headers || {})
                 }
             ),
-            body:params,
+            body: params,
         };
         return req
     }
+
     /**
      * 超时管理
      */

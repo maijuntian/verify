@@ -65,6 +65,17 @@ class ProductDetailPage extends BaseTitlePage {
                 break;
         }
 
+        let rebateView = Constant.REBATE === 100 ? <View/> : <View style={[{
+            borderRadius: 20,
+            width: 56,
+            height: 20,
+            marginBottom: 8,
+            backgroundColor: "#404040"
+        }, styles.flexDirectionRowNotFlex, styles.centered]}>
+            <Text style={[styles.smallTextWhite]}>{100 - Constant.REBATE}%</Text>
+            <Text style={[{marginTop: 3}, styles.minTextWhite]}> off</Text>
+        </View>
+
         return (
             <View style={[styles.flexDirectionColumn]}>
                 <Image source={{uri: this.state.product.focusImg}}
@@ -78,16 +89,7 @@ class ProductDetailPage extends BaseTitlePage {
                 }, styles.flexDirectionRowNotFlex, styles.justifyEnd, styles.alignItemsEnd]}>
                     <Text
                         style={[{}, styles.normalTextBlack_Charter, styles.flex]}>{this.state.product.productName}</Text>
-                    <View style={[{
-                        borderRadius: 20,
-                        width: 56,
-                        height: 20,
-                        marginBottom: 8,
-                        backgroundColor: "#404040"
-                    }, styles.flexDirectionRowNotFlex, styles.centered]}>
-                        <Text style={[styles.smallTextWhite]}>{100 - Constant.REBATE}%</Text>
-                        <Text style={[{marginTop: 3}, styles.minTextWhite]}> off</Text>
-                    </View>
+                    {rebateView}
                 </View>
 
                 <View style={[{
@@ -97,12 +99,13 @@ class ProductDetailPage extends BaseTitlePage {
 
                     <View style={[styles.flexDirectionRow, styles.alignItemsEnd]}>
                         <Text style={[styles.subMinText, {marginBottom: 3,}]}>{I18n("Integral")}: </Text>
-                        <Text style={[styles.normalTextBlack]}>{this.state.product.discount}</Text>
+                        <Text
+                            style={[styles.normalTextBlack]}>{this.state.product.discount === 0 ? this.state.product.points : this.state.product.discount}</Text>
                         <Text style={[{
                             marginLeft: 5,
                             marginBottom: 2,
                             textDecorationLine: "line-through",
-                        }, styles.smallTextGray,]}>{this.state.product.points}</Text>
+                        }, styles.smallTextGray,]}>{this.state.product.discount === 0 ? "" : this.state.product.points}</Text>
                     </View>
 
                     <Text style={[{paddingBottom: 3}, styles.subMinText,]}>{I18n("Rank")}: </Text>
@@ -130,7 +133,7 @@ class ProductDetailPage extends BaseTitlePage {
                                           onPress={() => {
                                               vUserDao.localUserInfo().then((userInfo) => {
                                                   if (vUserDao.isLogin(userInfo)) {
-                                                      if (parseInt(userInfo.points) < parseInt(this.state.product.discount)) {
+                                                      if (parseInt(userInfo.points) < parseInt(this.state.product.discount === 0 ? this.state.product.points : this.state.product.discount)) {
                                                           Toast(I18n("exchange_gift_tip"));
                                                           return;
                                                       }

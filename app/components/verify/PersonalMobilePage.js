@@ -27,7 +27,7 @@ import CommonIconTextButton from "../common/CommonIconTextButton";
 /**
  * 登录
  */
-class PersonalNamePage extends BaseTitlePage {
+class PersonalMobilePage extends BaseTitlePage {
 
     constructor(props) {
         super(props);
@@ -119,7 +119,7 @@ class PersonalNamePage extends BaseTitlePage {
                     <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Cell")}</Text>
 
                     <TextInput
-                        style={[styles.middleTexBlackCharter, {marginLeft: 42, width: screenWidth - 83}]}
+                        style={[styles.middleTexBlackCharter, {marginLeft: 42, width: screenWidth - 150}]}
                         underlineColorAndroid='transparent'
                         onChangeText={(text) => this.setState({mobile: text})}
                         value={this.state.mobile}>
@@ -175,4 +175,4 @@ class PersonalNamePage extends BaseTitlePage {
     }
 }
 
-export default PersonalNamePage
+export default PersonalMobilePage

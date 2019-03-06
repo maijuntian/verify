@@ -65,6 +65,18 @@ class AddressEditPage extends BaseTitlePage {
     }
 
     _save() {
+        if(this.state.address === ""){
+            i18n("address_tip_address");
+            return;
+        }
+        if(this.state.contacts === ""){
+            i18n("address_tip_contacts");
+            return;
+        }
+        if(this.state.phone === ""){
+            i18n("address_tip_phone");
+            return;
+        }
         Actions.LoadingModal({text: i18n("Saving"), backExit: false});
         vUserDao.saveAddress({
             id: this.state.id,

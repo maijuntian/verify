@@ -128,7 +128,7 @@ I18n.translations = {
         OK: "OK",
         Redeeming: "Redeeming",
         SuccessTip: "Your gift order has been received\nand will be delivered to you as \nsoon as possible.",
-        feedback_tip: "Please provide relevant is information of the purchase channels: online shopping mall, offline retail;",
+        feedback_tip: "Please provide relevant information of the purchase,such as the name of the business,the location of the business,the date of purchase,product details, etc.",
         Send: "Send",
         Resend: "Resend",
         Feedback_success: "Feedback success.",
@@ -187,6 +187,9 @@ I18n.translations = {
         Invalid_phone_number: "Invalid phone number.",
         Please_input_Mobile_number_or_email: "Please enter your mobile number or email address.",
         exchange_gift_tip: "Sorry, you do not have enough points.",
+        address_tip_address:"Please enter your delivery address.",
+        address_tip_name:"Please enter the name of the contact.",
+        address_tip_phone:"Please enter your mobile number.",
     },
     'zh-CN': {
         appName: 'VerifyAPP',
@@ -301,7 +304,7 @@ I18n.translations = {
         OK: "OK",
         Redeeming: "Redeeming",
         SuccessTip: "Your gift order has been received\nand will be delivered to you as \nsoon as possible.",
-        feedback_tip: "Please provide relevant is information of the purchase channels: online shopping mall, offline retail;",
+        feedback_tip: "Please provide relevant information of the purchase,such as the name of the business,the location of the business,the date of purchase,product details, etc.",
         Send: "Send",
         Resend: "Resend",
         Feedback_success: "Feedback success.",
@@ -360,6 +363,9 @@ I18n.translations = {
         Invalid_phone_number: "Invalid phone number.",
         Please_input_Mobile_number_or_email: "Please enter your mobile number or email address.",
         exchange_gift_tip: "Sorry, you do not have enough points.",
+        address_tip_address:"Please enter your delivery address.",
+        address_tip_name:"Please enter the name of the contact.",
+        address_tip_phone:"Please enter your mobile number.",
     },
     'zh-inter': {
         appName: 'VerifyAPP',
@@ -474,7 +480,7 @@ I18n.translations = {
         OK: "OK",
         Redeeming: "Redeeming",
         SuccessTip: "Your gift order has been received\nand will be delivered to you as \nsoon as possible.",
-        feedback_tip: "Please provide relevant is information of the purchase channels: online shopping mall, offline retail;",
+        feedback_tip: "Please provide relevant information of the purchase,such as the name of the business,the location of the business,the date of purchase,product details, etc.",
         Send: "Send",
         Resend: "Resend",
         Feedback_success: "Feedback success.",
@@ -533,6 +539,9 @@ I18n.translations = {
         Invalid_phone_number: "Invalid phone number.",
         Please_input_Mobile_number_or_email: "Please enter your email address.",
         exchange_gift_tip: "Sorry, you do not have enough points.",
+        address_tip_address:"Please enter your delivery address.",
+        address_tip_name:"Please enter the name of the contact.",
+        address_tip_phone:"Please enter your mobile number.",
     }
 };
 

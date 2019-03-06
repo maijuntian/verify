@@ -50,9 +50,9 @@ class MallPage extends Component {
             this.setState({
                 userInfo: res
             });
-            if(vUserDao.isLogin(res)){
+            if (vUserDao.isLogin(res)) {
                 constant.REBATE = res.grade.rebate;
-            }else {
+            } else {
                 constant.REBATE = 100;
             }
         })
@@ -117,6 +117,22 @@ class MallPage extends Component {
                     rankIcon = require("../../img/gold.png");
                     break;
             }
+
+            let rateView = this.state.userInfo.grade.rebate === 100 ? <View/> : <View style={[
+                styles.absoluteFull, styles.flexDirectionColumnNotFlex, styles.centerV, {
+                    marginRight: 30,
+                    zIndex: -999,
+                    alignItems: 'flex-end'
+                }]}>
+                <View style={[{
+                    borderRadius: 20,
+                    width: 56,
+                    backgroundColor: "#404040"
+                }, styles.flexDirectionRowNotFlex, styles.centered]}>
+                    <Text style={[styles.smallTextWhite]}>{(100 - this.state.userInfo.grade.rebate)}%</Text>
+                    <Text style={[{marginTop: 3}, styles.minTextWhite]}> off</Text>
+                </View>
+            </View>
 
             userView = <View style={styles.flexDirectionColumnNotFlex}>
                 <View style={[{
@@ -183,21 +199,7 @@ class MallPage extends Component {
                         <Text style={[styles.b40MinText, {marginTop: 3}]}>{I18n("Rank")}:</Text>
                         <Image style={[{marginLeft: 4, height: 22, width: 22}]}
                                source={rankIcon}/>
-                        <View style={[
-                            styles.absoluteFull, styles.flexDirectionColumnNotFlex, styles.centerV, {
-                                marginRight: 30,
-                                zIndex: -999,
-                                alignItems: 'flex-end'
-                            }]}>
-                            <View style={[{
-                                borderRadius: 20,
-                                width: 56,
-                                backgroundColor: "#404040"
-                            }, styles.flexDirectionRowNotFlex, styles.centered]}>
-                                <Text style={[styles.smallTextWhite]}>{(100 - this.state.userInfo.grade.rebate)}%</Text>
-                                <Text style={[{marginTop: 3}, styles.minTextWhite]}> off</Text>
-                            </View>
-                        </View>
+                        {rateView}
                     </View>
 
                     <View style={[{height: 50, marginTop: -20}, styles.flexDirectionColumnNotFlex]}>
@@ -383,11 +385,11 @@ class MallPage extends Component {
                                         marginTop: 5
                                     }, styles.flexDirectionRowNotFlex, styles.centerH]}>
                                         <Text
-                                            style={[styles.smallTextBlack]}>{item.discount} {I18n("Integral")}</Text>
+                                            style={[styles.smallTextBlack]}>{item.discount === 0 ? item.points : item.discount} {I18n("Integral")}</Text>
                                         <Text style={[{
                                             marginLeft: 5,
                                             textDecorationLine: "line-through"
-                                        }, styles.minTextsGray]}>{item.points}</Text>
+                                        }, styles.minTextsGray]}>{item.discount === 0 ? "" : item.points}</Text>
                                     </View>
                                 </View>
                             </View>

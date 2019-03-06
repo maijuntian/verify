@@ -127,4 +127,4 @@ export const API_MAP = API + "source/tracing/";
 export const NULL_ = "N/A";
 
 //0 欧洲版本  1ios国际版
-export let APP_TYPE = 1;
+export let APP_TYPE = 0;

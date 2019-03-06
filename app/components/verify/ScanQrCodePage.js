@@ -49,6 +49,7 @@ class ScanQrCodePage extends Component {
         InteractionManager.runAfterInteractions(() => {
             this.startAnimation();
         })
+        this.parseCode("https://api.viverify.com/source/authentication/10000001");
     }
 
     componentWillUnmount() {

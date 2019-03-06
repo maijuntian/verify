@@ -189,6 +189,10 @@ const emailRegister = async (name, password, verificationCode) => {
     return res.data;
 }
 
+const region = async () => {
+    let res = await Api.getFetch(API + "/system/region");
+    return res.data;
+}
 
 export default {
     isLogin,
@@ -217,4 +221,5 @@ export default {
     emailRegister,
     clearInfo,
     resetPwd,
+    region,
 }

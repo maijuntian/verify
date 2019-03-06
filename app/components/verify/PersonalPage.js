@@ -149,7 +149,7 @@ class PersonalPage extends BaseTitlePage {
 
                 {mobileView}
                 <Icon
-                    style={[{marginLeft: 5, opacity: this.state.userInfo.email === Constant.NULL_ ? 1 : 0}]}
+                    style={[{marginLeft: 5, opacity: this.state.userInfo.phone === Constant.NULL_ ? 1 : 0}]}
                     name={"chevron-right"}
                     backgroundColor={Constant.transparentColor}
                     color={Constant.primaryBlackColor} size={15}/>
