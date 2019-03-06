@@ -166,7 +166,7 @@ class ProductHistoryPage extends BaseTitlePage {
     }
 
     _title() {
-        return I18n("tracing_results");
+        return I18n("anti_fake");
     }
 
     _handleIndexChange = index => {

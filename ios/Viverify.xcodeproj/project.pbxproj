@@ -31,6 +31,7 @@
 		2A20747C490E471ABD68BB91 /* libRNVersionNumber-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D581BE36229C4E28942E5FAF /* libRNVersionNumber-tvOS.a */; };
 		2C37AC6D221BFB8E006FA9F5 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C37AC3F22166ECF006FA9F5 /* Lottie.framework */; };
 		2C37AC6E221BFB8E006FA9F5 /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C37AC3F22166ECF006FA9F5 /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2C580DDA222E92DA00F57BDF /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C580DD9222E92D900F57BDF /* bundle */; };
 		2C8064F021942034001737D3 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064E521942034001737D3 /* Octicons.ttf */; };
 		2C8064F121942034001737D3 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064E521942034001737D3 /* Octicons.ttf */; };
 		2C8064F221942034001737D3 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064E621942034001737D3 /* Feather.ttf */; };
@@ -53,7 +54,6 @@
 		2C80650321942034001737D3 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064EE21942034001737D3 /* SimpleLineIcons.ttf */; };
 		2C80650421942034001737D3 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064EF21942034001737D3 /* MaterialIcons.ttf */; };
 		2C80650521942034001737D3 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C8064EF21942034001737D3 /* MaterialIcons.ttf */; };
-		2C9FBF932228C596004C5A5A /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FBF922228C596004C5A5A /* bundle */; };
 		2CD33DAB222397F1004E44B1 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD33DAA222397F1004E44B1 /* QBImagePicker.framework */; };
 		2CD33DAC222397F1004E44B1 /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD33DAA222397F1004E44B1 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2CD33DE922239801004E44B1 /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD33DE822239801004E44B1 /* RSKImageCropper.framework */; };
@@ -594,6 +594,7 @@
 		1DF24428810F4C9CBB5B8EC4 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		2124F8D2E05048C18C478A52 /* libRNSpinkit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSpinkit.a; sourceTree = "<group>"; };
 		222ED2D74D714EBA98865E4A /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		2C580DD9222E92D900F57BDF /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundle; sourceTree = "<group>"; };
 		2C8064E521942034001737D3 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		2C8064E621942034001737D3 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
 		2C8064E721942034001737D3 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
@@ -605,7 +606,6 @@
 		2C8064ED21942034001737D3 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		2C8064EE21942034001737D3 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		2C8064EF21942034001737D3 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
-		2C9FBF922228C596004C5A5A /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundle; sourceTree = "<group>"; };
 		2CD33DAA222397F1004E44B1 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD33DE822239801004E44B1 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD33F1822263434004E44B1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Viverify/Images.xcassets; sourceTree = "<group>"; };
@@ -819,7 +819,7 @@
 		13B07FAE1A68108700A75B9A /* GSYGithubAPP */ = {
 			isa = PBXGroup;
 			children = (
-				2C9FBF922228C596004C5A5A /* bundle */,
+				2C580DD9222E92D900F57BDF /* bundle */,
 				2C8064E421942034001737D3 /* Fonts */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1830,7 +1830,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				2C9FBF932228C596004C5A5A /* bundle in Resources */,
+				2C580DDA222E92DA00F57BDF /* bundle in Resources */,
 				2C80650021942034001737D3 /* EvilIcons.ttf in Resources */,
 				2CD33F1922263434004E44B1 /* Images.xcassets in Resources */,
 				2C8064F821942034001737D3 /* Foundation.ttf in Resources */,

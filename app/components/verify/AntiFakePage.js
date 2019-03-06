@@ -32,7 +32,7 @@ class AntiFakePage extends BaseTitlePage {
     }
 
     _title() {
-        return I18n("anti_fake");
+        return I18n("Code_Authentication");
     }
 
     componentDidMount() {
@@ -48,6 +48,19 @@ class AntiFakePage extends BaseTitlePage {
 
     _reader() {
 
+        let exchangeView = Constant.APP_TYPE === 1? <View /> :
+            <View style={{marginLeft: 26}}>
+                <CommonIconTextButton
+                    textStyle={[{color: "#586575", fontSize: Constant.smallTextSize}]}
+                    text={I18n("Exchange_gifts")}
+                    iconStyle={[{height: 15, width: 15}]}
+                    icon={require("../../img/icon_gifts.png")}
+                    onPress={() => {
+                        Actions.pop();
+                        Actions.MallPage();
+                    }}/>
+            </View>
+
         let button = this.state.code === 200 ?
             <View style={[styles.flexDirectionRowNotFlex]}>
                 <CommonIconTextButton textStyle={[{color: "#586575", fontSize: Constant.smallTextSize}]}
@@ -57,19 +70,7 @@ class AntiFakePage extends BaseTitlePage {
                                       onPress={() => {
                                           Actions.replace("ScanQrCodePage")
                                       }}/>
-
-                <View style={{marginLeft: 26}}>
-                    <CommonIconTextButton
-                        textStyle={[{color: "#586575", fontSize: Constant.smallTextSize}]}
-                        text={I18n("Exchange_gifts")}
-                        iconStyle={[{height: 15, width: 15}]}
-                        icon={require("../../img/icon_gifts.png")}
-                        onPress={() => {
-                            Actions.pop();
-                            Actions.MallPage();
-                        }}/>
-                </View>
-
+                {exchangeView}
             </View> : <View style={[styles.flexDirectionRowNotFlex]}>
                 <CommonIconTextButton textStyle={[{color: "#586575", fontSize: Constant.smallTextSize}]}
                                       text={I18n("Feedback")}

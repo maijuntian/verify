@@ -14,7 +14,7 @@ import {
     Keyboard,
     DeviceEventEmitter
 } from "react-native";
-import styles, {screenHeight, screenWidth, statusHeight} from "../../style";
+import styles, {navBarHeight, screenHeight, screenWidth, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
 import * as constant from "../../style/constant";
 import {Actions} from "react-native-router-flux";
@@ -57,9 +57,10 @@ class LoginPage extends Component {
         return (
 
             <View style={[{backgroundColor: "#f4f3f4"}, styles.flexDirectionColumn, styles.centerH]}>
-                <StatusBar hidden={true}/>
 
-                <View style={{width: screenWidth}}>
+                <View style={[{width: screenWidth,
+                    height: navBarHeight,
+                    paddingTop: statusHeight}, styles.centerV]}>
                     <TouchableOpacity
                         style={{marginTop: statusHeight, height: 25, width: 25, marginLeft: 8}}
                         onPress={() => {

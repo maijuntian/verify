@@ -18,7 +18,7 @@ import AntiFakePage from "./AntiFakePage";
 import Toast from '../common/ToastProxy';
 import Icon from "react-native-vector-icons/Feather";
 import * as Constant from "../../style/constant";
-import styles, {screenWidth, statusHeight} from "../../style";
+import styles, {navBarHeight, screenWidth, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
 import {readerQR} from "react-native-lewin-qrcode";
 import * as Config from "../../config";
@@ -49,7 +49,6 @@ class ScanQrCodePage extends Component {
         InteractionManager.runAfterInteractions(() => {
             this.startAnimation();
         })
-
     }
 
     componentWillUnmount() {
@@ -147,24 +146,32 @@ class ScanQrCodePage extends Component {
     }
 
     recognizeCode(codeStr) {
-        Actions.LoadingModal({backExit: false});
-        product.authentication(codeStr).then((res) => {
-            this.exitLoading();
+        if (codeStr.indexOf("viverify.com") !== -1) {
+            Actions.LoadingModal({backExit: false});
+            product.authentication(codeStr).then((res) => {
+                this.exitLoading();
 
-            if (res.code && (res.code === 200 || res.code === 410 || res.code === 208)) {
-                if (codeStr.indexOf("tracing") !== -1) {
-                    // Actions.ProductHistoryPage({"responseStr": JSON.stringify(res.data)});
-                    Actions.replace("ProductHistoryPage", {"responseStr": JSON.stringify(res.data), code: res.code});
+                if (res.code && (res.code === 200 || res.code === 410 || res.code === 208)) {
+                    if (codeStr.indexOf("tracing") !== -1) {
+                        // Actions.ProductHistoryPage({"responseStr": JSON.stringify(res.data)});
+                        Actions.replace("ProductHistoryPage", {
+                            "responseStr": JSON.stringify(res.data),
+                            code: res.code
+                        });
+                    } else {
+                        // Actions.popAndPush("AntiFakePage", {"responseStr": JSON.stringify(res.data)});
+                        Actions.replace("AntiFakePage", {"responseStr": JSON.stringify(res.data), code: res.code});
+                    }
                 } else {
-                    // Actions.popAndPush("AntiFakePage", {"responseStr": JSON.stringify(res.data)});
-                    Actions.replace("AntiFakePage", {"responseStr": JSON.stringify(res.data), code: res.code});
+                    Toast(i18n("illegalCodeTip"));
+                    Actions.pop();
                 }
-            } else {
-                Toast(i18n("illegalCodeTip"));
-                Actions.pop();
-            }
 
-        })
+            })
+        } else {
+            Toast(i18n("illegalCodeTip"));
+            Actions.pop();
+        }
     }
 
 
@@ -180,6 +187,7 @@ class ScanQrCodePage extends Component {
                     onCameraReady={() => {
                         console.log('ready')
                     }}
+                    captureAudio={false}
                     permissionDialogTitle={'Permission to use camera'}
                     permissionDialogMessage={'We need your permission to use your camera phone'}
                     style={styles.flex}>
@@ -203,9 +211,12 @@ class ScanQrCodePage extends Component {
                         </ImageBackground>
                     </View>
 
-                    <View style={[styles.absoluteFull, styles.flexDirectionRowNotFlex,]}>
+                    <View style={[{
+                        height: navBarHeight,
+                        paddingTop: statusHeight
+                    }, styles.absoluteFull, styles.centerH, styles.flexDirectionRowNotFlex,]}>
                         <TouchableOpacity
-                            style={[{height: 25, width: 25, marginTop: statusHeight, marginLeft: 15}]}
+                            style={[{height: 25, width: 25, marginLeft: 15}]}
                             activeOpacity={Constant.activeOpacity}
                             onPress={() => {
                                 Actions.pop();
@@ -215,7 +226,6 @@ class ScanQrCodePage extends Component {
                         </TouchableOpacity>
 
                         <View style={[styles.flexDirectionRow, styles.justifyEnd, {
-                            marginTop: statusHeight,
                             marginRight: 15
                         }]}>
 
