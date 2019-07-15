@@ -7,6 +7,7 @@ import PullListView from "../widget/PullLoadMoreListView";
 import * as Config from "../../config";
 import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 
 class VerifyHistoryPage extends BaseTitlePage {
@@ -31,7 +32,13 @@ class VerifyHistoryPage extends BaseTitlePage {
         })
     }
 
-    componentWillUnmount() {
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("VerifyHistoryPage");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("VerifyHistoryPage");
     }
 
     _title() {

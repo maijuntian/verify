@@ -17,6 +17,7 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import {Actions} from "react-native-router-flux";
 import vUserDao from "../../dao/vUserDao";
 import Toast from "../common/ToastProxy";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -44,9 +45,15 @@ class OrderConfirmPage extends BaseTitlePage {
         });
     }
 
-    componentWillUnmount() {
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("OrderConfirmPage");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("OrderConfirmPage");
         this.subscription.remove();
-    };
+    }
 
     initData() {
         let product = JSON.parse(this.state.productStr);
@@ -162,7 +169,7 @@ class OrderConfirmPage extends BaseTitlePage {
                         }, styles.flexDirectionRowNotFlex, styles.centered]}>
                             <Text style={[styles.middleTexBlack]}>{i18n("Total")}:</Text>
                             <Text
-                                style={[styles.largeTextBlack, {marginHorizontal: 6}]}>{this.state.product.discount}</Text>
+                                style={[styles.largeTextBlack, {marginHorizontal: 6}]}>{this.state.product.discount === 0 ? this.state.product.points : this.state.product.discount}</Text>
                             <Text style={[styles.middleTexBlack]}>{i18n("integral")}</Text>
                         </View>
 
@@ -175,7 +182,7 @@ class OrderConfirmPage extends BaseTitlePage {
                                           onPress={() => {
 
                                               Actions.ConfirmModal({
-                                                  text: this.state.product.discount + "",
+                                                  text: this.state.product.discount === 0 ? this.state.product.points+"" : this.state.product.discount+"",
                                                   backExit: true,
                                                   confirmFun: () => {
                                                       this.exitConfirm();
@@ -183,7 +190,7 @@ class OrderConfirmPage extends BaseTitlePage {
                                                       vUserDao.redeem(this.state.product.code, this.state.address).then((res) => {
                                                           if (res.code === 200) {
                                                               vUserDao.localUserInfo().then((data) => {
-                                                                  data.points = parseInt(data.points) - parseInt(this.state.product.discount);
+                                                                  data.points = parseInt(data.points) - parseInt(this.state.product.discount === 0 ? this.state.product.points : this.state.product.discount);
                                                                   return vUserDao.saveLocalUserInfo(data)
                                                               }).then((result) => {
                                                                   DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
@@ -194,8 +201,8 @@ class OrderConfirmPage extends BaseTitlePage {
                                                                       }
                                                                   });
                                                               })
-
                                                           } else {
+                                                              this.exitLoading();
                                                               Toast(res.message);
                                                           }
                                                       })

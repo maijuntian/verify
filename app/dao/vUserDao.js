@@ -1,6 +1,6 @@
 import Api from '../net'
 import {API} from "../style/constant";
-import {AsyncStorage} from "react-native";
+import {AsyncStorage, DeviceEventEmitter} from "react-native";
 import * as Constant from "../style/constant";
 import moment from "moment";
 
@@ -8,6 +8,14 @@ const login = async (username, password) => {
     let res = await Api.netFetch(API + "/user/auth/login", "POST", {
         username: username,
         password: password
+    }, true, null, false);
+    return res.data;
+}
+
+const phoneLogin = async (phone, code) => {
+    let res = await Api.netFetch(API + "/user/auth/login/phone", "POST", {
+        phone: phone,
+        code: code
     }, true, null, false);
     return res.data;
 }
@@ -194,10 +202,51 @@ const region = async () => {
     return res.data;
 }
 
+const version = async (version) => {
+    let res = await Api.getFetch(API + "/system/app/version/" + version);
+    return res.data;
+}
+
+const saveVersionUrl = async (url) => {
+    AsyncStorage.setItem(Constant.VERSION_URL, url);
+    return true;
+}
+
+const removeVersionUrl = async () => {
+    AsyncStorage.removeItem(Constant.VERSION_URL);
+    return true;
+}
+
+const getVersionUrl = async () => {
+    return AsyncStorage.getItem(Constant.VERSION_URL);
+}
+
+const hasAlarmVersion = async (version) => {
+    return AsyncStorage.getItem(version + "alarm");
+}
+
+const saveAlarmVersion = async (version) => {
+    AsyncStorage.setItem(version + "alarm", version);
+    return true;
+}
+
+
+const facebookLogin = async (params) => {
+    let res = await Api.netFetch(API + "user/auth/login/facebook", "POST", params, true, null, false);
+    return res.data;
+};
+
+
+const googleLogin = async (params) => {
+    let res = await Api.netFetch(API + "/user/auth/login/google", "POST", params, true, null, false);
+    return res.data;
+};
+
 export default {
     isLogin,
     isLoginAsync,
     login,
+    phoneLogin,
     userinfo,
     localUserInfo,
     saveLocalUserInfo,
@@ -222,4 +271,12 @@ export default {
     clearInfo,
     resetPwd,
     region,
+    version,
+    saveVersionUrl,
+    removeVersionUrl,
+    getVersionUrl,
+    hasAlarmVersion,
+    saveAlarmVersion,
+    facebookLogin,
+    googleLogin,
 }

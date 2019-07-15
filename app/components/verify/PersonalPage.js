@@ -4,7 +4,7 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, Image, View, Text, StatusBar, TouchableOpacity, FlatList, DeviceEventEmitter} from "react-native";
-import styles, {screenHeight, statusHeight} from "../../style";
+import styles, {screenHeight, screenWidth, statusHeight} from "../../style";
 import BaseTitlePage from "../widget/BaseTitlePage";
 import i18n from "../../style/i18n";
 import * as Constant from "../../style/constant";
@@ -15,6 +15,7 @@ import ImagePicker from "react-native-image-picker";
 import ImagePickerCrop from "react-native-image-crop-picker";
 import Toast from '../common/ToastProxy'
 import {PersonalBirthdayPage} from "./PersonalBirthdayPage";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 const options = {
     title: i18n("Please_choose"),
@@ -70,9 +71,15 @@ class PersonalPage extends BaseTitlePage {
         })
     }
 
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("PersonalPage");
+    }
+
+
     componentWillUnmount() {
+        AnalyticsUtil.onPageEnd("PersonalPage");
         this.subscription.remove();
-    };
+    }
 
     _title() {
         return i18n("Personal")
@@ -117,6 +124,16 @@ class PersonalPage extends BaseTitlePage {
 
     _reader() {
 
+        let nameView = this.state.userInfo.nickname === Constant.NULL_ ?
+            <Text style={[{width: screenWidth - 122, textAlign: "right", color: "#C4C4C4"}, styles.middleText]}
+                  numberOfLines={1}>{this.state.userInfo.nickname}</Text> :
+            <Text style={[{width: screenWidth - 122, textAlign: "right"}, styles.middleTexBlackCharter]}
+                  numberOfLines={1}>{this.state.userInfo.nickname}</Text>;
+
+        let sexView = this.state.userInfo.gender === Constant.NULL_ ?
+            <Text style={[{color: "#C4C4C4"}, styles.middleText]}>{this.state.userInfo.gender}</Text> :
+            <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.gender}</Text>;
+
         let birthView = this.state.userInfo.birthday === Constant.NULL_ ?
             <Text style={[{color: "#C4C4C4"}, styles.middleText]}>{this.state.userInfo.birthday}</Text> :
             <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.birthday}</Text>;
@@ -126,8 +143,12 @@ class PersonalPage extends BaseTitlePage {
             <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.phone}</Text>;
 
         let emailView = this.state.userInfo.email === Constant.NULL_ ?
-            <Text style={[{color: "#C4C4C4"}, styles.middleText]}>{this.state.userInfo.email}</Text> :
-            <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.email}</Text>;
+            <Text style={[{
+                color: "#C4C4C4",
+                width: screenWidth - 155,
+                textAlign: "right"
+            }, styles.middleText]}>{this.state.userInfo.email}</Text> :
+            <Text style={[{width: screenWidth - 155, textAlign: "right"}, styles.middleTexBlackCharter]}>{this.state.userInfo.email}</Text>;
 
         let dividerView = Constant.APP_TYPE === 1 ? <View/> :
             <View style={styles.dividerLineF6}/>
@@ -204,9 +225,7 @@ class PersonalPage extends BaseTitlePage {
                     <Text style={[{color: Constant.gray9d, fontSize: 14}]}>{i18n("Name")}</Text>
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
-
-                        <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.nickname}</Text>
-
+                        {nameView}
                         <Icon
                             style={[{marginLeft: 5}]}
                             name={"chevron-right"}
@@ -232,8 +251,7 @@ class PersonalPage extends BaseTitlePage {
 
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
-                        <Text style={[{}, styles.middleTexBlackCharter]}>{this.state.userInfo.gender}</Text>
-
+                        {sexView}
                         <Icon
                             style={[{marginLeft: 5}]}
                             name={"chevron-right"}

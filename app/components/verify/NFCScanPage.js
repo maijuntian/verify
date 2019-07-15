@@ -22,6 +22,9 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
+import toast from "../common/ToastProxy";
+import NfcManager, {Ndef} from 'react-native-nfc-manager';
 
 /**
  * 登录
@@ -30,11 +33,20 @@ class NFCScanPage extends BaseTitlePage {
 
     constructor(props) {
         super(props);
-
+        this._startNfc = this._startNfc.bind(this);
     }
 
     _title() {
         return i18n("Scan");
+    }
+
+    componentDidMount() {
+        NfcManager.isSupported()
+            .then(supported => {
+                if (supported) {
+                    this._startNfc();
+                }
+            })
     }
 
 
@@ -42,6 +54,14 @@ class NFCScanPage extends BaseTitlePage {
         if (Actions.currentScene === 'LoadingModal') {
             Actions.pop();
         }
+    }
+
+    componentWillUnmount() {
+        AnalyticsUtil.onPageEnd("NFCScanPage");
+    }
+
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("NFCScanPage");
     }
 
     _reader() {
@@ -67,6 +87,86 @@ class NFCScanPage extends BaseTitlePage {
             </View>
         )
     }
+
+
+    _startNfc() {
+        NfcManager.start({
+            onSessionClosedIOS: () => {
+                console.log('ios session closed');
+            }
+        })
+            .then(result => {
+                console.log('start OK', result);
+                this._startDetection();
+            })
+            .catch(error => {
+                console.warn('start fail', error);
+                this.setState({supported: false});
+            })
+
+        if (Platform.OS === 'android') {
+            NfcManager.getLaunchTagEvent()
+                .then(tag => {
+                    console.log('launch tag', tag);
+                    if (tag) {
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            NfcManager.isEnabled()
+                .then(enabled => {
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            NfcManager.onStateChanged(
+                event => {
+                    if (event.state === 'on') {
+                    } else if (event.state === 'off') {
+                    } else if (event.state === 'turning_on') {
+                        // do whatever you want
+                    } else if (event.state === 'turning_off') {
+                        // do whatever you want
+                    }
+                }
+            )
+                .then(sub => {
+                    this._stateChangedSubscription = sub;
+                    // remember to call this._stateChangedSubscription.remove()
+                    // when you don't want to listen to this anymore
+                })
+                .catch(err => {
+                    console.warn(err);
+                })
+        }
+    }
+
+    _onTagDiscovered = tag => {
+        console.log('Tag Discovered', tag);
+
+    }
+
+    _startDetection = () => {
+        NfcManager.registerTagEvent(this._onTagDiscovered)
+            .then(result => {
+                console.log('registerTagEvent OK', result)
+            })
+            .catch(error => {
+                console.warn('registerTagEvent fail', error)
+            })
+    }
+
+    _stopDetection = () => {
+        NfcManager.unregisterTagEvent()
+            .then(result => {
+                console.log('unregisterTagEvent OK', result)
+            })
+            .catch(error => {
+                console.warn('unregisterTagEvent fail', error)
+            })
+    }
+
 }
 
 export default NFCScanPage

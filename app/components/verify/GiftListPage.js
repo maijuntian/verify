@@ -11,6 +11,7 @@ import * as Config from "../../config";
 import BaseTitlePage from "../widget/BaseTitlePage";
 import moment from "moment";
 import vUserDao from "../../dao/vUserDao";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 
 class GiftListPage extends BaseTitlePage {
@@ -35,7 +36,12 @@ class GiftListPage extends BaseTitlePage {
         })
     }
 
-    componentWillUnmount() {
+    componentWillMount(){
+        AnalyticsUtil.onPageBegin("GiftListPage");
+    }
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("GiftListPage");
     }
 
     _title() {

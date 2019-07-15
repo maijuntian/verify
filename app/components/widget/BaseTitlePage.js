@@ -50,7 +50,7 @@ class BaseTitlePage extends Component {
 
     render() {
         return (
-            <View style={this._isBackground() ? styles.mainBox : styles.flexDirectionColumn}>
+            <View style={this._isBackground() ? styles.mainBox : styles.mainBox2}>
                 <CommonTitleBar title={this._title()}
                                 onLeftPress={this._leftPress}
                                 onRightPress={this._isRightPress() ? this._rightPress : null}/>

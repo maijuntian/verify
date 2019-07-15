@@ -70,7 +70,17 @@ class HttpManager {
         }
 
         let requestParams;
+        headers.Region = Constant.REGION;
         headers.Authorization = this.optionParams.authorizationCode;
+
+        if (Constant.latitude !== "" && Constant.longitude !== "") {
+            headers.Gps = "longitude=" + Constant.longitude + ";latitude=" + Constant.latitude;
+        }
+        headers.Version = Constant.VERSION;
+
+        if (Constant.DEVICE_ID !== "")
+            headers.Device_Id = Constant.DEVICE_ID;
+
 
         if (isFile) {
             requestParams = this.formParamsFile(method, params, headers)

@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Text, View, FlatList, Image, TouchableOpacity, Linking} from "react-native";
+import {Text, View, FlatList, Image, TouchableOpacity, Linking, DeviceEventEmitter} from "react-native";
 import BaseTitlePage from "../widget/BaseTitlePage";
 import I18n from "../../style/i18n";
 import CommonProductHeader from "../common/CommonProductHeader";
@@ -12,6 +12,8 @@ import * as Constant from "../../style/constant";
 import CommonIconTextButton from "../common/CommonIconTextButton";
 import {Actions} from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Feather";
+import vUserDao from "../../dao/vUserDao";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 防伪
@@ -30,6 +32,13 @@ class AntiFakePage extends BaseTitlePage {
 
         }
     }
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("AntiFakePage");
+    }
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("AntiFakePage");
+    };
 
     _title() {
         return I18n("Code_Authentication");
@@ -37,6 +46,13 @@ class AntiFakePage extends BaseTitlePage {
 
     componentDidMount() {
         this.refreshData();
+
+        vUserDao.userinfo().then(res => {
+            if (res.code === 200) {
+                console.log("刷新用户的积分...")
+                DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+            }
+        });
     }
 
     refreshData() {
@@ -48,7 +64,7 @@ class AntiFakePage extends BaseTitlePage {
 
     _reader() {
 
-        let exchangeView = Constant.APP_TYPE === 1? <View /> :
+        let exchangeView = Constant.APP_TYPE === 1 ? <View/> :
             <View style={{marginLeft: 26}}>
                 <CommonIconTextButton
                     textStyle={[{color: "#586575", fontSize: Constant.smallTextSize}]}
@@ -77,7 +93,7 @@ class AntiFakePage extends BaseTitlePage {
                                       iconStyle={[{height: 14, width: 15}]}
                                       icon={require("../../img/icon_message.png")}
                                       onPress={() => {
-                                          Actions.FeedBackPage({code:this.state.data.code})
+                                          Actions.FeedBackPage({code: this.state.data.code})
                                       }}/>
             </View>;
         let resultView;
@@ -92,7 +108,7 @@ class AntiFakePage extends BaseTitlePage {
                         marginTop: 10,
                         marginBottom: 80,
                         textAlign: 'center'
-                    }]}>{I18n("anti_fake_tip3")}</Text>
+                    }]}>{this.state.data.points ? I18n("anti_fake_tip3") + this.state.data.points + I18n("anti_fake_tip3_end") : I18n("anti_fake_tip3_")}</Text>
                     {button}
                 </View>;
                 break;
@@ -114,7 +130,7 @@ class AntiFakePage extends BaseTitlePage {
                     }]}>{I18n("anti_fake_tip41")}</Text>
                     <Text style={[styles.subSmallText, {
                         textAlign: 'center',
-                        color:"red",
+                        color: "red",
                     }]}>{this.state.data.authTime}</Text>
                     <Text style={[styles.subSmallText, {
                         marginBottom: 120,
@@ -129,8 +145,6 @@ class AntiFakePage extends BaseTitlePage {
         return (
             <View style={[{backgroundColor: Constant.grayBg}, styles.flexDirectionColumn]}>
                 <View style={[{
-                    height: 140,
-                    width: screenWidth,
                     paddingHorizontal: 3 * Constant.normalMarginEdge,
                     paddingVertical: 2 * Constant.normalMarginEdge,
                     backgroundColor: Constant.white,
@@ -191,7 +205,9 @@ class AntiFakePage extends BaseTitlePage {
                                         </View>
                                     </TouchableOpacity>
                                 )
-                            }}/>
+                            }}
+                            keyExtractor={(item, index) => index.toString()}
+                        />
 
                     </View>
 

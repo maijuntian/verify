@@ -23,6 +23,7 @@ import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
 import CommonIconTextButton from "../common/CommonIconTextButton";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -35,7 +36,14 @@ class ResetPwdPage extends BaseTitlePage {
             account: "",
         }
     }
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("ResetPwdPage");
+    }
 
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("ResetPwdPage");
+    }
 
     _title() {
         return i18n("Reset_Password");

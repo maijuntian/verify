@@ -11,6 +11,7 @@ import * as Constant from "../../style/constant";
 import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -28,6 +29,15 @@ class PersonalSexPage extends BaseTitlePage {
 
     componentDidMount() {
         this.initUserInfo();
+    }
+
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("PersonalSexPage");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("PersonalSexPage");
     }
 
     initUserInfo() {

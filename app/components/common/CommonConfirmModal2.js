@@ -59,7 +59,10 @@ class ConfirmModal extends Component {
                         backgroundColor: Constant.white,
                         borderRadius: 5,
                     }, styles.flexDirectionColumnNotFlex, styles.centered]}>
-                        <Text style={[styles.smallTextGray, {marginTop: 30}]}>{this.props.text}</Text>
+                        <Text style={[styles.smallTextGray, {
+                            marginTop: 30,
+                            marginHorizontal: 20
+                        }]}>{this.props.text}</Text>
                         <View style={[{marginTop: 30, marginBottom: 20}, styles.flexDirectionRowNotFlex]}>
                             <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                               onPress={() => {
@@ -69,11 +72,11 @@ class ConfirmModal extends Component {
                                 <View style={[{
                                     borderWidth: 1,
                                     borderRadius: 20,
-                                    paddingVertical: 6,
+                                    height: 36,
                                     width: 100,
                                     borderColor: Constant.textGray,
                                 }, styles.flexDirectionRowNotFlex, styles.centered]}>
-                                    <Text style={[styles.middleTexBlack]}>{I18n("Cancel")}</Text>
+                                    <Text style={[styles.middleTexBlack]}>{this.props.text_cancel}</Text>
                                 </View>
                             </TouchableOpacity>
 
@@ -86,11 +89,11 @@ class ConfirmModal extends Component {
                                     marginLeft: 15,
                                     borderWidth: 1,
                                     borderRadius: 20,
-                                    paddingVertical: 6,
+                                    height: 36,
                                     width: 100,
                                     borderColor: Constant.textGray,
                                 }, styles.flexDirectionRowNotFlex, styles.centered]}>
-                                    <Text style={[styles.middleTexBlack]}>{I18n("OK")}</Text>
+                                    <Text style={[styles.middleTexBlack]}>{this.props.text_ok}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -105,6 +108,8 @@ ConfirmModal.propTypes = {
     text: PropTypes.string,
     backExit: PropTypes.bool,
     confirmFun: PropTypes.func,
+    text_ok: PropTypes.string,
+    text_cancel: PropTypes.string,
 };
 ConfirmModal.defaultProps = {
     text: "",

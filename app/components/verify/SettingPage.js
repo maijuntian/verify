@@ -12,7 +12,8 @@ import {
     TouchableOpacity,
     Keyboard,
     TextInput,
-    DeviceEventEmitter
+    NativeModules,
+    DeviceEventEmitter, Platform
 } from "react-native";
 import styles, {screenHeight, statusHeight} from "../../style";
 import i18n from "../../style/i18n";
@@ -22,6 +23,8 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import DeviceInfo from 'react-native-device-info';
+import toast from "../common/ToastProxy";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -31,6 +34,7 @@ class SettingPage extends BaseTitlePage {
     constructor(props) {
         super(props);
         this.state = {
+            versionUrl: "",
             isLogin: props.isLogin
         }
     }
@@ -39,7 +43,32 @@ class SettingPage extends BaseTitlePage {
         return i18n("Settings");
     }
 
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("SettingPage");
+        vUserDao.getVersionUrl().then((res) => {
+            if (res)
+                this.setState({
+                    versionUrl: res
+                });
+        })
+    }
+
+
+    componentWillUnmount() {
+        AnalyticsUtil.onPageEnd("SettingPage");
+    }
+
+    exitLoading() {
+        if (Actions.currentScene === 'LoadingModal') {
+            Actions.pop();
+        }
+    }
+
     _reader() {
+
+        let newView = this.state.versionUrl === "" ? <View/> :
+            <Text style={[{color: "#F26262", fontSize: 14},]}>New</Text>;
+
 
         let logoutView = this.state.isLogin ? <View style={[styles.flexDirectionColumn, styles.justifyEnd]}>
 
@@ -55,6 +84,8 @@ class SettingPage extends BaseTitlePage {
                 }, styles.centered]} onPress={() => {
                 Actions.CommonConfirmModal2({
                     text: i18n("logout_tip"),
+                    text_ok: i18n("OK"),
+                    text_cancel: i18n("Cancel"),
                     backExit: true,
                     confirmFun: () => {
                         vUserDao.clearInfo();
@@ -158,9 +189,19 @@ class SettingPage extends BaseTitlePage {
                         paddingRight: 10
                     }]}
                     onPress={() => {
+                        if (this.state.versionUrl !== "") {
+                            if (Platform.OS === 'ios') {
+                                //跳转到APP Stroe
+                                NativeModules.upgrade.openAPPStore(Constant.APPLE_ID);
+                            } else {
+                                NativeModules.upgrade.upgrade(this.state.versionUrl);
+                            }
+                        } else {
+                            toast(i18n("version_tip1"));
+                        }
                     }}>
-                    <Text style={[{color: Constant.primaryBlackColor, fontSize: 14}]}>{i18n("Version")}</Text>
-
+                    <Text style={[{color: Constant.primaryBlackColor, fontSize: 14}]}>{i18n("Version")}    </Text>
+                    {newView}
                     <View style={[, styles.flexDirectionRow, styles.centerH, styles.justifyEnd]}>
 
                         <Text style={[{}, styles.middleTexBlack]}>{DeviceInfo.getVersion()}</Text>

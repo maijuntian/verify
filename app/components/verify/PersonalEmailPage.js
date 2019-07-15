@@ -23,6 +23,7 @@ import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
 import CommonIconTextButton from "../common/CommonIconTextButton";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -38,7 +39,15 @@ class PersonalEmailPage extends BaseTitlePage {
             isSending: false,
         }
     }
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("PersonalEmailPage");
+    }
 
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("PersonalEmailPage");
+        this.subscription.remove();
+    }
 
     _title() {
         return i18n("Email_address");

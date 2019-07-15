@@ -22,6 +22,7 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -37,7 +38,13 @@ class RegisterPage extends BaseTitlePage {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("RegisterPage");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("RegisterPage");
     }
 
 

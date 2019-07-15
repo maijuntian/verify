@@ -11,6 +11,7 @@ import TabIcon from './components/widget/TabIcon'
 import LoadingModal from './components/common/LoadingModal'
 import ConfirmModal from './components/common/ConfirmModal'
 import CommonConfirmModal2 from './components/common/CommonConfirmModal2'
+import CommonConfirmModal3 from './components/common/CommonConfirmModal3'
 import SuccessModal from './components/common/SuccessModal'
 import styles from './style'
 import I18n, {changeLocale} from './style/i18n'
@@ -23,11 +24,14 @@ import MePage from "./components/verify/MePage";
 import MallPage from "./components/verify/MallPage";
 import HomePage from "./components/verify/HomePage";
 import ProductHistoryPage from "./components/verify/ProductHistoryPage";
+import ProductHistoryPage2 from "./components/verify/ProductHistoryPage2";
 import AntiFakePage from "./components/verify/AntiFakePage";
 import AboutHistoryPage from "./components/verify/AboutHistoryPage";
+import AboutProductPage from "./components/verify/AboutProductPage";
 import PersonalPage from "./components/verify/PersonalPage";
 import ProductListPage from "./components/verify/ProductListPage";
 import LoginPage from "./components/verify/LoginPage";
+import LoginPageCN from "./components/verify/LoginPageCN";
 import ProductDetailPage from "./components/verify/ProductDetailPage";
 import PersonalSexPage from "./components/verify/PersonalSexPage";
 import PersonalNamePage from "./components/verify/PersonalNamePage";
@@ -35,6 +39,7 @@ import PointsActivityPage from "./components/verify/PointsActivityPage";
 import AddressPage from "./components/verify/AddressPage";
 import GiftListPage from "./components/verify/GiftListPage";
 import RankInterestsPage from "./components/verify/RankInterestsPage";
+import ProductHistoryAntiFakePage from "./components/verify/ProductHistoryAntiFakePage";
 import AddressEditPage from "./components/verify/AddressEditPage";
 import {TestPage} from "./components/verify/TestPage";
 import VerifyHistoryPage from "./components/verify/VerifyHistoryPage";
@@ -72,7 +77,7 @@ const getRouter = () => {
                 <Scene key="main">
                     <Scene key="WelcomePage" component={WelcomePage} hideNavBar hideTabBar hide/>
                 </Scene>
-                <Scene key="root_inter"
+                {/*<Scene key="root_inter"
                        hideNavBar>
                     <Scene key="mainTabPage"
                            tabs
@@ -123,6 +128,7 @@ const getRouter = () => {
                     <Scene key="PersonalBirthdayPage" component={PersonalBirthdayPage}/>
                     <Scene key="SettingPage" component={SettingPage}/>
                     <Scene key="LoginPage" component={LoginPage}/>
+                    <Scene key="LoginPageCN" component={LoginPageCN}/>
                     <Scene key="RegisterPage" component={RegisterPage}/>
                     <Scene key="Register2Page" component={Register2Page}/>
                     <Scene key="ResetPwdPage" component={ResetPwdPage}/>
@@ -131,7 +137,10 @@ const getRouter = () => {
                     <Scene key="NFCScanPage" component={NFCScanPage}/>
                     <Scene key="PersonalEmailPage" component={PersonalEmailPage}/>
                     <Scene key="PersonalMobilePage" component={PersonalMobilePage}/>
-                </Scene>
+                    <Scene key="AboutProductPage" component={AboutProductPage}/>
+                    <Scene key="ProductHistoryAntiFakePage" component={ProductHistoryAntiFakePage}/>
+                    <Scene key="ProductHistoryPage2" component={ProductHistoryPage2}/>
+                </Scene>*/}
                 <Scene key="root"
                        hideNavBar>
                     <Scene key="mainTabPage"
@@ -189,6 +198,7 @@ const getRouter = () => {
                     <Scene key="PersonalBirthdayPage" component={PersonalBirthdayPage}/>
                     <Scene key="SettingPage" component={SettingPage}/>
                     <Scene key="LoginPage" component={LoginPage}/>
+                    <Scene key="LoginPageCN" component={LoginPageCN}/>
                     <Scene key="RegisterPage" component={RegisterPage}/>
                     <Scene key="Register2Page" component={Register2Page}/>
                     <Scene key="ResetPwdPage" component={ResetPwdPage}/>
@@ -197,11 +207,15 @@ const getRouter = () => {
                     <Scene key="NFCScanPage" component={NFCScanPage}/>
                     <Scene key="PersonalEmailPage" component={PersonalEmailPage}/>
                     <Scene key="PersonalMobilePage" component={PersonalMobilePage}/>
+                    <Scene key="AboutProductPage" component={AboutProductPage}/>
+                    <Scene key="ProductHistoryAntiFakePage" component={ProductHistoryAntiFakePage}/>
+                    <Scene key="ProductHistoryPage2" component={ProductHistoryPage2}/>
                 </Scene>
 
                 <Scene key="LoadingModal" component={LoadingModal}/>
                 <Scene key="ConfirmModal" component={ConfirmModal}/>
                 <Scene key="CommonConfirmModal2" component={CommonConfirmModal2}/>
+                <Scene key="CommonConfirmModal3" component={CommonConfirmModal3}/>
                 <Scene key="SuccessModal" component={SuccessModal}/>
 
             </Lightbox>

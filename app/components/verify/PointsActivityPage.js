@@ -10,6 +10,7 @@ import productDao from "../../dao/productDao";
 import * as Config from "../../config";
 import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 
 class PointsActivityPage extends BaseTitlePage {
@@ -32,11 +33,14 @@ class PointsActivityPage extends BaseTitlePage {
             this._refresh();
         })
     }
-
-    componentWillUnmount() {
-
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("PointsActivityPage");
     }
 
+
+    componentWillUnmount() {
+        AnalyticsUtil.onPageEnd("PointsActivityPage");
+    }
     /**
      * 刷新
      * */

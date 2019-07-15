@@ -20,42 +20,53 @@ class CommonProductHeader extends Component {
     render() {
         return (
 
-            <View style={[{height: 100,}, styles.flexDirectionRow,]}>
-                <Image source={{uri: this.props.data.productIcon}}
-                       style={[styles.centerH, {
-                           height: 100, width: 100,
-                           borderRadius: 5,
-                       },]}
-                       resizeMode={"stretch"}/>
+            <View style={[{}, styles.flexDirectionColumnNotFlex, styles.centered]}>
+                <Text selectable={true}
+                      style={[styles.largeTextBlackCharter,]}>
+                    {this.props.data.productName}
+                </Text>
+                <View style={[{height: 100, marginTop: 15}, styles.flexDirectionRowNotFlex,]}>
+                    <TouchableOpacity activeOpacity={Constant.activeOpacity}
+                                      onPress={() => {
+                                          Actions.AboutProductPage({"responseStr": JSON.stringify(this.props.data)})
+                                      }}>
+                        <Image source={{uri: this.props.data.productIcon}}
+                               style={[styles.centerH, {
+                                   height: 100, width: 100,
+                                   borderRadius: 5,
+                               },]}
+                               resizeMode={"stretch"}/>
+                    </TouchableOpacity>
 
-                <View style={{width: screenWidth - 170, marginLeft: Constant.normalMarginEdge}}>
-                    <Text numberOfLines={1} ellipsizeMode={"tail"} selectable={true}
-                          style={[styles.largeTextBlackCharter,]}>
-                        {this.props.data.productName}
-                    </Text>
+                    <View style={{width: screenWidth - 170, marginLeft: Constant.normalMarginEdge}}>
 
-                    {/* <View style={[styles.flexDirectionRowNotFlex, styles.centerH,]}>
+                        {/* <View style={[styles.flexDirectionRowNotFlex, styles.centerH,]}>
 
                         <Text style={styles.subSmallText}>
                             winery:</Text>*/}
-                    <TouchableOpacity activeOpacity={Constant.activeOpacity}
-                                      onPress={() => {
-                                          this.props.iconPress && this.props.iconPress();
-                                      }}>
-                        <Image style={{height: 20, width: 20, marginLeft: 2}}
-                               resizeMode={"stretch"}
-                               source={{uri: this.props.data.manufacturerIcon}}/>
+                        <TouchableOpacity activeOpacity={Constant.activeOpacity}
+                                          onPress={() => {
+                                              this.props.iconPress && this.props.iconPress();
+                                          }}>
+                            <Image style={{height: 20, width: 20, marginLeft: 2}}
+                                   resizeMode={"stretch"}
+                                   source={{uri: this.props.data.manufacturerIcon}}/>
 
-                    </TouchableOpacity>
-                    {/*</View>*/}
+                        </TouchableOpacity>
+                        {/*</View>*/}
 
-                    <View style={[styles.absoluteFull, {zIndex: -999, justifyContent: "flex-end",}]}>
-
-                        <Text
-                            numberOfLines={3}
-                            ellipsizeMode={"tail"}
-                            style={[styles.subMinText,]}>
-                            {this.props.data.productDesc}</Text>
+                        {/*<View style={[styles.absoluteFull, {zIndex: -999, justifyContent: "flex-end",}]}>*/}
+                        <TouchableOpacity activeOpacity={Constant.activeOpacity}
+                                          onPress={() => {
+                                              Actions.AboutProductPage({"responseStr": JSON.stringify(this.props.data)})
+                                          }}>
+                            <Text
+                                numberOfLines={4}
+                                ellipsizeMode={"tail"}
+                                style={[styles.subMinText, {marginTop: 12}]}>
+                                {this.props.data.shortDesc}</Text>
+                        </TouchableOpacity>
+                        {/*</View>*/}
                     </View>
                 </View>
             </View>

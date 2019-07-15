@@ -22,6 +22,7 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -38,6 +39,15 @@ class PersonalNamePage extends BaseTitlePage {
 
     componentDidMount() {
         this.initUserInfo();
+    }
+
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("PersonalNamePage");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("PersonalNamePage");
     }
 
     initUserInfo() {

@@ -19,15 +19,22 @@ import Toast from '../../components/common/ToastProxy';
 import {CalendarList, LocaleConfig} from "react-native-calendars";
 import formatDate, {isBehind} from "../../utils/timeUtil";
 import moment from "moment";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 LocaleConfig.locales['en'] = {
     monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     monthNamesShort: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    dayNamesShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    dayNames: ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 };
 
-LocaleConfig.defaultLocale = 'en';
+LocaleConfig.locales['ch'] = {
+    monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    monthNamesShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    dayNames: ['日', '一', '二', '三', '四', '五', '六'],
+    dayNamesShort: ['日', '一', '二', '三', '四', '五', '六'],
+};
+
 
 /**
  * 签到
@@ -40,6 +47,15 @@ class CheckInPage extends BaseTitlePage {
         this.state = {
             data: [],
         }
+    }
+
+    componentWillMount(){
+        LocaleConfig.defaultLocale = Constant.APP_TYPE === 2?"ch":'en';
+        AnalyticsUtil.onPageBegin("CheckInPage");
+    }
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("CheckInPage");
     }
 
     componentDidMount() {
@@ -124,19 +140,19 @@ class CheckInPage extends BaseTitlePage {
             button = <TouchableOpacity activeOpacity={Constant.activeOpacity}
                                        onPress={() => {
                                            Actions.LoadingModal({text: i18n("Checking"), backExit: false});
-                                           vUserDao.checkIn().then((res) => {
-                                               this.exitLoading();
-                                               if (res.code === 200) {
-                                                   vUserDao.localUserInfo().then((data) => {
-                                                       data.points = parseInt(data.points) + parseInt(res.data.points);
-                                                       return vUserDao.saveLocalUserInfo(data)
-                                                   }).then((result) => {
-                                                       DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
-                                                       Toast(i18n("check_in_successful") + "  +" + res.data.points + "  " + i18n("integral"));
+                                           vUserDao.checkIn().then((resCheck) => {
+                                               if (resCheck.code === 200) {
+                                                   vUserDao.userinfo().then(res => {
+                                                       this.exitLoading();
                                                        this._getCheckInRecord();
-                                                   })
+                                                       Toast(i18n("check_in_successful") + "  +" + resCheck.data.points + "  " + i18n("integral"));
+                                                       if(res.code === 200){
+                                                           DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
+                                                       }
+                                                   });
                                                } else {
-                                                   Toast(res.message);
+                                                   this.exitLoading();
+                                                   Toast(resCheck.message);
                                                }
                                            })
                                        }}>
@@ -181,7 +197,7 @@ class CheckInPage extends BaseTitlePage {
                     markedDates={
                         markedDates
                     }
-                    calendarHeight={500}
+                    calendarHeight={480}
                     markingType={'period'}
                     theme={{
                         monthTextColor: 'black',
@@ -200,7 +216,7 @@ class CheckInPage extends BaseTitlePage {
 
                     <View style={[{
                         paddingHorizontal: 36,
-                        paddingVertical: 14,
+                        paddingBottom: 14,
                         opacity: hasToday ? Constant.activeOpacity : 1
                     },]}>
 

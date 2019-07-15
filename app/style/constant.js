@@ -104,16 +104,23 @@ export const REFRESH_LANGUAGE = "refreshLanguageApp";
 
 export const USERINFO_CHANGE = "userinfo-change";
 export const USER_INFOV = "user-infoV";
+export const USER_LGIN_INFO = "user-login-info";
+
+export let VERSION_URL = "version_url";
+export let VERSION = "";
 
 export const USER_AUTH = "USER-AUTH";
 
 export const CHANGE_PERSONAL = "CHANGE_PERSONAL";
+export const CHANGE_VERSION = "CHANGE_VERSION";
 export const CHANGE_ADDRESS = "CHANGE_ADDRESS";
 export const CHANGE_DEFAULT_ADDRESS = "CHANGE_DEFAULT_ADDRESS";
 
 export const TIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
 export const DATE_FORMAT = "YYYY-MM-DD";
 export const EN_DATE_FORMAT = "MMM DD YYYY";
+
+export const APPLE_ID = "1454802486";
 
 export let DEFAULT_ADDRESS = "";
 
@@ -124,7 +131,15 @@ export const API = "https://api.viverify.com/";
 export const API_USER_AGREEMENT = API + "system/user/agreement?lang=EN";
 export const API_ABOUT_US = API + "system/about/us?lang=EN";
 export const API_MAP = API + "source/tracing/";
-export const NULL_ = "N/A";
+export let NULL_ = "N/A";
 
-//0 欧洲版本  1ios国际版
+//0 欧洲版本AU  1ios国际版   2中文版
 export let APP_TYPE = 0;
+
+export let REGION = "";
+
+export let longitude = "";
+export let latitude = "";
+export let DEVICE_ID = "";
+
+export let versionUrl;

@@ -5,6 +5,7 @@ import {
 import styles from "../../style/index"
 import PropTypes from 'prop-types';
 import * as Constant from '../../style/constant'
+import ConfirmModal from "./CommonConfirmModal2";
 
 /**
  * 带图标的button
@@ -30,8 +31,8 @@ class CommonIconTextButton extends Component {
                     style={[{
                         borderColor: "#D7D7D7",
                         borderWidth: 1,
-                        borderRadius: 21,
-                        paddingVertical: 8,
+                        borderRadius: this.props.borderRadius,
+                        paddingVertical: this.props.paddingVertical,
                     }, styles.flexDirectionRowNotFlex, styles.centered]}>
                     <Image source={this.props.icon} style={[[...this.props.iconStyle]]}/>
                     <Text style={[[...this.props.textStyle], {marginLeft: 5}]}>{this.props.text}</Text>
@@ -49,6 +50,12 @@ CommonIconTextButton.propTypes = {
     onPress: PropTypes.func,
     width: PropTypes.number,
     activeOpacity: PropTypes.number,
+    paddingVertical: PropTypes.number,
+    borderRadius: PropTypes.number,
+};
+CommonIconTextButton.defaultProps = {
+    paddingVertical: 8,
+    borderRadius: 21,
 };
 
 export default CommonIconTextButton;

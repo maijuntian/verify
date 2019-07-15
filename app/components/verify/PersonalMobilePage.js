@@ -23,6 +23,7 @@ import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
 import CommonIconTextButton from "../common/CommonIconTextButton";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -35,10 +36,17 @@ class PersonalMobilePage extends BaseTitlePage {
             mobile: "",
             code: "",
             time: -1,
+            isSending: false,
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("PersonalMobilePage");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("PersonalMobilePage");
     }
 
 
@@ -152,14 +160,16 @@ class PersonalMobilePage extends BaseTitlePage {
                                           activeOpacity={1}
                                           width={78}
                                           onPress={() => {
-                                              if (this.state.time <= 0) {
+                                              if (!this.state.isSending && this.state.time <= 0) {
 
                                                   if(this.state.mobile === ""){
                                                       Toast(i18n("Invalid_phone_number"));
                                                       return;
                                                   }
 
+                                                  this.state.isSending = true;
                                                   vUserDao.snsCode(this.state.mobile).then((res) => {
+                                                      this.state.isSending = false;
                                                       if (res.code === 200) {
                                                           this.toNext();
                                                       } else {

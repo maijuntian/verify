@@ -9,6 +9,7 @@ import I18n from "../../style/i18n";
 import {screenWidth} from "../../style";
 import * as Constant from "../../style/constant";
 import styles from "../../style";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 关于
@@ -22,6 +23,14 @@ class AboutHistoryPage extends BaseTitlePage {
             product: {
             },
         }
+    }
+
+    componentWillMount(){
+        AnalyticsUtil.onPageBegin("AboutHistoryPage");
+    }
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("AboutHistoryPage");
     }
 
     componentDidMount() {

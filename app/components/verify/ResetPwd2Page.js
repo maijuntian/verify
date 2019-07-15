@@ -23,6 +23,8 @@ import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
 import CommonIconTextButton from "../common/CommonIconTextButton";
+import {home} from "../../utils/PageUtils";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -39,6 +41,7 @@ class ResetPwd2Page extends BaseTitlePage {
             code: "",
             time: 60,
             isPwd: true,
+            isSending:false,
         }
     }
 
@@ -46,6 +49,14 @@ class ResetPwd2Page extends BaseTitlePage {
         this.toNext();
     }
 
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("ResetPwd2Page");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("ResetPwd2Page");
+    }
 
     _title() {
         return i18n("Reset_Password");
@@ -69,23 +80,6 @@ class ResetPwd2Page extends BaseTitlePage {
     }
 
 
-    _rightPress() {
-        Actions.LoadingModal({text: i18n("Saving"), backExit: false});
-        Keyboard.dismiss();
-        vUserDao.updateInfo({"nickname": this.state.nickname}).then((res) => {
-            this.exitLoading();
-            if (res.code === 200) {
-                this.state.userInfo.nickname = this.state.nickname;
-                vUserDao.saveLocalUserInfo(this.state.userInfo).then((res) => {
-                    DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
-                    Actions.pop();
-                })
-            } else {
-                Toast.show(res.message);
-            }
-        })
-    }
-
     exitLoading() {
         if (Actions.currentScene === 'LoadingModal') {
             Actions.pop();
@@ -93,7 +87,7 @@ class ResetPwd2Page extends BaseTitlePage {
     }
 
     login(){
-        vUserDao.login(this.state.account, this.state.password).then((res) => {
+        vUserDao.login(this.state.account, this.state.newPwd1).then((res) => {
             if (res.code === 200) {
                 return vUserDao.userinfo();
             } else {
@@ -106,8 +100,9 @@ class ResetPwd2Page extends BaseTitlePage {
                 return;
             if (res.code === 200) {
                 DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
-                Actions.pop();
-                Actions.pop();
+                home(res.data.region);
+                // Actions.pop();
+                // Actions.pop();
             } else {
                 Toast(res.message);
             }
@@ -128,6 +123,7 @@ class ResetPwd2Page extends BaseTitlePage {
         }
         let pwdIcon = this.state.isPwd ? require("../../img/icon_eye_n.png") : require("../../img/icon_eye_s.png");
 
+        let typeStr = this.state.type === 'email'? i18n("email"): i18n("phone");
         return (
             <View style={[{
                 marginTop: 30,
@@ -136,7 +132,7 @@ class ResetPwd2Page extends BaseTitlePage {
             }, styles.flexDirectionColumnNotFlex]}>
 
                 <Text
-                    style={styles.minTextsGray}>{i18n("Safety_Checking_tip1") + " " + this.state.type + " " + this.state.account + i18n("Safety_Checking_tip2")}</Text>
+                    style={styles.minTextsGray}>{i18n("Safety_Checking_tip1") + " " + typeStr + " " + this.state.account + i18n("Safety_Checking_tip2")}</Text>
 
                 <View style={[{marginTop: 15}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
                     <TextInput
@@ -155,9 +151,11 @@ class ResetPwd2Page extends BaseTitlePage {
                                           activeOpacity={1}
                                           width={inputIconWidth}
                                           onPress={() => {
-                                              if (this.state.time <= 0) {
+                                              if (!this.state.isSending && this.state.time <= 0) {
+                                                  this.state.isSending = true;
                                                   if (this.state.type === "phone") {
                                                       vUserDao.snsCode(this.state.account).then((res) => {
+                                                          this.state.isSending = false;
                                                           if (res.code === 200) {
                                                               this.toNext();
                                                           } else {
@@ -166,6 +164,7 @@ class ResetPwd2Page extends BaseTitlePage {
                                                       });
                                                   } else {
                                                       vUserDao.emailCode2(this.state.account).then((res) => {
+                                                          this.state.isSending = false;
                                                           if (res.code === 200) {
                                                               this.toNext();
                                                           } else {
@@ -239,8 +238,8 @@ class ResetPwd2Page extends BaseTitlePage {
                                           return;
                                       }
 
-                                      if (this.state.newPwd2 === "") {
-                                          Toast(i18n("input_pwd_tip2"));
+                                      if (this.state.newPwd1 !== this.state.newPwd2) {
+                                          Toast(i18n("input_pwd_tip3"));
                                           return;
                                       }
 
@@ -249,10 +248,6 @@ class ResetPwd2Page extends BaseTitlePage {
                                           return;
                                       }
 
-                                      if (this.state.newPwd1 !== this.state.newPwd2) {
-                                          Toast(i18n("input_pwd_tip3"));
-                                          return;
-                                      }
 
                                       Actions.LoadingModal({text: i18n("Resetting"), backExit: false});
                                       vUserDao.resetPwd(this.state.account, this.state.newPwd1, this.state.code).then((res) => {

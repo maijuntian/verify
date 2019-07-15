@@ -13,6 +13,7 @@ import {screenWidth} from "../../style";
 import styles from "../../style";
 import * as Constant from "../../style/constant";
 import Icon from 'react-native-vector-icons/Feather'
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 等级说明
@@ -28,13 +29,25 @@ class RankInterestsPage extends BaseTitlePage {
         return i18n("Rights_and_interests");
     }
 
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("RankInterestsPage");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("RankInterestsPage");
+    }
+
     _reader() {
+
+        let tipImage = Constant.APP_TYPE === 2 ? require("../../img/integral_details.png") : require("../../img/integral_details_en.png");
+
         return (
             <ScrollView>
                 <View style={styles.flexDirectionColumnNotFlex}>
-                    <Image style={[{width: screenWidth, height: 2.147 * screenWidth}]}
+                    <Image style={[{width: screenWidth, height: 2.105 * screenWidth}]}
                            resizeMode={"stretch"}
-                           source={require("../../img/rank_tip.png")}>
+                           source={tipImage}>
                     </Image>
                     <View style={[{
                         width: screenWidth,

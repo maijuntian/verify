@@ -8,6 +8,7 @@ import {Actions} from "react-native-router-flux";
 import PullListView from "../widget/PullLoadMoreListView";
 import productDao from "../../dao/productDao";
 import * as Config from "../../config";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 
 class ProductListPage extends Component {
@@ -35,8 +36,13 @@ class ProductListPage extends Component {
         })
     }
 
-    componentWillUnmount() {
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("ProductListPage");
+    }
 
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("ProductListPage");
     }
 
     /**
@@ -241,11 +247,11 @@ class ProductListPage extends Component {
 
                                         <View style={[{marginLeft: 10, marginTop: 5}, styles.flexDirectionRowNotFlex, styles.centerH]}>
                                             <Text
-                                                style={[styles.smallTextBlack]}>{item.discount} {i18n("Integral")}</Text>
+                                                style={[styles.smallTextBlack]}>{item.discount === 0 ? item.pointsDisplay : item.discountDisplay} {i18n("Integral")}</Text>
                                             <Text style={[{
                                                 marginLeft: 5,
                                                 textDecorationLine: "line-through"
-                                            }, styles.minTextsGray]}>{item.points}</Text>
+                                            }, styles.minTextsGray]}>{item.discount === 0 ? "" : item.pointsDisplay}</Text>
                                         </View>
                                     </View>
                                 </View>

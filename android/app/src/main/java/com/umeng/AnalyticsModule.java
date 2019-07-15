@@ -1,5 +1,7 @@
 package com.umeng;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,9 +44,10 @@ public class AnalyticsModule extends ReactContextBaseJavaModule {
 
     /********************************U-App统计*********************************/
     @ReactMethod
-    public void onPageStart(String pageName) {
+    public void onPageBegin(String pageName) {
         //android.util.Log.e("xxxxxx","onPageStart="+mPageName);
 
+        Log.e("test", "onPageStart-->" + pageName);
         MobclickAgent.onPageStart(pageName);
     }
 
@@ -52,6 +55,7 @@ public class AnalyticsModule extends ReactContextBaseJavaModule {
     public void onPageEnd(String pageName) {
         //android.util.Log.e("xxxxxx","onPageEnd="+mPageName);
 
+        Log.e("test", "onPageEnd-->" + pageName);
         MobclickAgent.onPageEnd(pageName);
 
     }

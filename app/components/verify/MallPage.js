@@ -26,6 +26,8 @@ import {Actions} from "react-native-router-flux";
 import vUserDao from "../../dao/vUserDao";
 import PersonalPage from "./PersonalPage";
 import {white} from "../../style/constant";
+import {loginPage} from "../../utils/PageUtils";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 商城
@@ -85,10 +87,16 @@ class MallPage extends Component {
 
     componentWillUnmount() {
         this.subscription.remove();
+        AnalyticsUtil.onPageEnd("MallPage");
+    }
+    componentWillMount(){
+        AnalyticsUtil.onPageBegin("MallPage");
     }
 
 
     _renderHeader() {
+
+        let banner = constant.APP_TYPE === 2 ? require("../../img/exchange_gifts_cn.png") : require("../../img/exchange_gifts.png");
 
         let userView;
         if (vUserDao.isLogin(this.state.userInfo)) {
@@ -157,7 +165,8 @@ class MallPage extends Component {
 
                     <View style={[styles.flexDirectionColumnNotFlex, {marginLeft: 10, paddingBottom: 10}]}>
                         <Text
-                            style={[{marginTop: 5}, styles.largeTextBlackCharter]}>{this.state.userInfo.nickname}</Text>
+                            style={[{marginTop: 5, width: screenWidth - 140}, styles.largeTextBlackCharter]}
+                            numberOfLines={1}>{this.state.userInfo.nickname}</Text>
                         <Text
                             style={[{marginTop: 5}, styles.subMinText]}>{this.state.userInfo.points} {I18n("Integral")}</Text>
                         <Text style={[{marginTop: -3}, styles.subMinText]}></Text>
@@ -166,7 +175,6 @@ class MallPage extends Component {
                     <View style={[
                         styles.absoluteFull, styles.flexDirectionColumnNotFlex, styles.centerV, {
                             marginTop: 30,
-                            zIndex: -999,
                             alignItems: 'flex-end'
                         }]}>
 
@@ -180,7 +188,7 @@ class MallPage extends Component {
                                 borderWidth: 1,
                                 borderRadius: 5,
                                 width: 86,
-                                height: 18,
+                                height: 22,
                                 marginRight: -1,
                             }, styles.centered]}>
                                 <CommonIconText
@@ -275,7 +283,7 @@ class MallPage extends Component {
                         <TouchableOpacity
                             activeOpacity={constant.activeOpacity}
                             onPress={() => {
-                                Actions.LoginPage();
+                                loginPage();
                             }}>
                             <View style={[{
                                 borderColor: "#EFEFEF",
@@ -306,7 +314,7 @@ class MallPage extends Component {
 
                 <View style={[styles.centered, {width: screenWidth, padding: 10}]}>
                     <Image style={[{height: 26, width: 188,}]}
-                           source={require("../../img/exchange_gifts.png")}/>
+                           source={banner}/>
 
                     <View style={[styles.absoluteFull, styles.centerV,
                         {
@@ -353,10 +361,11 @@ class MallPage extends Component {
                 renderItem={({item, index}) => {
                     let marginRight = index % 2 === 0 ? 0 : dividerW;
                     return (
-                        <TouchableOpacity activeOpacity={constant.activeOpacity}
-                                          onPress={() => {
-                                              Actions.ProductDetailPage({"productStr": JSON.stringify(item)});
-                                          }}>
+                        <TouchableOpacity
+                            activeOpacity={constant.activeOpacity}
+                            onPress={() => {
+                                Actions.ProductDetailPage({"productStr": JSON.stringify(item)});
+                            }}>
                             <View
                                 style={[{
                                     width: ((screenWidth - dividerW * 3) / 2),
@@ -385,17 +394,18 @@ class MallPage extends Component {
                                         marginTop: 5
                                     }, styles.flexDirectionRowNotFlex, styles.centerH]}>
                                         <Text
-                                            style={[styles.smallTextBlack]}>{item.discount === 0 ? item.points : item.discount} {I18n("Integral")}</Text>
+                                            style={[styles.smallTextBlack]}>{item.discount === 0 ? item.pointsDisplay : item.discountDisplay} {I18n("Integral")}</Text>
                                         <Text style={[{
                                             marginLeft: 5,
                                             textDecorationLine: "line-through"
-                                        }, styles.minTextsGray]}>{item.discount === 0 ? "" : item.points}</Text>
+                                        }, styles.minTextsGray]}>{item.discount === 0 ? "" : item.pointsDisplay}</Text>
                                     </View>
                                 </View>
                             </View>
                         </TouchableOpacity>
                     )
                 }}
+                keyExtractor={(item, index) => index.toString()}
             />
         )
     }

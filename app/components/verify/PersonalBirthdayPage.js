@@ -15,6 +15,7 @@ import styles from "../../style";
 import vUserDao from "../../dao/vUserDao";
 import Toast from "../common/ToastProxy";
 import {Actions} from "react-native-router-flux";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 const month_en = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -43,6 +44,15 @@ class PersonalBirthdayPage extends BaseTitlePage {
         }
     }
 
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("PersonalBirthdayPage");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("PersonalBirthdayPage");
+    }
+
     _title() {
         return i18n('Date_of_Birth');
     }
@@ -54,12 +64,12 @@ class PersonalBirthdayPage extends BaseTitlePage {
     _rightPress() {
 
         let monthStr = (this.state.selectedMonth + 1);
-        if(monthStr < 10)
+        if (monthStr < 10)
             monthStr = "0" + monthStr;
 
 
         let dayStr = this.state.day[this.state.selectedDay];
-        if(dayStr < 10)
+        if (dayStr < 10)
             dayStr = "0" + dayStr;
 
         let birthday = this.state.year[this.state.selectedYear] + "-" + monthStr + "-" + dayStr;
@@ -120,7 +130,7 @@ class PersonalBirthdayPage extends BaseTitlePage {
     componentWillMount() {
         let currYear = moment().get("year");
 
-        let birthday = moment(this.state.birthday, Constant.EN_DATE_FORMAT);
+        let birthday = moment(this.state.birthday, Constant.APP_TYPE === 2 ? Constant.DATE_FORMAT : Constant.EN_DATE_FORMAT);
 
         this.state.selectedYear = 100 - (currYear - birthday.get("year"));
         this.state.selectedMonth = birthday.get("month");

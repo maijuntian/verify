@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
         backgroundColor: constant.white,
         flex: 1
     },
+    mainBox2: {
+        backgroundColor: constant.grayBg,
+        flex: 1
+    },
     flex: {
         flex: 1,
     },
@@ -136,6 +140,10 @@ const styles = StyleSheet.create({
     b40MinText: {
         color: constant.black40,
         fontSize: constant.minTextSize,
+    },
+    gray6AsmallText: {
+        color: constant.gray6A,
+        fontSize: constant.smallTextSize,
     },
     subsMinText: {
         color: constant.subTextColor,
@@ -357,6 +365,11 @@ const styles = StyleSheet.create({
         width: screenWidth,
         height: 1,
         backgroundColor: "#E3E3E3"
+    },
+    dividerLineC1: {
+        width: 84,
+        height: 1,
+        backgroundColor: "#C1C1C1"
     },
     dividerLineE6: {
         width: screenWidth,

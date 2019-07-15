@@ -12,6 +12,8 @@ import I18n from "../../style/i18n";
 import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
 import Toast from '../common/ToastProxy';
+import {loginPage} from "../../utils/PageUtils";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 详情
@@ -24,6 +26,15 @@ class ProductDetailPage extends BaseTitlePage {
             productStr: this.props.productStr,
             product: {},
         }
+    }
+
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("ProductDetailPage");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("ProductDetailPage");
     }
 
     _title() {
@@ -100,12 +111,12 @@ class ProductDetailPage extends BaseTitlePage {
                     <View style={[styles.flexDirectionRow, styles.alignItemsEnd]}>
                         <Text style={[styles.subMinText, {marginBottom: 3,}]}>{I18n("Integral")}: </Text>
                         <Text
-                            style={[styles.normalTextBlack]}>{this.state.product.discount === 0 ? this.state.product.points : this.state.product.discount}</Text>
+                            style={[styles.normalTextBlack]}>{this.state.product.discount === 0 ? this.state.product.pointsDisplay : this.state.product.discountDisplay}</Text>
                         <Text style={[{
                             marginLeft: 5,
                             marginBottom: 2,
                             textDecorationLine: "line-through",
-                        }, styles.smallTextGray,]}>{this.state.product.discount === 0 ? "" : this.state.product.points}</Text>
+                        }, styles.smallTextGray,]}>{this.state.product.discount === 0 ? "" : this.state.product.pointsDisplay}</Text>
                     </View>
 
                     <Text style={[{paddingBottom: 3}, styles.subMinText,]}>{I18n("Rank")}: </Text>
@@ -164,7 +175,7 @@ class ProductDetailPage extends BaseTitlePage {
 
                                                       });
                                                   } else {
-                                                      Actions.LoginPage();
+                                                      loginPage();
                                                   }
                                               })
 

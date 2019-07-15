@@ -4,7 +4,7 @@
 
 import React, {Component} from 'react';
 import {
-    View, Image, StatusBar, Platform, Animated, Easing, Text
+    View, Image, StatusBar, Platform, Animated, Easing, Text, Linking
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles, {screenHeight, screenWidth} from "../style"
@@ -13,6 +13,10 @@ import SplashScreen from './widget/native/SplashNative'
 import * as constant from "../style/constant"
 import vUserDao from "../dao/vUserDao";
 import toast from "./common/ToastProxy";
+import i18n, {changeLocale} from "../style/i18n";
+import {home, home2} from "../utils/PageUtils";
+import AnalyticsUtil from "../utils/AnalyticsUtil";
+import DeviceInfo from "react-native-device-info";
 
 /**
  * 欢迎页
@@ -24,34 +28,61 @@ class WelcomePage extends Component {
         this.toNext = this.toNext.bind(this);
     }
 
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("WelcomePage");
+    }
+
+    componentWillUnmount() {
+        AnalyticsUtil.onPageEnd("WelcomePage");
+    }
 
     componentDidMount() {
         //处理白屏
         if (Platform.OS === 'android') {
             SplashScreen.hide();
         }
-        this.toNext()
+        Constant.VERSION = DeviceInfo.getVersion();
+        Constant.VERSION_URL += Constant.VERSION;
+
+        this.toNext();
     }
 
 
-    toNext(res) {
+    toNext() {
         setTimeout(() => {
-            vUserDao.isLoginAsync().then((res)=>{
-                if(res){
+            vUserDao.isLoginAsync().then((res) => {
+                if (res) {
                     console.log("开始获取用户信息---》");
                     return vUserDao.userinfo();
                 } else {
                     return null;
                 }
-            }).then((res)=>{
-                if(constant.APP_TYPE === 1){
-                    Actions.reset("root_inter");
+            }).then((res) => {
+                if (res) {
+                    if (res.code === 200 && res.data.region) {
+                        home(res.data.region);
+                    } else {
+                        // toast(res.message);
+                        vUserDao.clearInfo();
+                        this.region();
+                    }
                 } else {
-                    Actions.reset("root");
+                    this.region();
                 }
             });
-        }, 2000);
+        }, 1000);
     }
+
+    region(){
+        vUserDao.region().then((res) => {
+            if (res.code === 200) {
+                home(res.data);
+            } else {
+                toast(res.message);
+            }
+        });
+    }
+
 
     render() {
         let iconWidth = screenWidth * 0.417;

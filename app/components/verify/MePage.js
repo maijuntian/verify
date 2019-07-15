@@ -21,6 +21,8 @@ import Icon from 'react-native-vector-icons/Feather'
 import {Actions} from 'react-native-router-flux';
 import * as Config from "../../config";
 import vUserDao from "../../dao/vUserDao";
+import {loginPage} from "../../utils/PageUtils";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 我的
@@ -31,10 +33,11 @@ class MePage extends Component {
         super(props);
 
         this.state = {
+            isRedPoint: false,
             userInfo: {},
-            items: Constant.APP_TYPE === 1 ? [{key: I18n("Profile")}
+            items: /*Constant.APP_TYPE === 1 ? [{key: I18n("Profile")}
                     , {key: I18n("Verification_record")}
-                    , {key: I18n("Settings")}] :
+                    , {key: I18n("Settings")}] :*/
                 [{key: I18n("Profile")}
                     , {key: I18n("Verification_record")}
                     , {key: I18n('Integral_detail')}
@@ -55,29 +58,40 @@ class MePage extends Component {
         })
     }
 
-    componentDidMount() {
-
-        this.initUserInfo();
-        this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
-            //接收到详情页发送的通知，刷新数据
-            this.initUserInfo();
-            /*vUserDao.isLoginAsync().then((res) => {
-                if (!res) {
-                    Actions.HomePage();
-                }
-            })*/
+    initRedPoint() {
+        vUserDao.getVersionUrl().then((res) => {
+            this.setState({
+                isRedPoint: !!res
+            });
         });
     }
 
     componentWillUnmount() {
         this.subscription.remove();
-    };
+        this.subscription2.remove();
+        AnalyticsUtil.onPageEnd("MePage");
+    }
+
+    componentWillMount() {
+        this.initRedPoint();
+        this.initUserInfo();
+        this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
+            //接收到详情页发送的通知，刷新数据
+            this.initUserInfo();
+        });
+
+        this.subscription2 = DeviceEventEmitter.addListener(Constant.CHANGE_VERSION, () => {
+            this.initRedPoint();
+        });
+        AnalyticsUtil.onPageBegin("MePage");
+    }
+
 
     checkUserLogin() {
         if (vUserDao.isLogin(this.state.userInfo)) {
             return true;
         }
-        Actions.LoginPage();
+        loginPage();
         return false;
     }
 
@@ -94,8 +108,7 @@ class MePage extends Component {
                     height: 72,
                 }, styles.flexDirectionRowNotFlex, styles.centerH]}>
                     <Image style={[{height: 72, width: 72, borderRadius: 36, marginLeft: 30},]}
-                           source={{uri: this.state.userInfo.icon}}
-                    />
+                           source={{uri: this.state.userInfo.icon}} />
 
                     <Text
                         style={[{marginLeft: 10, width: screenWidth - 122}, styles.largeTextWhite_Charter]}
@@ -104,7 +117,7 @@ class MePage extends Component {
 
                 <View style={[{
                     marginTop: 15, marginLeft: 50,
-                    opacity: Constant.APP_TYPE === 1 ? 0 : 1
+                    // opacity: Constant.APP_TYPE === 1 ? 0 : 1
                 }, styles.flexDirectionRowNotFlex,]}>
                     <View style={[styles.flexDirectionRowNotFlex, styles.centered]}>
 
@@ -159,7 +172,7 @@ class MePage extends Component {
                             <TouchableOpacity
                                 activeOpacity={Constant.activeOpacity}
                                 onPress={() => {
-                                    Actions.LoginPage();
+                                    loginPage();
                                 }}>
                                 <View style={[{
                                     borderColor: "#EFEFEF",
@@ -193,6 +206,18 @@ class MePage extends Component {
 
                         let view = index === (this.state.items.length - 1) ? <View/> :
                             <View style={styles.dividerLineF6}/>;
+
+                        let redView = this.state.isRedPoint && index === (this.state.items.length - 1) ?
+                            <View style={[{
+                                height: 5,
+                                width: 5,
+                                backgroundColor: 'red',
+                                borderRadius: 2.5,
+                                marginBottom: 10,
+                                marginLeft: 3
+                            }]}/> :
+                            <View/>;
+
 
                         return (
                             <View style={styles.flexDirectionColumnNotFlex}>
@@ -242,6 +267,7 @@ class MePage extends Component {
 
                                     <Text style={styles.smallTextBlack}>{item.key}</Text>
 
+                                    {redView}
 
                                     <View style={[styles.absoluteFull, {
                                         zIndex: -999,
@@ -258,7 +284,10 @@ class MePage extends Component {
                                 {view}
                             </View>
                         )
-                    }}/>
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                    extraData={this.state}
+                />
             </View>
         )
     }

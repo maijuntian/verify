@@ -23,6 +23,8 @@ import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
 import CommonIconTextButton from "../common/CommonIconTextButton";
+import {home} from "../../utils/PageUtils";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -37,6 +39,7 @@ class Register2Page extends BaseTitlePage {
             type: this.props.type,
             code: "",
             time: 60,
+            isSending: false,
         }
     }
 
@@ -44,6 +47,14 @@ class Register2Page extends BaseTitlePage {
         this.toNext();
     }
 
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("Register2Page");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("Register2Page");
+    }
 
     _title() {
         return i18n("Safety_Checking");
@@ -90,7 +101,7 @@ class Register2Page extends BaseTitlePage {
         }
     }
 
-    login(){
+    login() {
         vUserDao.login(this.state.account, this.state.password).then((res) => {
             if (res.code === 200) {
                 return vUserDao.userinfo();
@@ -100,12 +111,14 @@ class Register2Page extends BaseTitlePage {
             }
         }).then((res) => {
             this.exitLoading();
-            if(res === null)
+            if (res === null)
                 return;
             if (res.code === 200) {
                 DeviceEventEmitter.emit(Constant.CHANGE_PERSONAL);
-                Actions.pop();
-                Actions.pop();
+                home(res.data.region);
+
+                // Actions.pop();
+                // Actions.pop();
             } else {
                 Toast(res.message);
             }
@@ -125,7 +138,9 @@ class Register2Page extends BaseTitlePage {
             text = i18n("Resend");
         }
 
+        let typeStr = this.state.type === 'email' ? i18n("email") : i18n("phone");
         return (
+
             <View style={[{
                 marginTop: 30,
                 marginHorizontal: 40,
@@ -133,7 +148,7 @@ class Register2Page extends BaseTitlePage {
             }, styles.flexDirectionColumnNotFlex]}>
 
                 <Text
-                    style={styles.minTextsGray}>{i18n("Safety_Checking_tip1") + " " + this.state.type + " " + this.state.account + i18n("Safety_Checking_tip2")}</Text>
+                    style={styles.minTextsGray}>{i18n("Safety_Checking_tip1") + " " + typeStr + " " + this.state.account + i18n("Safety_Checking_tip2")}</Text>
 
                 <View style={[{marginTop: 15}, styles.flexDirectionRowNotFlex, styles.centerH,]}>
                     <TextInput
@@ -153,9 +168,11 @@ class Register2Page extends BaseTitlePage {
                                           activeOpacity={1}
                                           width={inputIconWidth}
                                           onPress={() => {
-                                              if (this.state.time <= 0) {
+                                              if (!this.state.isSending && this.state.time <= 0) {
+                                                  this.state.isSending = true;
                                                   if (this.state.type === "phone") {
                                                       vUserDao.snsCode(this.state.account).then((res) => {
+                                                          this.state.isSending = false;
                                                           if (res.code === 200) {
                                                               this.toNext();
                                                           } else {
@@ -164,6 +181,7 @@ class Register2Page extends BaseTitlePage {
                                                       });
                                                   } else {
                                                       vUserDao.emailCode(this.state.account).then((res) => {
+                                                          this.state.isSending = false;
                                                           if (res.code === 200) {
                                                               this.toNext();
                                                           } else {

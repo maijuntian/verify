@@ -7,7 +7,9 @@ import {
     Easing,
     Image,
     ImageBackground,
-    InteractionManager, TouchableOpacity, Alert, DeviceEventEmitter
+    Linking,
+    NativeModules,
+    InteractionManager, TouchableOpacity, Alert, DeviceEventEmitter, Platform
 } from 'react-native';
 
 import {RNCamera} from 'react-native-camera'
@@ -24,6 +26,9 @@ import {readerQR} from "react-native-lewin-qrcode";
 import * as Config from "../../config";
 import productDao from "../../dao/productDao";
 import vUserDao from "../../dao/vUserDao";
+import {loginPage} from "../../utils/PageUtils";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
+import CommonTitleBar from "../common/CommonTitleBar";
 
 var ImagePicker = require('react-native-image-picker');
 
@@ -39,6 +44,7 @@ class ScanQrCodePage extends Component {
     }
 
     componentWillMount() {
+        AnalyticsUtil.onPageBegin("ScanQrCodePage");
         this.subscription = DeviceEventEmitter.addListener(Constant.CHANGE_PERSONAL, () => {
             //接收到详情页发送的通知，刷新数据
             this.parseCode(this.lastCodeStr);
@@ -48,11 +54,13 @@ class ScanQrCodePage extends Component {
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
             this.startAnimation();
-        })
-        this.parseCode("https://api.viverify.com/source/authentication/10000001");
+        });
+
+        // this.parseCode("https://api.viverify.com/source/authentication/union/testtesttesttesttesttesttesttest");
     }
 
     componentWillUnmount() {
+        AnalyticsUtil.onPageEnd("ScanQrCodePage");
         this.state.show = false;
         this.subscription.remove();
     }
@@ -132,12 +140,12 @@ class ScanQrCodePage extends Component {
         });
 
 
-        if (codeStr.indexOf("authentication") !== -1) {
+        if (codeStr.indexOf("/a/") !== -1) {
             vUserDao.isLoginAsync().then((res) => {
                 if (res) {
                     this.recognizeCode(codeStr);
                 } else {
-                    Actions.LoginPage();
+                    loginPage();
                 }
             })
         } else {
@@ -153,7 +161,21 @@ class ScanQrCodePage extends Component {
                 this.exitLoading();
 
                 if (res.code && (res.code === 200 || res.code === 410 || res.code === 208)) {
-                    if (codeStr.indexOf("tracing") !== -1) {
+                    if(codeStr.indexOf("/union/")){
+                        vUserDao.isLoginAsync().then((res2) => {
+                            if(res2){
+                                Actions.replace("ProductHistoryAntiFakePage", {
+                                    "responseStr": JSON.stringify(res.data),
+                                    code: res.code
+                                });
+                            } else {
+                                Actions.replace("ProductHistoryPage2", {
+                                    "responseStr": JSON.stringify(res.data),
+                                    code: res.code
+                                });
+                            }
+                        })
+                    }else if (codeStr.indexOf("/t/") !== -1) {
                         // Actions.ProductHistoryPage({"responseStr": JSON.stringify(res.data)});
                         Actions.replace("ProductHistoryPage", {
                             "responseStr": JSON.stringify(res.data),
@@ -161,7 +183,10 @@ class ScanQrCodePage extends Component {
                         });
                     } else {
                         // Actions.popAndPush("AntiFakePage", {"responseStr": JSON.stringify(res.data)});
-                        Actions.replace("AntiFakePage", {"responseStr": JSON.stringify(res.data), code: res.code});
+                        Actions.replace("ProductHistoryAntiFakePage", {
+                            "responseStr": JSON.stringify(res.data),
+                            code: res.code
+                        });
                     }
                 } else {
                     Toast(i18n("illegalCodeTip"));
@@ -191,6 +216,33 @@ class ScanQrCodePage extends Component {
                     captureAudio={false}
                     permissionDialogTitle={'Permission to use camera'}
                     permissionDialogMessage={'We need your permission to use your camera phone'}
+                    notAuthorizedView={<View style={[styles.mainBox]}>
+                        <CommonTitleBar title={""}
+                                        onLeftPress={() => {
+                                            Actions.pop();
+                                        }}
+                                        onRightPress={null}/>
+                        <View style={[styles.flexDirectionColumn, styles.centerH, {paddingHorizontal: 40}]}>
+                            <Text style={[styles.normalTextBlack, {marginTop: 180}]}>{i18n("cameraTip1")}</Text>
+                            <Text style={[styles.minTextsGray, {marginTop: 5}]}>{i18n("cameraTip2")}</Text>
+                            <TouchableOpacity
+                                activeOpacity={Constant.activeOpacity}
+                                onPress={() => {
+                                    if (Platform.OS === 'ios') {
+                                        Linking.openURL('app-settings:')
+                                            .catch(err => console.log('error', err))
+                                    } else {
+                                        NativeModules.OpenSettings.openNetworkSettings();
+                                    }
+
+                                }}>
+                                <Text style={[styles.smallText, {
+                                    color: Constant.actionBlue,
+                                    marginTop: 50
+                                }]}>{i18n("cameraTip3")}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>}
                     style={styles.flex}>
 
                     <View style={[styles.flex, styles.centered,]}>

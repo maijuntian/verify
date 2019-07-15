@@ -22,6 +22,7 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -38,6 +39,15 @@ class AddressEditPage extends BaseTitlePage {
             defaultB: true,
             phone: "",
         }
+    }
+
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("AddressEditPage");
+    }
+
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("AddressEditPage");
     }
 
     componentDidMount() {
@@ -66,15 +76,15 @@ class AddressEditPage extends BaseTitlePage {
 
     _save() {
         if(this.state.address === ""){
-            i18n("address_tip_address");
+            Toast(i18n("address_tip_address"));
             return;
         }
         if(this.state.contacts === ""){
-            i18n("address_tip_contacts");
+            Toast(i18n("address_tip_name"));
             return;
         }
         if(this.state.phone === ""){
-            i18n("address_tip_phone");
+            Toast(i18n("address_tip_phone"));
             return;
         }
         Actions.LoadingModal({text: i18n("Saving"), backExit: false});
@@ -191,7 +201,6 @@ class AddressEditPage extends BaseTitlePage {
 
                 <View
                     style={[styles.flexDirectionRowNotFlex, styles.centerH, {
-                        paddingVertical: 20,
                         paddingLeft: 16,
                         paddingRight: 20,
                     }]}>
@@ -203,6 +212,7 @@ class AddressEditPage extends BaseTitlePage {
                         <TextInput
                             style={[styles.middleTexBlackCharter, {
                                 width: 200,
+                                height:70,
                                 textAlign: "right",
                             }]}
                             underlineColorAndroid='transparent'
@@ -225,7 +235,6 @@ class AddressEditPage extends BaseTitlePage {
                 <View
                     activeOpacity={Constant.activeOpacity}
                     style={[styles.flexDirectionRowNotFlex, styles.centerH, {
-                        paddingVertical: 20,
                         paddingLeft: 16,
                         paddingRight: 20,
                     }]}>
@@ -236,6 +245,7 @@ class AddressEditPage extends BaseTitlePage {
                         <TextInput
                             style={[styles.middleTexBlackCharter, {
                                 width: 200,
+                                height:70,
                                 textAlign: "right",
                             }]}
                             underlineColorAndroid='transparent'
@@ -252,7 +262,6 @@ class AddressEditPage extends BaseTitlePage {
                 <View
                     activeOpacity={Constant.activeOpacity}
                     style={[styles.flexDirectionRowNotFlex, styles.centerH, {
-                        paddingVertical: 20,
                         paddingLeft: 16,
                         paddingRight: 20,
                     }]}>
@@ -263,6 +272,7 @@ class AddressEditPage extends BaseTitlePage {
                         <TextInput
                             style={[styles.middleTexBlackCharter, {
                                 width: 200,
+                                height:70,
                                 textAlign: "right",
                             }]}
                             underlineColorAndroid='transparent'

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import i18n from "../../style/i18n";
 import BaseTitlePage from "../widget/BaseTitlePage";
+import * as Constant from "../../style/constant";
 
 /**
  * 登录
@@ -28,9 +29,17 @@ class WebviewPage extends BaseTitlePage {
     }
 
     _reader() {
+        let headers = {"user-agent": "viverify"};
+        headers.Region = Constant.REGION;
 
+        if (Constant.latitude !== "" && Constant.longitude !== "") {
+            headers.Gps = "longitude=" + Constant.longitude + ";latitude=" + Constant.latitude;
+        }
+        headers.Version = Constant.VERSION;
+        if (Constant.DEVICE_ID !== "")
+            headers.Device_Id = Constant.DEVICE_ID;
         return (
-            <WebView source={{uri: this.state.url}}
+            <WebView source={{uri: this.state.url, headers: headers}}
                      startInLoadingState={true}/>
         )
     }

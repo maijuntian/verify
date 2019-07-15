@@ -22,6 +22,7 @@ import BaseTitlePage from "../widget/BaseTitlePage";
 import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -39,8 +40,12 @@ class OrderAddressEditPage extends BaseTitlePage {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("OrderAddressEditPage");
+    }
 
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("OrderAddressEditPage");
     }
 
     _title() {
@@ -66,7 +71,6 @@ class OrderAddressEditPage extends BaseTitlePage {
 
                 <View
                     style={[styles.flexDirectionRowNotFlex, styles.centerH, {
-                        paddingVertical: 20,
                         paddingLeft: 16,
                         paddingRight: 20,
                     }]}>
@@ -78,6 +82,7 @@ class OrderAddressEditPage extends BaseTitlePage {
                         <TextInput
                             style={[styles.middleTexBlackCharter, {
                                 width: 200,
+                                height: 70,
                                 textAlign: "right",
                             }]}
                             underlineColorAndroid='transparent'
@@ -100,7 +105,6 @@ class OrderAddressEditPage extends BaseTitlePage {
                 <View
                     activeOpacity={Constant.activeOpacity}
                     style={[styles.flexDirectionRowNotFlex, styles.centerH, {
-                        paddingVertical: 20,
                         paddingLeft: 16,
                         paddingRight: 20,
                     }]}>
@@ -111,6 +115,7 @@ class OrderAddressEditPage extends BaseTitlePage {
                         <TextInput
                             style={[styles.middleTexBlackCharter, {
                                 width: 200,
+                                height: 70,
                                 textAlign: "right",
                             }]}
                             underlineColorAndroid='transparent'
@@ -127,7 +132,6 @@ class OrderAddressEditPage extends BaseTitlePage {
                 <View
                     activeOpacity={Constant.activeOpacity}
                     style={[styles.flexDirectionRowNotFlex, styles.centerH, {
-                        paddingVertical: 20,
                         paddingLeft: 16,
                         paddingRight: 20,
                     }]}>
@@ -138,6 +142,7 @@ class OrderAddressEditPage extends BaseTitlePage {
                         <TextInput
                             style={[styles.middleTexBlackCharter, {
                                 width: 200,
+                                height: 70,
                                 textAlign: "right",
                             }]}
                             underlineColorAndroid='transparent'

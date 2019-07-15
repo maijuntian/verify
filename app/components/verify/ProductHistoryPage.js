@@ -12,7 +12,8 @@ import {
     ImageBackground,
     View,
     TouchableOpacity,
-    WebView
+    WebView,
+    Linking
 } from "react-native";
 import styles, {screenHeight, screenWidth, shadowRadius} from "../../style";
 import * as Constant from "../../style/constant";
@@ -22,14 +23,7 @@ import {PagerPan, TabBar, TabView} from "react-native-tab-view";
 import CommonProductHeader from "../common/CommonProductHeader";
 import CommonIconText from "../common/CommonIconText";
 import {Actions} from "react-native-router-flux";
-// import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from "react-native-maps";
-
-const config = {
-    ["MANUFACTURER"]: "Registered By",
-    ["LOGISTICS"]: "Transferred to",
-    ["CUSTOMS"]: "Registered By",
-    ["DEALER"]: "Transferred to",
-};
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 const ASPECT_RATIO = screenWidth / screenHeight;
 const LATITUDE = 37.78825;
@@ -41,6 +35,10 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
  * 追溯
  */
 class ProductHistoryPage extends BaseTitlePage {
+
+    _isBackground() {
+        return false;
+    }
 
     constructor(props) {
         super(props);
@@ -123,9 +121,18 @@ class ProductHistoryPage extends BaseTitlePage {
         Actions.pop();
     }
 
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("ProductHistoryPage");
+
+        this.refreshData();
+    }
 
     componentDidMount() {
-        this.refreshData();
+        Linking.getInitialURL()
+    }
+
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("ProductHistoryPage");
     }
 
     refreshData() {
@@ -219,22 +226,6 @@ class ProductHistoryPage extends BaseTitlePage {
             iconPoint = require("../../img/icon_point2.png");
         }
 
-        /* let icon;
-         switch (data.identity) {
-             case "MANUFACTURER":
-                 icon = require("../../img/info_distillery.png");
-                 break;
-             case "LOGISTICS":
-                 icon = require("../../img/info_logistics.png");
-                 break;
-             case "CUSTOMS":
-                 icon = require("../../img/info_customs.png");
-                 break;
-             case "DEALER":
-                 icon = require("../../img/info_shops.png");
-                 break;
-         }*/
-
         let lineV = index !== this.state.data.tracingResults.length - 1 ? <View style={[{
             width: 1,
             marginTop: -3,
@@ -306,7 +297,7 @@ class ProductHistoryPage extends BaseTitlePage {
 
         return (
             <View key={index}
-                style={[{paddingHorizontal: Constant.normalMarginEdge}, styles.flexDirectionRowNotFlex]}>
+                  style={[{paddingHorizontal: Constant.normalMarginEdge}, styles.flexDirectionRowNotFlex]}>
                 <Image source={{uri: data.identityIcon}}
                        style={{height: 20, width: 20, marginTop: 40}}
                        resizeMode={"contain"}/>
@@ -321,13 +312,13 @@ class ProductHistoryPage extends BaseTitlePage {
                 </View>
                 <ImageBackground source={require("../../img/frame_bg.png")} style={[{
                     marginLeft: 15,
-                    marginTop: 20, width: 275
+                    marginTop: 20, width: screenWidth-90
                 }]}
                                  resizeMode={"stretch"}>
 
                     <View
                         style={[{
-                            width: 275,
+                            width: screenWidth-90,
                             paddingVertical: 15,
                             paddingLeft: 20,
                             paddingRight: 15,
@@ -365,10 +356,9 @@ class ProductHistoryPage extends BaseTitlePage {
                 );
             case 2:
                 return (
-
                     <WebView
-                        style={[{height: screenHeight-320, width: screenWidth}]}
-                        source={{uri: Constant.API_MAP + this.state.code + "/map"}}
+                        style={[styles.flex]}
+                        source={{uri: Constant.API_MAP + this.state.data.product.code + "/map"}}
                         startInLoadingState={true}/>
                     /*{/!*<View style={{backgroundColor: Constant.grayBg, height: screenWidth * 1.3}}>
                         <MapView
@@ -404,88 +394,98 @@ class ProductHistoryPage extends BaseTitlePage {
         }
     }
 
-    _reader() {
+    _reader_real() {
         let bottomView = this._renderScene();
+        let dataItems = [];
+
+        this.state.data.product.data.forEach((data, index) => {
+            dataItems.push((<View style={[styles.flexDirectionRowNotFlex, {marginTop: 8}]}>
+                <Text style={[styles.subMinText,]}>{data.key}</Text>
+                <Text
+                    style={[styles.minTextBlack, {marginLeft: 3}]}>{data.value}</Text>
+            </View>));
+        });
         return (
-            <ScrollView>
-                <View style={styles.mainBox}>
-                    <View style={[{
-                        paddingHorizontal: 3 * Constant.normalMarginEdge,
-                        paddingTop: 2 * Constant.normalMarginEdge,
-                        backgroundColor: Constant.white,
-                    }]}>
 
-                        <CommonProductHeader data={this.state.data.product}
-                                             iconPress={() => {
-                                                 Actions.AboutHistoryPage({"responseStr": JSON.stringify(this.state.data.product)})
-                                             }}/>
+            <View style={styles.flexDirectionColumn}>
+                <View style={[{
+                    paddingHorizontal: 3 * Constant.normalMarginEdge,
+                    paddingTop: 2 * Constant.normalMarginEdge,
+                    backgroundColor: Constant.white,
+                }, styles.flexDirectionColumnNotFlex]}>
 
-                        <View style={[styles.flexDirectionRowNotFlex, {marginTop: 8}]}>
-                            <Text style={[styles.subMinText,]}>{I18n("Batch_Produced_by")}</Text>
+                    <CommonProductHeader data={this.state.data.product}
+                                         iconPress={() => {
+                                             Actions.AboutHistoryPage({"responseStr": JSON.stringify(this.state.data.product)})
+                                         }}/>
+
+                    {dataItems}
+                </View>
+
+                <View style={[{paddingTop: 14, backgroundColor: Constant.white}, styles.flexDirectionRowNotFlex,]}>
+
+                    <TouchableOpacity activeOpacity={1} onPress={() => {
+                        if (this.state.index !== 1) {
+                            this.setState({index: 1});
+                        }
+                    }}>
+                        <View style={[{
+                            paddingVertical: 8,
+                            width: screenWidth / 2,
+                        }, styles.flexDirectionRowNotFlex, styles.centered]}>
+
                             <Text
-                                style={[styles.minTextBlack, {marginLeft: 3}]}>{this.state.data.product.manufacturerName}</Text>
+                                style={[(this.state.index === 1) ? styles.minTextBlack : styles.minTextsGray]}>{I18n("INFO")}</Text>
+
                         </View>
-                        <View style={[styles.flexDirectionRowNotFlex, {marginTop: 8}]}>
-                            <Text style={[styles.subMinText,]}>{I18n("Quantity")}</Text>
-                            <Text style={[styles.minTextBlack, {marginLeft: 3}]}>12</Text>
-                        </View>
-                        <View style={[styles.flexDirectionRowNotFlex, {marginTop: 8}]}>
-                            <Text style={[styles.subMinText,]}>{I18n("Produced")}</Text>
-                            <Text style={[styles.minTextBlack, {marginLeft: 3}]}>3 months ago</Text>
-                        </View>
-                    </View>
-
-                    <View style={[{marginTop: 14}, styles.flexDirectionRowNotFlex,]}>
-
-                        <TouchableOpacity activeOpacity={1} onPress={() => {
-                            if (this.state.index !== 1) {
-                                this.setState({index: 1});
-                            }
-                        }}>
-                            <View style={[{
-                                paddingVertical: 8,
-                                width: screenWidth / 2,
-                            }, styles.flexDirectionRowNotFlex, styles.centered]}>
-
-                                <Text
-                                    style={[(this.state.index === 1) ? styles.minTextBlack : styles.minTextsGray]}>{I18n("INFO")}</Text>
-
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => {
-                            if (this.state.index !== 2) {
-                                this.setState({index: 2});
-                            }
-                        }}>
-                            <View style={[{
-                                paddingVertical: 8,
-                                width: screenWidth / 2,
-                            }, styles.flexDirectionRowNotFlex, styles.centered]}>
-
-                                <Text
-                                    style={[(this.state.index === 2) ? styles.minTextBlack : styles.minTextsGray]}>{I18n("JOURNEY")}</Text>
-
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={[styles.flexDirectionRowNotFlex,]}>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => {
+                        if (this.state.index !== 2) {
+                            this.setState({index: 2});
+                        }
+                    }}>
                         <View style={[{
-                            marginLeft: 15,
-                            width: screenWidth / 2 - 30,
-                            height: 2,
-                            backgroundColor: (this.state.index === 1) ? Constant.grayBlue : Constant.white
-                        }]}/>
-                        <View style={[{
-                            marginLeft: 30,
-                            width: screenWidth / 2 - 30,
-                            height: 2,
-                            backgroundColor: (this.state.index === 2) ? Constant.grayBlue : Constant.white
-                        }]}/>
-                    </View>
+                            paddingVertical: 8,
+                            width: screenWidth / 2,
+                        }, styles.flexDirectionRowNotFlex, styles.centered]}>
+
+                            <Text
+                                style={[(this.state.index === 2) ? styles.minTextBlack : styles.minTextsGray]}>{I18n("JOURNEY")}</Text>
+
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                <View style={[styles.flexDirectionRowNotFlex, {backgroundColor: Constant.white}]}>
+                    <View style={[{
+                        marginLeft: 15,
+                        width: screenWidth / 2 - 30,
+                        height: 2,
+                        backgroundColor: (this.state.index === 1) ? Constant.grayBlue : Constant.white
+                    }]}/>
+                    <View style={[{
+                        marginLeft: 30,
+                        width: screenWidth / 2 - 30,
+                        height: 2,
+                        backgroundColor: (this.state.index === 2) ? Constant.grayBlue : Constant.white
+                    }]}/>
                 </View>
                 {bottomView}
-            </ScrollView>
+            </View>
         )
+    }
+
+    _reader() {
+
+        if (this.state.index === 1) {
+            return (
+                <ScrollView>
+                    {this._reader_real()}
+                </ScrollView>
+
+            )
+        } else {
+            return this._reader_real();
+        }
     }
 }
 

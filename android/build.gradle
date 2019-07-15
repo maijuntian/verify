@@ -6,6 +6,9 @@ buildscript {
         jcenter()
         mavenCentral()
     }
+//    ext {
+//        googlePlayServicesAuthVersion = "17.0.0" // <--- use this version or newer
+//    }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
         classpath 'com.google.gms:google-services:4.2.0' // Add this
@@ -17,8 +20,8 @@ buildscript {
 
 allprojects {
     repositories {
-	    // Add jitpack repository (added by react-native-spinkit)
-	    google()
+        // Add jitpack repository (added by react-native-spinkit)
+        google()
         jcenter()
         maven { url 'https://jitpack.io' }
         mavenLocal()
@@ -32,16 +35,20 @@ allprojects {
 subprojects {
     project.configurations.all {
         resolutionStrategy.eachDependency { details ->
-        /*    if (details.requested.group == 'com.google.android.gms'
-                    && details.requested.name.contains('play-services')) {
-                details.useVersion '11.0.1'
-            }*/
+               /* if (details.requested.group == 'com.google.android.gms'
+                        && details.requested.name.contains('play-services')) {
+                    details.useVersion '11.0.1'
+                }*/
             if (details.requested.group == 'com.android.support'
                     && details.requested.name.contains('support-v4')) {
-                details.useVersion '26.1.0'
+                details.useVersion '27.1.1'
             }
             if (details.requested.group == 'com.android.support'
                     && details.requested.name.contains('appcompat-v7')) {
+                details.useVersion '27.1.1'
+            }
+            if (details.requested.group == 'com.android.support'
+                    && details.requested.name.contains('customtabs')) {
                 details.useVersion '27.1.1'
             }
         }

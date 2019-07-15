@@ -48,7 +48,9 @@
     "redux-thunk": "^2.2.0",
     "rmc-date-picker": "^6.0.8",
     "showdown": "^1.8.2",
-    "url-parse": "^1.2.0"
+    "react-native-idfa": "^4.1.0",
+    "url-parse": "^1.2.0",
+    "react-native-imei": "^0.2.0"
   },
   "devDependencies": {
     "babel-jest": "21.2.0",

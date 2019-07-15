@@ -23,6 +23,8 @@ import vUserDao from "../../dao/vUserDao";
 import {Actions} from "react-native-router-flux";
 import Toast from '../../components/common/ToastProxy';
 import productDao from "../../dao/productDao";
+import {LocaleConfig} from "react-native-calendars";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 /**
  * 登录
@@ -36,8 +38,12 @@ class FeedBackPage extends BaseTitlePage {
             code: this.props.code,
         }
     }
+    componentWillMount(){
+        AnalyticsUtil.onPageBegin("FeedBackPage");
+    }
 
-    componentDidMount() {
+    componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("FeedBackPage");
     }
 
     _title() {

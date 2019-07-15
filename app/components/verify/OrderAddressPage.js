@@ -26,6 +26,7 @@ import vUserDao from "../../dao/vUserDao";
 import PullListView from "../widget/PullLoadMoreListView";
 import * as Config from "../../config";
 import {Actions} from "react-native-router-flux";
+import AnalyticsUtil from "../../utils/AnalyticsUtil";
 
 
 class AddressPage extends BaseTitlePage {
@@ -54,9 +55,16 @@ class AddressPage extends BaseTitlePage {
         });
     }
 
+
+    componentWillMount() {
+        AnalyticsUtil.onPageBegin("AddressPage");
+    }
+
+
     componentWillUnmount(){
+        AnalyticsUtil.onPageEnd("AddressPage");
         this.subscription.remove();
-    };
+    }
 
     /**
      * 刷新

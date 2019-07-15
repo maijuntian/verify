@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "784601142106",
-    "firebase_url": "https://viverify.firebaseio.com",
-    "project_id": "viverify",
-    "storage_bucket": "viverify.appspot.com"
+    "project_number": "658458075290",
+    "firebase_url": "https://noted-will-226401.firebaseio.com",
+    "project_id": "noted-will-226401",
+    "storage_bucket": "noted-will-226401.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:784601142106:android:a9444d782877bfce",
+        "mobilesdk_app_id": "1:658458075290:android:5edaa519eeb84536",
         "android_client_info": {
-          "package_name": "com.verify"
+          "package_name": "com.viverify"
         }
       },
       "oauth_client": [
         {
-          "client_id": "784601142106-oics6l2v158ao4piqm67jpqnmh6vd6er.apps.googleusercontent.com",
+          "client_id": "658458075290-acljo0fm6kdfv7nesrkib5co60pe0pj0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.verify",
+            "package_name": "com.viverify",
             "certificate_hash": "51f3a603117f6c2b46b92c642917551b74ce75b5"
           }
         },
         {
-          "client_id": "784601142106-b6qjrfosbd995osc212iothpsgdep4mb.apps.googleusercontent.com",
+          "client_id": "658458075290-685fam0cumnkbc2vg4nhcosm1q79gulu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyApHFXjj-C2TtTRPQ57tvoXYapVp5nojwE"
+          "current_key": "AIzaSyB3lQmKiUiKxKQhrxx3K7Ntibnbg7-X2l4"
         }
       ],
       "services": {
@@ -40,8 +40,15 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "784601142106-b6qjrfosbd995osc212iothpsgdep4mb.apps.googleusercontent.com",
+              "client_id": "658458075290-685fam0cumnkbc2vg4nhcosm1q79gulu.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "658458075290-1dds00hpcodmqokcmpsh8h32kftuicku.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.viverify"
+              }
             }
           ]
         },
