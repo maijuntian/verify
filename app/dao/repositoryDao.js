@@ -6,12 +6,6 @@ import {generateHtml} from "../utils/htmlUtils";
 import * as Config from '../config'
 import getPulse from "../utils/pulse/PulseUtils";
 
-/**
- * 趋势数据
- * @param page 分页，趋势数据其实没有分页
- * @param since 数据时长， 本日，本周，本月
- * @param languageType 语言
- */
 const getTrendDao = async (page = 0, since, languageType) => {
     let localLanguage = (languageType) ? languageType : "*";
     let nextStep = async () => {
@@ -57,9 +51,6 @@ const getTrendDao = async (page = 0, since, languageType) => {
 };
 
 
-/**
- * Pulse
- */
 const getPulseDao = async (owner, repositoryName) => {
     let fullName = owner + "/" + repositoryName;
     let nextStep = async () => {
@@ -97,16 +88,6 @@ const getPulseDao = async (owner, repositoryName) => {
 
 };
 
-/**
- * 搜索仓库
- * @param q 搜索关键字
- * @param sort 分类排序，beat match、most star等
- * @param order 倒序或者正序
- * @param type 搜索类型，人或者仓库
- * @param page
- * @param pageSize
- * @returns {Promise.<{result, data}>}
- */
 const searchRepositoryDao = async (q, sort, order, type, page, pageSize) => {
     let url = Address.search(q, sort, order, type, page, pageSize);
     let res = await Api.netFetch(url);
@@ -116,12 +97,6 @@ const searchRepositoryDao = async (q, sort, order, type, page, pageSize) => {
     };
 };
 
-/**
- * 搜索仓库issue
- * @param q 搜索关键字
- * @param page
- * @returns {Promise.<{result, data}>}
- */
 const searchRepositoryIssueDao = async (q, page) => {
     let url = Address.repositoryIssueSearch(q) + Address.getPageParams("&", page);
     let res = await Api.netFetch(url);
@@ -131,9 +106,6 @@ const searchRepositoryIssueDao = async (q, page) => {
     };
 };
 
-/**
- * 用户的仓库
- */
 const getUserRepositoryDao = async (userName, page, sort, localNeed) => {
     let sortText = sort ? sort : "pushed";
     let nextStep = async () => {
@@ -180,9 +152,6 @@ const getUserRepositoryDao = async (userName, page, sort, localNeed) => {
     return localNeed ? local() : nextStep();
 };
 
-/**
- * 获取当前仓库所有star用户
- */
 const getStarRepositoryDao = async (userName, page, sort, localNeed) => {
     let sortText = sort ? sort : "created";
     let nextStep = async () => {
@@ -281,9 +250,6 @@ const getRepositoryDetailDao = (userName, reposName) => {
 
 };
 
-/**
- * 详情的remde数据Html模式数据
- */
 const getRepositoryDetailReadmeHtmlDao = (userName, reposName, branch) => {
     let fullName = userName + "/" + reposName;
     let curBranch = (branch) ? branch : "master";
@@ -328,9 +294,6 @@ const getRepositoryDetailReadmeHtmlDao = (userName, reposName, branch) => {
     }
 };
 
-/**
- * 添加到本地已读数据列表
- */
 const addRepositoryLocalReadDao = (userName, reposName, data) => {
     let fullName = userName + "/" + reposName;
     let allEvent = realm.objects('ReadHistory').filtered(`fullName="${fullName}"`);
@@ -345,9 +308,6 @@ const addRepositoryLocalReadDao = (userName, reposName, data) => {
 };
 
 
-/**
- * 获取本地已读数据列表
- */
 const getRepositoryLocalReadDao = (page = 1) => {
     let size = (page - 1) * Config.PAGE_SIZE;
     let allEvent = realm.objects('ReadHistory').sorted("readDate", true).slice(size, size + Config.PAGE_SIZE);
@@ -366,9 +326,6 @@ const getRepositoryLocalReadDao = (page = 1) => {
 };
 
 
-/**
- * 创建仓库的fork分支
- */
 const createForkDao = async (userName, reposName) => {
     let url = Address.createFork(userName, reposName);
     let res =  await Api.netFetch(url, 'POST');
@@ -378,9 +335,6 @@ const createForkDao = async (userName, reposName) => {
     };
 };
 
-/**
- * 获取当前仓库所有分支
- */
 const getBranchesDao = (userName, reposName) => {
     let fullName = userName + "/" + reposName;
     let nextStep = async () => {
@@ -425,9 +379,6 @@ const getBranchesDao = (userName, reposName) => {
 };
 
 
-/**
- * 获取仓库的fork分支
- */
 const getRepositoryForksDao = (userName, reposName, page, localNeed) => {
     let fullName = userName + "/" + reposName;
     let nextStep = async () => {
@@ -474,9 +425,6 @@ const getRepositoryForksDao = (userName, reposName, page, localNeed) => {
 };
 
 
-/**
- * 获取当前仓库所有star用户
- */
 const getRepositoryStarDao = (userName, reposName, page, localNeed) => {
     let fullName = userName + "/" + reposName;
     let nextStep = async () => {
@@ -522,9 +470,6 @@ const getRepositoryStarDao = (userName, reposName, page, localNeed) => {
     return localNeed ? local() : nextStep();
 };
 
-/**
- * 获取当前仓库所有订阅用户
- */
 const getRepositoryWatcherDao = (userName, reposName, page, localNeed) => {
     let fullName = userName + "/" + reposName;
     let nextStep = async () => {
@@ -570,9 +515,6 @@ const getRepositoryWatcherDao = (userName, reposName, page, localNeed) => {
     return localNeed ? local() : nextStep();
 };
 
-/**
- * 获取用户对当前仓库的star、watcher状态
- */
 const getRepositoryStatusDao = async (userName, reposName) => {
     let urls = Address.resolveStarRepos(userName, reposName);
     let urlw = Address.resolveWatcherRepos(userName, reposName);
@@ -585,9 +527,6 @@ const getRepositoryStatusDao = async (userName, reposName) => {
 };
 
 
-/**
- * star仓库
- */
 const doRepositoryStarDao = async (userName, reposName, star) => {
     let url = Address.resolveStarRepos(userName, reposName);
     let res = await Api.netFetch(url, star ? 'PUT' : 'DELETE');
@@ -597,9 +536,6 @@ const doRepositoryStarDao = async (userName, reposName, star) => {
     };
 };
 
-/**
- * watcher仓库
- */
 const doRepositoryWatchDao = async (userName, reposName, watch) => {
     let url = Address.resolveWatcherRepos(userName, reposName);
     let res = await Api.netFetch(url, watch ? 'PUT' : 'DELETE');
@@ -609,9 +545,6 @@ const doRepositoryWatchDao = async (userName, reposName, watch) => {
     };
 };
 
-/**
- * 获取仓库的release列表
- */
 const getRepositoryReleaseDao = async (userName, reposName, page, needHtml = true) => {
     let url = Address.getReposRelease(userName, reposName) + Address.getPageParams("?", page);
     let res = await Api.netFetch(url, 'GET', null, false, {Accept: (needHtml ? 'application/vnd.github.html,application/vnd.github.VERSION.raw' : "")});
@@ -621,9 +554,6 @@ const getRepositoryReleaseDao = async (userName, reposName, page, needHtml = tru
     };
 };
 
-/**
- * 获取仓库的tag列表
- */
 const getRepositoryTagDao = async (userName, reposName, page) => {
     let url = Address.getReposTag(userName, reposName) + Address.getPageParams("?", page);
     let res = await Api.netFetch(url, 'GET', null, false, {Accept: 'application/vnd.github.html,application/vnd.github.VERSION.raw'});
@@ -633,9 +563,6 @@ const getRepositoryTagDao = async (userName, reposName, page) => {
     };
 };
 
-/**
- * 获取仓库的提交列表
- */
 const getReposCommitsDao = (userName, reposName, page, localNeed) => {
     let fullName = userName + "/" + reposName;
     let nextStep = async () => {
@@ -683,9 +610,6 @@ const getReposCommitsDao = (userName, reposName, page, localNeed) => {
 
 };
 
-/**
- * 获取仓库的单个提交详情
- */
 const getReposCommitsInfoDao = (userName, reposName, sha) => {
     let fullName = userName + "/" + reposName;
     let nextStep = async () => {
@@ -724,9 +648,6 @@ const getReposCommitsInfoDao = (userName, reposName, sha) => {
 
 };
 
-/***
- * 获取仓库的文件列表
- */
 const getReposFileDirDao = async (userName, reposName, path = '', branch, text) => {
     let url = Address.reposDataDir(userName, reposName, path, branch);
     let res = await Api.netFetch(url, 'GET', null, false, {Accept: 'application/vnd.github.html'}, text);
@@ -736,9 +657,6 @@ const getReposFileDirDao = async (userName, reposName, path = '', branch, text) 
     };
 };
 
-/**
- * 详情的remde数据
- */
 const getRepositoryDetailReadmeDao = async (userName, reposName, branch) => {
     let url = Address.readmeFile(userName + '/' + reposName, branch);
     let res = await Api.netFetch(url);
@@ -748,9 +666,6 @@ const getRepositoryDetailReadmeDao = async (userName, reposName, branch) => {
     };
 };
 
-/**
- * 搜索话题
- */
 const searchTopicRepositoryDao = async (searchTopic, page = 0) => {
     let url = Address.searchTopic(searchTopic) + Address.getPageParams("&", page);
     let res = await Api.netFetch(url);
@@ -761,9 +676,6 @@ const searchTopicRepositoryDao = async (searchTopic, page = 0) => {
 };
 
 
-/**
- * 获取issue总数
- */
 const getRepositoryIssueStatusDao = async (userName, repository) => {
     let url = Address.getReposIssue(userName, repository) + "&per_page=1";
     let res = await Api.netFetch(url, 'GET', null, false, {Accept: 'application/vnd.github.html,application/vnd.github.VERSION.raw'});
@@ -797,9 +709,6 @@ const getRepositoryIssueStatusDao = async (userName, repository) => {
     }
 };
 
-/**
- * 用户的前100仓库
- */
 const getUserRepository100StatusDao = async (userName) => {
     let url = Address.userRepos(userName, 'pushed') + "&page=1&per_page=100";
     let res = await Api.netFetch(url);

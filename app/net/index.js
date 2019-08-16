@@ -79,7 +79,7 @@ class HttpManager {
         headers.Version = Constant.VERSION;
 
         if (Constant.DEVICE_ID !== "")
-            headers.Device_Id = Constant.DEVICE_ID;
+            headers.deviceID = Constant.DEVICE_ID;
 
 
         if (isFile) {

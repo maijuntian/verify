@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     },
     gray6AsmallText: {
         color: constant.gray6A,
-        fontSize: constant.smallTextSize,
+        fontSize: constant.middleTextWhite,
     },
     subsMinText: {
         color: constant.subTextColor,

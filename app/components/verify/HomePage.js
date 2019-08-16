@@ -149,7 +149,7 @@ class HomePage extends Component {
                 this.exitLoading();
                 this.linkingUrl = null;
                 if (res.code && (res.code === 200 || res.code === 410 || res.code === 208)) {
-                    if (codeStr.indexOf("/union/")) {
+                    if (codeStr.indexOf("/u/") !== -1) {
                         vUserDao.isLoginAsync().then((res2) => {
                             if (res2) {
                                 Actions.replace("ProductHistoryAntiFakePage", {

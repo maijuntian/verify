@@ -103,7 +103,7 @@ class AntiFakePage extends BaseTitlePage {
                     <Text
                         style={[styles.subSmallText, {marginTop: 80}]}>{I18n("Viverify_Code")}</Text>
                     <Text
-                        style={[styles.superLargeTextBlackCharter]}>{this.state.data.manufacturerCode}</Text>
+                        style={[styles.superLargeTextBlackCharter]}>{this.state.data.code}</Text>
                     <Text style={[styles.subSmallText, {
                         marginTop: 10,
                         marginBottom: 80,

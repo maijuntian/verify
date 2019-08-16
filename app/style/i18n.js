@@ -205,7 +205,7 @@ I18n.translations = {
         cameraTip1:"To Enable Verification Service",
         cameraTip2:"Please click the following link to allow Viverify APP to access your device's camera",
         cameraTip3:"Allow Camera Access",
-        unlogin_tip:"Please sign in and verify\nyour purchase."
+        unlogin_tip:"Please sign in and verify your purchase."
     },
     'zh-CN': {
         appName: 'VerifyAPP',
@@ -589,7 +589,7 @@ I18n.translations = {
         cameraTip1:"To Enable Verification Service",
         cameraTip2:"Please click the following link to allow Viverify APP to access your device's camera",
         cameraTip3:"Allow Camera Access",
-        unlogin_tip:"Please sign in and verify\nyour purchase."
+        unlogin_tip:"Please sign in and verify your purchase."
     }
 };
 

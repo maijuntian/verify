@@ -123,7 +123,7 @@ class ProductHistoryPage2 extends BaseTitlePage {
     }
 
     componentWillMount() {
-        AnalyticsUtil.onPageBegin("ProductHistoryPage");
+        AnalyticsUtil.onPageBegin("ProductHistoryPage2");
 
         this.refreshData();
     }
@@ -133,7 +133,7 @@ class ProductHistoryPage2 extends BaseTitlePage {
     }
 
     componentWillUnmount() {
-        AnalyticsUtil.onPageEnd("ProductHistoryPage");
+        AnalyticsUtil.onPageEnd("ProductHistoryPage2");
     }
 
     refreshData() {
@@ -363,10 +363,10 @@ class ProductHistoryPage2 extends BaseTitlePage {
                                                   loginPage();
                                               }}>
                                 <Text style={[{
-                                    marginBottom: 20, paddingHorizontal: 60, height: 28,
+                                    marginBottom: 20, paddingHorizontal: 60, height: 36,
                                     borderColor: "#C5C5C5",
                                     borderWidth: 1,
-                                    paddingTop: 2,
+                                    paddingTop: 8,
                                     textAlign: 'center',
                                     borderRadius: 14,
                                 }, styles.middleTexBlack]}>{I18n("Sign_in")}</Text>
