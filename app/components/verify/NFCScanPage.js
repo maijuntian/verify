@@ -202,7 +202,7 @@ class NFCScanPage extends BaseTitlePage {
                 this.exitLoading();
 
                 if (res.code && (res.code === 200 || res.code === 410 || res.code === 208)) {
-                    if (codeStr.indexOf("/u/") !== -1) {
+                    if (codeStr.indexOf("/t/") !== -1) {
                         vUserDao.isLoginAsync().then((res2) => {
                             if (res2) {
                                 Actions.replace("ProductHistoryAntiFakePage", {
@@ -216,7 +216,7 @@ class NFCScanPage extends BaseTitlePage {
                                 });
                             }
                         })
-                    } else if (codeStr.indexOf("/t/") !== -1) {
+                    } else if (codeStr.indexOf("/u/") !== -1) {
                         // Actions.ProductHistoryPage({"responseStr": JSON.stringify(res.data)});
                         Actions.replace("ProductHistoryPage", {
                             "responseStr": JSON.stringify(res.data),

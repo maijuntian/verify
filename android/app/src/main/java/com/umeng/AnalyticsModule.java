@@ -57,7 +57,6 @@ public class AnalyticsModule extends ReactContextBaseJavaModule {
 
         Log.e("test", "onPageEnd-->" + pageName);
         MobclickAgent.onPageEnd(pageName);
-
     }
     @ReactMethod
     public void onEvent(String eventId) {
