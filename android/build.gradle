@@ -10,8 +10,8 @@ buildscript {
 //        googlePlayServicesAuthVersion = "17.0.0" // <--- use this version or newer
 //    }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
         classpath 'com.google.gms:google-services:4.2.0' // Add this
+        classpath 'com.android.tools.build:gradle:3.3.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -41,15 +41,15 @@ subprojects {
                 }*/
             if (details.requested.group == 'com.android.support'
                     && details.requested.name.contains('support-v4')) {
-                details.useVersion '27.1.1'
+                details.useVersion '28.0.0'
             }
             if (details.requested.group == 'com.android.support'
                     && details.requested.name.contains('appcompat-v7')) {
-                details.useVersion '27.1.1'
+                details.useVersion '28.0.0'
             }
             if (details.requested.group == 'com.android.support'
                     && details.requested.name.contains('customtabs')) {
-                details.useVersion '27.1.1'
+                details.useVersion '28.0.0'
             }
         }
     }

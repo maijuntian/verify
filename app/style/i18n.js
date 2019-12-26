@@ -610,7 +610,9 @@ export const changeLocale = function () {
     } else if (I18n.locale.indexOf('zh-Hant') !== -1 || I18n.locale === 'zh-HK' || I18n.locale === 'zh-MO') {
         I18n.locale = 'zh-CN'
     }*/
+    Constant.APP_TYPE = 0;
     Constant.NULL_ = 'N/A';
+    Constant.NULL_ = '无';
 
     if (Constant.APP_TYPE === 1) {
         I18n.locale = 'zh-inter'

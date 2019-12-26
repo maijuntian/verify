@@ -53,3 +53,6 @@ buck-out/
 */fastlane/screenshots
 app/config/ignoreConfig.js
 package-lock.json
+
+# Bundle artifact
+56	*.jsbundle
